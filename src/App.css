@@ -1,38 +1,160 @@
 .App {
-  text-align: center;
+    background-color: #f1efed;
+    color: black;
+    height: 100vh;
+    width: 100vw;
+    padding: 50px 20px 20px;
+}
+* {
+    box-sizing: border-box;
+    font-family: 'mattoneregular', sans-serif;
+}
+@font-face {
+    font-family: 'mattoneregular';
+    src: url('./mattone-regular-webfont.woff2') format('woff2'),
+    url('./mattone-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+.d-flex {
+    display: flex;
+}
+.d-none {
+    display: none;
+}
+.flex-wrap {
+    flex-wrap: wrap;
+}
+.text-center {
+    text-align: center;
+}
+body {
+    overflow-x: hidden;
+    min-width: 100vw;
+    background-color: #f1efed;
+}
+.slider-item {
+    font-family: 'mattoneregular', sans-serif;
+    font-size: 1rem;
+    margin-top: 0;
+    display: block;
+    margin-bottom: 0;
+    font-weight: normal;
+    white-space: nowrap;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-250px * 7))}
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.slider {
+    animation: scroll 20s linear infinite;
+    display: flex;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.slider-wrapper {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100vw;
+    display: block;
+    position: absolute;
+    border-bottom: 1px solid black;
+    top: 0;
+    left: 0;
 }
-
-.App-link {
-  color: #61dafb;
+.main-chart-wrapper  canvas{
+    height: 70vh !important;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.main-chart-wrapper {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+.loader {
+    height: 100vh;
+    width: 100vw;
+    background-color: #f1efed;
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+}
+.loader .slider-wrapper {
+    top: 50%;
+    border-bottom: none;
+}
+.loader .slider-item {
+    font-family: sans-serif;
+}
+.input-sliders-wrapper {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    position: relative;
+}
+.play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.input-sliders-wrapper::before {
+    content: '';
+    position: absolute;
+    margin-left: -20px;
+    display: block;
+    top: 0px;
+    height: 1px;
+    width: 100vw;
+    background-color: black;
+}
+.arrow {
+    margin: 25px;
+    display: inline-block;
+    height: 12px;
+    position: relative;
+    width: 12px;
+}
+.arrow-wrapper {
+    animation: .7s linear 1s infinite alternate slidein;
+}
+@keyframes slidein {
+    from { transform: translateY(0px); }
+    to   { transform: translateY(30px); }
+}
+.arrow::after {
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-right-style: solid;
+    border-right-width: 2px;
+    content: "";
+    display: inline-block;
+    height: 12px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 12px;
+}
+.arrow.arrow-bar::before {
+    bottom: 1px;
+    content: "";
+    height: 20px;
+    position: absolute;
+    background-color: black;
+    right: 0;
+    transform-origin: bottom;
+    width: 2px;
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+.arrow.is-bottom {
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
