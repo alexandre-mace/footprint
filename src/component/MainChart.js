@@ -2,6 +2,7 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import { defaults } from 'react-chartjs-2';
+import useWindowSize from "../hook/useWindowSize";
 
 defaults.font.family = 'mattoneregular';
 defaults.font.size = 18;
@@ -21,6 +22,12 @@ const options = {
 }
 
 const MainChart = ({ datasets, chartRef, playRef }) => {
+    const size = useWindowSize();
+
+    if (size.width < 992) {
+        defaults.font.size = 12;
+    }
+
     return (
         <div className={"main-chart-wrapper"}>
             {datasets.length === 0 &&

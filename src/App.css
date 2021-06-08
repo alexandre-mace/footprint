@@ -3,7 +3,7 @@
     color: black;
     height: 100vh;
     width: 100vw;
-    padding: 50px 20px 20px;
+    padding: 50px 0 20px 0;
 }
 * {
     box-sizing: border-box;
@@ -68,6 +68,11 @@ body {
 .main-chart-wrapper  canvas{
     height: 70vh !important;
 }
+@media screen and (max-width: 972px) {
+    .main-chart-wrapper canvas {
+        height: 30vh !important;
+    }
+}
 .main-chart-wrapper {
     display: flex;
     justify-content: center;
@@ -93,7 +98,10 @@ body {
 .input-sliders-wrapper {
     margin-top: 2rem;
     padding-top: 1rem;
+    padding-left: 20px;
+    padding-right: 20px;
     position: relative;
+    flex-wrap: wrap;
 }
 .play {
     position: absolute;
@@ -101,6 +109,12 @@ body {
     top: 50%;
     font-size: 25px;
     transform: translate(-50%, -50%);
+    text-align: center;
+}
+@media screen and (max-width: 972px) {
+    .play {
+        font-size: 18px;
+    }
 }
 .input-sliders-wrapper::before {
     content: '';
