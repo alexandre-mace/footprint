@@ -9,12 +9,11 @@ const updateBarChartData = (data, actions) => {
         actionsToAdd.forEach((action) => {
             alreadyAddedLabels.push(action.label)
             data.datasets.push({
-                barPercentage: 0.5,
-                barThickness: 30,
+                barThickness : 50,
                 label: [action.label],
                 backgroundColor: [action.color],
-                borderColor: [action.color],
-                borderWidth: 1,
+                borderColor: 'transparent',
+                borderWidth: 5,
                 hoverBackgroundColor: [action.color],
                 hoverBorderColor: [action.color],
                 data: [action.value],

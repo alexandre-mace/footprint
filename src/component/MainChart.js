@@ -28,6 +28,10 @@ const MainChart = ({ datasets, chartRef, playRef }) => {
         defaults.font.size = 12;
     }
 
+    if (size.width < 492) {
+        defaults.font.size = 8;
+    }
+
     return (
         <div className={"main-chart-wrapper"}>
             {datasets.length === 0 &&
