@@ -5,24 +5,6 @@ import { makeStyles } from '@material-ui/core';
 const iOSBoxShadow =
     '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)';
 
-const marks = [
-    {
-        value: 0,
-    },
-    {
-        value: 25,
-    },
-    {
-        value: 50,
-    },
-    {
-        value: 75,
-    },
-    {
-        value: 100,
-    },
-];
-
 const useStyles = makeStyles({
     root: {
         color: action => action.color,
@@ -90,7 +72,23 @@ export default function CustomSlider({value, setValue, action}) {
                 defaultValue={value}
                 onChange={handleChange}
                 aria-label="ios slider"
-                marks={marks}
+                marks={[
+                    {
+                        value: 0,
+                    },
+                    {
+                        value: (action.max / 4) * 1,
+                    },
+                    {
+                        value: (action.max / 4) * 2,
+                    },
+                    {
+                        value: (action.max / 4) * 3,
+                    },
+                    {
+                        value: (action.max / 4) * 4,
+                    },
+                ]}
                 min={action.min}
                 max={action.max}
                 valueLabelDisplay="on" />
