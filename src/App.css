@@ -76,6 +76,7 @@ body {
 }
 .main-chart-wrapper {
     display: flex;
+    padding-left: 25px;
     justify-content: center;
     position: relative;
 }
@@ -99,7 +100,7 @@ body {
 .input-sliders-wrapper {
     margin-top: 2rem;
     padding-top: 1rem;
-    padding-left: 20px;
+    padding-left: 30px;
     padding-right: 20px;
     position: relative;
     flex-wrap: wrap;

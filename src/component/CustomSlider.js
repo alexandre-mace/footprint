@@ -91,6 +91,8 @@ export default function CustomSlider({value, setValue, action}) {
                 onChange={handleChange}
                 aria-label="ios slider"
                 marks={marks}
+                min={action.min}
+                max={action.max}
                 valueLabelDisplay="on" />
         </div>
     );

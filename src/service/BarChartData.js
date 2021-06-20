@@ -13,7 +13,7 @@ const updateBarChartData = (data, actions) => {
                 label: [action.label],
                 backgroundColor: [action.color],
                 borderColor: 'transparent',
-                borderWidth: 5,
+                borderWidth: 3,
                 hoverBackgroundColor: [action.color],
                 hoverBorderColor: [action.color],
                 data: [action.value],
