@@ -19,6 +19,8 @@ const options = {
             }
         },
     },
+    maintainAspectRatio: false,
+    responsive: true,
 }
 
 const MainChart = ({ datasets, chartRef, playRef }) => {

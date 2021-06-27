@@ -3,7 +3,11 @@
     color: black;
     height: 100vh;
     width: 100vw;
-    padding: 50px 0 20px 0;
+    padding: 0 0 20px 0;
+}
+#root {
+    overflow-x: hidden;
+    max-width: 100vw;
 }
 * {
     box-sizing: border-box;
@@ -37,13 +41,10 @@ body {
 .slider-item {
     font-family: 'mattoneregular', sans-serif;
     font-size: 1rem;
-    margin-top: 0;
     display: block;
-    margin-bottom: 0;
     font-weight: normal;
     white-space: nowrap;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin: 0 10px;
 }
 
 @keyframes scroll {
@@ -61,13 +62,10 @@ body {
     width: 100vw;
     overflow-x: hidden;
     display: block;
-    position: absolute;
     border-bottom: 1px solid black;
-    top: 0;
-    left: 0;
 }
 .main-chart-wrapper  canvas{
-    height: 70vh !important;
+    height: 40vh;
 }
 @media screen and (max-width: 972px) {
     .main-chart-wrapper canvas {
@@ -76,7 +74,8 @@ body {
 }
 .main-chart-wrapper {
     display: flex;
-    padding-left: 25px;
+    padding-left: 20px;
+    padding-top: 30px;
     justify-content: center;
     position: relative;
 }
@@ -88,11 +87,12 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    display: block;
+    display: flex;
 }
 .loader .slider-wrapper {
     top: 50%;
     border-bottom: none;
+    margin: auto;
 }
 .loader .slider-item {
     font-family: sans-serif;
@@ -104,6 +104,9 @@ body {
     padding-right: 20px;
     position: relative;
     flex-wrap: wrap;
+}
+.category-label {
+    font-size: 1.5rem;
 }
 .play {
     position: absolute;
@@ -121,11 +124,12 @@ body {
 .input-sliders-wrapper::before {
     content: '';
     position: absolute;
-    margin-left: -20px;
+    padding-left: 53px;
     display: block;
-    top: 0px;
+    top: 0;
+    left: 0;
     height: 1px;
-    width: 100vw;
+    width: calc(100vw);
     background-color: black;
 }
 .arrow {

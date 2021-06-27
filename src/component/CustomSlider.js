@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Slider from '@material-ui/core/Slider';
 import { makeStyles } from '@material-ui/core';
+import Input from '@material-ui/core/Input';
 
 const iOSBoxShadow =
     '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)';
@@ -56,20 +57,43 @@ const useStyles = makeStyles({
     },
 });
 
-export default function CustomSlider({value, setValue, action}) {
+const inputStyles = makeStyles({
+    input: {
+        marginLeft: 10,
+        transform: 'translateY(-10px)'
+    },
+});
+
+export default function CustomSlider({handleActionValueChange, action}) {
+    const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
-        setValue(action, newValue);
+        setValue(newValue);
+        handleActionValueChange(action, newValue)
+    };
+
+    const handleInputChange = (event) => {
+        setValue(event.target.value === '' ? '' : Number(event.target.value));
+        handleActionValueChange(action, event.target.value === '' ? '' : Number(event.target.value));
+    };
+
+    const handleBlur = () => {
+        if (value < 0) {
+            setValue(0);
+        } else if (value > 100) {
+            setValue(100);
+        }
     };
 
     const styles = useStyles(action);
+    const classes = inputStyles();
 
     return (
         <div style={{marginBottom: '2rem'}}>
             <div style={{marginBottom: '1.5rem'}}>{action.label}</div>
             <Slider
                 classes={styles}
-                defaultValue={value}
+                value={value}
                 onChange={handleChange}
                 aria-label="ios slider"
                 marks={[
@@ -92,6 +116,18 @@ export default function CustomSlider({value, setValue, action}) {
                 min={action.min}
                 max={action.max}
                 valueLabelDisplay="on" />
+            <Input
+                className={classes.input}
+                style={{ width: 42 + 4 * action.value.toString().length}}
+                value={value}
+                margin="dense"
+                onBlur={handleBlur}
+                onChange={handleInputChange}
+                inputProps={{
+                    type: 'number',
+                    'aria-labelledby': 'ios slider',
+                }}
+            />
         </div>
     );
 }

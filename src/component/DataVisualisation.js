@@ -1,6 +1,5 @@
-
 import React, {useRef} from 'react';
-import CustomSlider from "./CustomSlider";
+import ActionSliders from "./ActionSliders";
 import MainChart from "./MainChart";
 import updateBarChartData from "../service/BarChartData";
 
@@ -37,16 +36,8 @@ const DataVisualisation = ({ actions }) => {
     return (
         <>
             <MainChart playRef={playRef} chartRef={chartRef} datasets={[]}/>
-
-            <div className="d-flex input-sliders-wrapper">
-                {actions.map((action, key) => (
-                    <div style={{marginRight: '1.5rem'}} key={key}>
-                        <CustomSlider action={action} value={action.value} setValue={handleActionValueChange}/>
-                    </div>
-                ))}
-            </div>
+            <ActionSliders actions={actions} handleActionValueChange={handleActionValueChange}/>
         </>
     )
-};
-
+}
 export default DataVisualisation;
