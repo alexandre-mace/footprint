@@ -1,20 +1,29 @@
-
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import { defaults } from 'react-chartjs-2';
 import useWindowSize from "../hook/useWindowSize";
+import "chartjs-plugin-datalabels";
 
 defaults.font.family = 'mattoneregular';
 defaults.font.size = 18;
 
 const options = {
     plugins: {
+        datalabels: {
+            color: 'black',
+            display: true,
+            align: 'end',
+            anchor: 'end',
+            font: {
+                size: 15,
+            },
+            formatter: Math.round
+        },
         legend: {
-            display: false,
             position: 'bottom',
             labels: {
                 font: {
-                    size: 40,
+                    size: 8,
                 }
             }
         },
@@ -31,28 +40,34 @@ const MainChart = ({ datasets, chartRef, playRef }) => {
     }
 
     if (size.width < 492) {
-        defaults.font.size = 8;
+        defaults.font.size = 10;
     }
 
     return (
-        <div className={"main-chart-wrapper"}>
-            {datasets.length === 0 &&
+        <>
+            <div className={"main-chart-wrapper"}>
+                {datasets.length === 0 &&
                 <div
                     ref={(reference) => {if (reference !== null) {playRef.current = reference}}}
                     className={"play"}>
-                        Jouez avec les options <br/>
-                    <div className={"text-center arrow-wrapper"}><span className="arrow arrow-bar is-bottom"></span></div>
+                    Jouez avec les options <br/>
+                    <div className={"text-center arrow-wrapper"}><span className="arrow arrow-bar is-bottom"/></div>
                 </div>
-            }
-            <Bar
-                ref={(reference) => {if (reference !== null) {chartRef.current = reference} }}
-                data={{
-                    labels: ['Empreinte carbone'],
-                    datasets: datasets
-                }}
-                options={options}
-            />
-        </div>
+                }
+                <Bar
+                    ref={(reference) => {if (reference !== null) {chartRef.current = reference} }}
+                    data={{
+                        labels: ['Empreinte carbone (CO2eq)'],
+                        datasets: datasets
+                    }}
+                    options={options}
+                    type={'bar'}
+                />
+            </div>
+            <div className={"source"}>
+                Source : <a href="https://data.ademe.fr/datasets/base-carbone(r)">Base carbone® Ademe</a>
+            </div>
+        </>
     )
 };
 

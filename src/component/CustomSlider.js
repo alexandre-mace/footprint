@@ -64,7 +64,7 @@ const inputStyles = makeStyles({
     },
 });
 
-export default function CustomSlider({handleActionValueChange, action}) {
+export default function CustomSlider({handleActionValueChange, action, isActive}) {
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
@@ -73,7 +73,7 @@ export default function CustomSlider({handleActionValueChange, action}) {
     };
 
     const handleInputChange = (event) => {
-        setValue(event.target.value === '' ? '' : Number(event.target.value));
+        setValue(event.target.value === '' ? 0 : Number(event.target.value));
         handleActionValueChange(action, event.target.value === '' ? '' : Number(event.target.value));
     };
 
@@ -93,7 +93,6 @@ export default function CustomSlider({handleActionValueChange, action}) {
             <div style={{marginBottom: '1.5rem'}}>{action.label}</div>
             <Slider
                 classes={styles}
-                value={value}
                 onChange={handleChange}
                 aria-label="ios slider"
                 marks={[
@@ -101,7 +100,7 @@ export default function CustomSlider({handleActionValueChange, action}) {
                         value: 0,
                     },
                     {
-                        value: (action.max / 4) * 1,
+                        value: (action.max / 4),
                     },
                     {
                         value: (action.max / 4) * 2,
@@ -115,11 +114,12 @@ export default function CustomSlider({handleActionValueChange, action}) {
                 ]}
                 min={action.min}
                 max={action.max}
+                value={isActive ? value : 0}
                 valueLabelDisplay="on" />
             <Input
                 className={classes.input}
                 style={{ width: 42 + 4 * action.value.toString().length}}
-                value={value}
+                value={isActive ? value : 0}
                 margin="dense"
                 onBlur={handleBlur}
                 onChange={handleInputChange}

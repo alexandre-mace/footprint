@@ -2,11 +2,23 @@ import React, {useRef} from 'react';
 import ActionSliders from "./ActionSliders";
 import MainChart from "./MainChart";
 import updateBarChartData from "../service/BarChartData";
+import {Chart} from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+
 
 const DataVisualisation = ({ actions }) => {
+    Chart.register(ChartDataLabels);
+
     const chartRef = useRef(null);
     const playRef = useRef(null);
     let activeActions = [];
+
+    const resetValues = () => {
+        activeActions = [];
+        chartRef.current.config.data.datasets = [];
+        updateBarChartData(chartRef.current.config.data, [])
+        chartRef.current.update();
+    }
 
     const handleActionValueChange = (action, newValue) => {
         let activeAction = activeActions.filter((filteredAction) => filteredAction.label === action.label);
@@ -36,7 +48,7 @@ const DataVisualisation = ({ actions }) => {
     return (
         <>
             <MainChart playRef={playRef} chartRef={chartRef} datasets={[]}/>
-            <ActionSliders actions={actions} handleActionValueChange={handleActionValueChange}/>
+            <ActionSliders actions={actions} handleActionValueChange={handleActionValueChange} resetValues={resetValues}/>
         </>
     )
 }

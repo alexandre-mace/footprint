@@ -4,21 +4,21 @@ const actions = [
         'img': 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/woman-biking_1f6b4-200d-2640-fe0f.png',
         'actions': [
             {
-                'label': '1km en voiture',
+                'label': 'Voiture (1km)',
                 'value': 0.19,
                 'color': 'rgb(127,127,127)',
                 'min': 0,
                 'max': 1000
             },
             {
-                'label': '1km en TGV',
+                'label': 'TGV (1km)',
                 'value': 0.00173,
                 'color': 'rgb(156,255,198)',
                 'min': 0,
                 'max': 5000
             },
             {
-                'label': '1km en avion',
+                'label': 'Avion (1km)',
                 'value': 0.23,
                 'color': 'rgb(142,68,16)',
                 'min': 0,
