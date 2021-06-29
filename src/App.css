@@ -31,6 +31,18 @@ body {
 .d-flex {
     display: flex;
 }
+.flex-1 {
+    flex: 1;
+}
+.align-items-center {
+    align-items: center;
+}
+.justify-content-between {
+    justify-content: space-between;
+}
+.justify-content-end {
+    justify-content: flex-end;
+}
 .d-none {
     display: none;
 }
@@ -40,7 +52,18 @@ body {
 .text-center {
     text-align: center;
 }
-
+.text-right {
+    text-align: right;
+}
+.add-options-wrapper {
+    margin-right: 1rem;
+    margin-top: 0.5rem;
+}
+@media screen and (max-width: 972px) {
+    .add-options-btn-wrapper {
+        margin-right: 0 !important;
+    }
+}
 .slider-item {
     font-family: 'mattoneregular', sans-serif;
     font-size: 1rem;
@@ -114,19 +137,29 @@ body {
     flex-wrap: wrap;
 }
 .category-label {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
 .reset {
-    display: flex;
-    margin-left: auto;
-    background-color: transparent;
-    border: 1px solid black;
-    padding: 3px 10px;
-    margin-right: 1rem;
+    display: flex !important;
+    margin-left: auto !important;
+    background-color: transparent !important;
+    border: 1px solid black !important;
+    margin-right: 1rem !important;
+}
+.add-options {
+    border: 1px solid black !important;
+}
+.action-slider-wrapper {
+    margin-bottom: 1.5rem;
 }
 @media screen and (max-width: 972px) {
+    .action-slider-wrapper {
+        margin-bottom: 0.5rem;
+    }
     .input-sliders-wrapper {
         margin-top: 1rem;
+        padding-left: 20px;
+        padding-right: 15px;
     }
     .category-label {
         font-size: 1.3rem;
@@ -135,7 +168,8 @@ body {
         margin-right: 1rem;
     }
     .reset {
-        margin-right: 0;
+        margin-right: 0 !important;
+        margin-top: 0.5rem !important;
     }
 }
 .play {
@@ -163,11 +197,17 @@ body {
     background-color: black;
 }
 .category-img {
-    height: 35px;
+    height: 30px;
+}
+.slider-category-wrapper {
+    width: 25%;
 }
 @media screen and (max-width: 972px) {
     .category-img {
         height: 30px;
+    }
+    .slider-category-wrapper {
+        width: 100%;
     }
 }
 .arrow {
@@ -216,4 +256,8 @@ body {
     -ms-transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+.button-black {
+    color: #f1efed !important;
+    background-color: black !important;
 }

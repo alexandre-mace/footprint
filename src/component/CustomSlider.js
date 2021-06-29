@@ -89,7 +89,7 @@ export default function CustomSlider({handleActionValueChange, action, isActive}
     const classes = inputStyles();
 
     return (
-        <div style={{marginBottom: '2rem'}}>
+        <div className={"action-slider-wrapper"}>
             <div style={{marginBottom: '1.5rem'}}>{action.label}</div>
             <Slider
                 classes={styles}
