@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/collapsenonmerci/static/css/main.51ba5464.chunk.css",
-    "main.js": "/collapsenonmerci/static/js/main.45e9d568.chunk.js",
-    "main.js.map": "/collapsenonmerci/static/js/main.45e9d568.chunk.js.map",
-    "runtime-main.js": "/collapsenonmerci/static/js/runtime-main.205ad18e.js",
-    "runtime-main.js.map": "/collapsenonmerci/static/js/runtime-main.205ad18e.js.map",
-    "static/js/2.65db5c9b.chunk.js": "/collapsenonmerci/static/js/2.65db5c9b.chunk.js",
-    "static/js/2.65db5c9b.chunk.js.map": "/collapsenonmerci/static/js/2.65db5c9b.chunk.js.map",
-    "static/js/3.de80e66a.chunk.js": "/collapsenonmerci/static/js/3.de80e66a.chunk.js",
-    "static/js/3.de80e66a.chunk.js.map": "/collapsenonmerci/static/js/3.de80e66a.chunk.js.map",
+    "main.css": "/collapsenonmerci/static/css/main.b0139aa4.chunk.css",
+    "main.js": "/collapsenonmerci/static/js/main.06fcfc27.chunk.js",
+    "main.js.map": "/collapsenonmerci/static/js/main.06fcfc27.chunk.js.map",
+    "runtime-main.js": "/collapsenonmerci/static/js/runtime-main.1dca4f57.js",
+    "runtime-main.js.map": "/collapsenonmerci/static/js/runtime-main.1dca4f57.js.map",
+    "static/js/2.7781b19f.chunk.js": "/collapsenonmerci/static/js/2.7781b19f.chunk.js",
+    "static/js/2.7781b19f.chunk.js.map": "/collapsenonmerci/static/js/2.7781b19f.chunk.js.map",
+    "static/js/3.ec0c2fa7.chunk.js": "/collapsenonmerci/static/js/3.ec0c2fa7.chunk.js",
+    "static/js/3.ec0c2fa7.chunk.js.map": "/collapsenonmerci/static/js/3.ec0c2fa7.chunk.js.map",
     "index.html": "/collapsenonmerci/index.html",
-    "static/css/main.51ba5464.chunk.css.map": "/collapsenonmerci/static/css/main.51ba5464.chunk.css.map",
-    "static/js/2.65db5c9b.chunk.js.LICENSE.txt": "/collapsenonmerci/static/js/2.65db5c9b.chunk.js.LICENSE.txt",
+    "static/css/main.b0139aa4.chunk.css.map": "/collapsenonmerci/static/css/main.b0139aa4.chunk.css.map",
+    "static/js/2.7781b19f.chunk.js.LICENSE.txt": "/collapsenonmerci/static/js/2.7781b19f.chunk.js.LICENSE.txt",
     "static/media/App.css": "/collapsenonmerci/static/media/mattone-regular-webfont.ffc868f1.woff"
   },
   "entrypoints": [
-    "static/js/runtime-main.205ad18e.js",
-    "static/js/2.65db5c9b.chunk.js",
-    "static/css/main.51ba5464.chunk.css",
-    "static/js/main.45e9d568.chunk.js"
+    "static/js/runtime-main.1dca4f57.js",
+    "static/js/2.7781b19f.chunk.js",
+    "static/css/main.b0139aa4.chunk.css",
+    "static/js/main.06fcfc27.chunk.js"
   ]
 }
