@@ -13,7 +13,7 @@ const options = {
             color: 'black',
             display: true,
             align: 'end',
-            anchor: 'end',
+            anchor: 'center',
             font: {
                 size: 15,
             },
