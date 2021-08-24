@@ -80,8 +80,8 @@ export default function CustomSlider({handleActionValueChange, action, isActive}
     const handleBlur = () => {
         if (value < 0) {
             setValue(0);
-        } else if (value > 100) {
-            setValue(100);
+        } else if (value > action.max) {
+            setValue(action.max);
         }
     };
 
