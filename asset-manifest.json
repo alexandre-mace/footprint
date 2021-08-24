@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/collapsenonmerci/static/css/main.b7e0780a.chunk.css",
-    "main.js": "/collapsenonmerci/static/js/main.0d99f5fb.chunk.js",
-    "main.js.map": "/collapsenonmerci/static/js/main.0d99f5fb.chunk.js.map",
-    "runtime-main.js": "/collapsenonmerci/static/js/runtime-main.1dca4f57.js",
-    "runtime-main.js.map": "/collapsenonmerci/static/js/runtime-main.1dca4f57.js.map",
-    "static/js/2.1657c340.chunk.js": "/collapsenonmerci/static/js/2.1657c340.chunk.js",
-    "static/js/2.1657c340.chunk.js.map": "/collapsenonmerci/static/js/2.1657c340.chunk.js.map",
-    "static/js/3.ec0c2fa7.chunk.js": "/collapsenonmerci/static/js/3.ec0c2fa7.chunk.js",
-    "static/js/3.ec0c2fa7.chunk.js.map": "/collapsenonmerci/static/js/3.ec0c2fa7.chunk.js.map",
-    "index.html": "/collapsenonmerci/index.html",
-    "static/css/main.b7e0780a.chunk.css.map": "/collapsenonmerci/static/css/main.b7e0780a.chunk.css.map",
-    "static/js/2.1657c340.chunk.js.LICENSE.txt": "/collapsenonmerci/static/js/2.1657c340.chunk.js.LICENSE.txt",
-    "static/media/App.css": "/collapsenonmerci/static/media/mattone-regular-webfont.ffc868f1.woff"
+    "main.css": "/footprint/static/css/main.381d8127.chunk.css",
+    "main.js": "/footprint/static/js/main.4463f764.chunk.js",
+    "main.js.map": "/footprint/static/js/main.4463f764.chunk.js.map",
+    "runtime-main.js": "/footprint/static/js/runtime-main.ff9d2cbc.js",
+    "runtime-main.js.map": "/footprint/static/js/runtime-main.ff9d2cbc.js.map",
+    "static/js/2.fee25719.chunk.js": "/footprint/static/js/2.fee25719.chunk.js",
+    "static/js/2.fee25719.chunk.js.map": "/footprint/static/js/2.fee25719.chunk.js.map",
+    "static/js/3.c3cd0966.chunk.js": "/footprint/static/js/3.c3cd0966.chunk.js",
+    "static/js/3.c3cd0966.chunk.js.map": "/footprint/static/js/3.c3cd0966.chunk.js.map",
+    "index.html": "/footprint/index.html",
+    "static/css/main.381d8127.chunk.css.map": "/footprint/static/css/main.381d8127.chunk.css.map",
+    "static/js/2.fee25719.chunk.js.LICENSE.txt": "/footprint/static/js/2.fee25719.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/footprint/static/media/mattone-regular-webfont.ffc868f1.woff"
   },
   "entrypoints": [
-    "static/js/runtime-main.1dca4f57.js",
-    "static/js/2.1657c340.chunk.js",
-    "static/css/main.b7e0780a.chunk.css",
-    "static/js/main.0d99f5fb.chunk.js"
+    "static/js/runtime-main.ff9d2cbc.js",
+    "static/js/2.fee25719.chunk.js",
+    "static/css/main.381d8127.chunk.css",
+    "static/js/main.4463f764.chunk.js"
   ]
 }
