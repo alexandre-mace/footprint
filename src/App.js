@@ -18,7 +18,6 @@ function App() {
             <Loader/>
         }
         <>
-            <Header/>
             <DataVisualisation actions={actions}/>
         </>
     </div>
