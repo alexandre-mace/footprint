@@ -57,10 +57,6 @@ async function getOwidDataCsv(file, rows = false, setter, year, country) {
     })
 
     if (country && data) {
-        console.log(country)
-        console.log(data)
-        console.log(typeof data)
-        console.log(data.hasOwnProperty(country))
         setter({
             data: data[country],
             rows: rows,

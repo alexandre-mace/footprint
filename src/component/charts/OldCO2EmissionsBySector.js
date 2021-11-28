@@ -15,7 +15,6 @@ const OldCO2EmissionsBySector = ({animation = true}) => {
         getIaeDataCsv(totalCO2EmissionsBySectorData, setCO2EmissionsBySectorDatasets)
     }, [])
 
-    console.log(CO2EmissionsBySectorDatasets)
     return (
         <>
             <div className="container my-3 my-md-5 pb-4 pb-md-5">
