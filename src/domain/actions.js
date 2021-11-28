@@ -24,7 +24,7 @@ const actions = [
                 'value': 0.23,
                 'color': 'rgb(142,68,16)',
                 'min': 0,
-                'max': 10000,
+                'max': 100000,
                 'visible': true
             },
         ]
@@ -59,7 +59,7 @@ const actions = [
                 },
                 {
                     'label': 'Streaming vidéo (1H)',
-                    'value': 0.004,
+                    'value': 0.070,
                     'color': 'rgb(151,151,151)',
                     'min': 0,
                     'max': 7000,

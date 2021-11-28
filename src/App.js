@@ -1,27 +1,40 @@
 import './App.css';
 import Header from "./component/Header";
-import DataVisualisation from "./component/DataVisualisation";
+import IndividualDataVisualisation from "./component/IndividualDataVisualisation";
 import {useEffect, useState} from "react";
 import Loader from "./component/Loader";
 import actions from "./domain/actions";
-
+import Home from "./component/Home";
+import Footer from "./component/Footer";
+import CollectiveDataVisualisation from "./component/CollectiveDataVisualisation";
 
 function App() {
-  const [loaded, setLoaded] = useState(false);
+    const [loaded, setLoaded] = useState(false);
+    const [mode, setMode] = useState('home');
 
-  useEffect(() => {
-      setInterval(() => {setLoaded(true)}, 1000)
-  }, [])
-  return (
-    <div className="App">
-        {!loaded &&
+    useEffect(() => {
+        setInterval(() => {setLoaded(true)}, 1000)
+    }, [])
+    return (
+        <div className="App">
+            {!loaded &&
             <Loader/>
-        }
-        <>
-            <DataVisualisation actions={actions}/>
-        </>
-    </div>
-  );
+            }
+            <>
+                <Header mode={mode} setMode={setMode}/>
+                {mode === 'home' &&
+                <Home setMode={setMode}/>
+                }
+                {mode === 'individual' &&
+                <IndividualDataVisualisation actions={actions}/>
+                }
+                {mode === 'collective' &&
+                <CollectiveDataVisualisation/>
+                }
+                <Footer/>
+            </>
+        </div>
+    );
 }
 
 export default App;

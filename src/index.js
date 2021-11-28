@@ -4,10 +4,26 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'chartjs-plugin-datalabels';
+import {createTheme} from "@mui/material";
+import {MuiThemeProvider} from "@material-ui/core";
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#ff4b31'
+        },
+        secondary: {
+            main: '#ff4b31'
+        }
+    }
+});
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <MuiThemeProvider theme={theme}>
+      <App />
+      </MuiThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

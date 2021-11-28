@@ -6,7 +6,7 @@ import {Chart} from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 
-const DataVisualisation = ({ actions }) => {
+const IndividualDataVisualisation = ({ actions }) => {
     Chart.register(ChartDataLabels);
 
     const chartRef = useRef(null);
@@ -52,4 +52,4 @@ const DataVisualisation = ({ actions }) => {
         </>
     )
 }
-export default DataVisualisation;
+export default IndividualDataVisualisation;

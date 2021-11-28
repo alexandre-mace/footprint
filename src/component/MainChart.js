@@ -30,6 +30,14 @@ const options = {
     },
     maintainAspectRatio: false,
     responsive: true,
+    scales: {
+        y: {
+            title: {
+                display: true,
+                text: '(kgCO2eq)'
+            }
+        }
+    }
 }
 
 const MainChart = ({ datasets, chartRef, playRef }) => {
