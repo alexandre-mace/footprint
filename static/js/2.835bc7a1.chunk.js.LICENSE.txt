@@ -4,6 +4,13 @@ object-assign
 @license MIT
 */
 
+/* @license
+Papa Parse
+v5.3.1
+https://github.com/mholt/PapaParse
+License: MIT
+*/
+
 /*!
  * Chart.js v3.3.2
  * https://www.chartjs.org
@@ -17,6 +24,12 @@ object-assign
  * @copyright Oleg Isonen (Slobodskoi) / Isonen 2014-present
  * @website https://github.com/cssinjs/jss
  * @license MIT
+ */
+
+/** @license MUI v5.1.1
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 /** @license React v0.20.2
@@ -39,6 +52,15 @@ object-assign
 
 /** @license React v17.0.2
  * react-dom.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v17.0.2
+ * react-is.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
