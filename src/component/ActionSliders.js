@@ -33,18 +33,18 @@ const ActionSliders = ({ actions, handleActionValueChange, resetValues }) => {
                     visibleActions={visibleActions}
                     toggleFromVisibleActions={toggleFromVisibleActions}
                 />
-                <div className="d-flex flex-wrap" style={{ marginTop: '1rem'}}>
+                <div className="d-flex justify-content-center flex-wrap" style={{ marginTop: '1rem'}}>
                     {actions.map((actionCategory, key) => (
                         <div key={key} className={"slider-category-wrapper"} style={{marginBottom: '0.5rem'}}>
-                            <div className={"d-flex"} style={{marginBottom: '1rem'}}>
+                            <div className={"d-flex align-items-center justify-content-center"} style={{marginBottom: '1rem'}}>
                                 <img className={"category-img"} src={actionCategory.img} alt=""/>
                                 <div className={"category-label"} style={{marginLeft: '15px'}}>{actionCategory.label}</div>
                             </div>
                             <div className="d-flex flex-wrap">
                                 {actionCategory.actions.filter(action => visibleActions.includes(action)).map((action, actionKey) => (
-                                    <div style={{marginRight: '1.5rem'}} key={actionKey}>
+                                    <React.Fragment key={actionKey}>
                                         <CustomSlider isActive={activeActions.includes(action)} action={action} handleActionValueChange={handleActionValueChangeProxy}/>
-                                    </div>
+                                    </React.Fragment>
                                 ))}
                             </div>
                         </div>

@@ -4,7 +4,7 @@ const Home = ({setMode}) => (
     <div className={"home"}>
         <div className={"home-text-content"}>
             <h1 className={"app-title-big"}>Footprint</h1>
-            <div className={"app-subtitle"}>Because reducing human pressure on the planet is a combination of <span className={"important-word"}>individual</span> and <span className={"important-word"}>collective</span> actions, here are some hints - thanks to data - about what to do by yourself and together.</div>
+            <div className={"app-subtitle"}>Because reducing human pressure on the planet is a combination of <span onClick={() => setMode('individual')} className={"important-word"}>individual</span> and <span onClick={() => setMode('collective')} className={"important-word"}>collective</span> actions, here are some hints - thanks to data - about what to do by yourself and together.</div>
             {/*<HomeDemo/>*/}
         </div>
         <div className={"mode-cta-wrapper d-flex justify-content-evenly flex-wrap"}>

@@ -71,6 +71,16 @@ const CO2EmissionsBySector = (props) => {
             year,
             country
         )
+    }, [])
+
+    React.useEffect(() => {
+        getOwidDataCsv(
+            ghgEmissionsBySectorData,
+            CO2EmissionsBySectorDatasets.rows,
+            setCO2EmissionsBySectorDatasets,
+            year,
+            country
+        )
     }, [year, country])
 
     const handleYearChange = (value) => {

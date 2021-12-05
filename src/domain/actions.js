@@ -114,7 +114,7 @@ const actions = [
             {
                 'label': 'Télévision 45 pouces',
                 'value': 371,
-                'color': 'rgb(33,33,33)',
+                'color': 'rgb(88,88,88)',
                 'min': 0,
                 'max': 10,
                 'visible': true
@@ -176,7 +176,7 @@ const actions = [
             {
                 'label': 'Chocolat noir (100g)',
                 'value': 1.8,
-                'color': 'rgb(0,0,0)',
+                'color': 'rgb(140,11,11)',
                 'min': 0,
                 'max': 1000,
                 'visible': false
@@ -316,7 +316,7 @@ const actions = [
             {
                 'label': 'Chaussures',
                 'value': 15,
-                'color': 'rgb(0,0,0)',
+                'color': 'rgb(11,125,140)',
                 'min': 0,
                 'max': 100,
                 'visible': true
@@ -327,7 +327,7 @@ const actions = [
                 'color': 'rgb(245,242,129)',
                 'min': 0,
                 'max': 200,
-                'visible': true
+                'visible': false
             },
             {
                 'label': 'T-shirt coton',

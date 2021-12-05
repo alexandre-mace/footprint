@@ -91,43 +91,45 @@ export default function CustomSlider({handleActionValueChange, action, isActive}
     return (
         <div className={"action-slider-wrapper"}>
             <div style={{marginBottom: '1.5rem'}}>{action.label}</div>
-            <Slider
-                classes={styles}
-                onChange={handleChange}
-                aria-label="ios slider"
-                marks={[
-                    {
-                        value: 0,
-                    },
-                    {
-                        value: (action.max / 4),
-                    },
-                    {
-                        value: (action.max / 4) * 2,
-                    },
-                    {
-                        value: (action.max / 4) * 3,
-                    },
-                    {
-                        value: (action.max / 4) * 4,
-                    },
-                ]}
-                min={action.min}
-                max={action.max}
-                value={isActive ? value : 0}
-                valueLabelDisplay="on" />
-            <Input
-                className={classes.input}
-                style={{ width: 42 + 4 * action.value.toString().length}}
-                value={isActive ? value : 0}
-                margin="dense"
-                onBlur={handleBlur}
-                onChange={handleInputChange}
-                inputProps={{
-                    type: 'number',
-                    'aria-labelledby': 'ios slider',
-                }}
-            />
+            <div className={"d-flex"}>
+                <Slider
+                    classes={styles}
+                    onChange={handleChange}
+                    aria-label="ios slider"
+                    marks={[
+                        {
+                            value: 0,
+                        },
+                        {
+                            value: (action.max / 4),
+                        },
+                        {
+                            value: (action.max / 4) * 2,
+                        },
+                        {
+                            value: (action.max / 4) * 3,
+                        },
+                        {
+                            value: (action.max / 4) * 4,
+                        },
+                    ]}
+                    min={action.min}
+                    max={action.max}
+                    value={isActive ? value : 0}
+                    valueLabelDisplay="on" />
+                <Input
+                    className={classes.input}
+                    style={{ width: 42 + 4 * action.value.toString().length}}
+                    value={isActive ? value : 0}
+                    margin="dense"
+                    onBlur={handleBlur}
+                    onChange={handleInputChange}
+                    inputProps={{
+                        type: 'number',
+                        'aria-labelledby': 'ios slider',
+                    }}
+                />
+            </div>
         </div>
     );
 }
