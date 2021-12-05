@@ -73,7 +73,7 @@ const MainChart = ({ datasets, chartRef, playRef }) => {
                 />
             </div>
             <div className={"source"}>
-                Source : <a href="https://data.ademe.fr/datasets/base-carbone(r)">Base carbone® Ademe</a>
+                Source : <a target="_blank" href="https://data.ademe.fr/datasets/base-carbone(r)">Base carbone® Ademe</a>
             </div>
         </>
     )
