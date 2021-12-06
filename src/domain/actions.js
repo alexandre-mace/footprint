@@ -88,20 +88,20 @@ const actions = [
                 'visible': true
             },
             {
+                'label': '1 livre de poche',
+                'value': 1.18,
+                'color': 'rgb(114,201,35)',
+                'min': 0,
+                'max': 100,
+                'visible': true
+            },
+            {
                 'label': 'Écran LCD (24 pouces)',
                 'value': 431,
                 'color': 'rgb(255,250,0)',
                 'min': 0,
                 'max': 10,
                 'visible': false
-            },
-            {
-                'label': 'Lave-vaisselle',
-                'value': 271,
-                'color': 'rgb(255,250,0)',
-                'min': 0,
-                'max': 10,
-                'visible': true
             },
             {
                 'label': 'Ordinateur fixe',
@@ -143,7 +143,7 @@ const actions = [
             },
             {
                 'label': 'Boeuf (120g)',
-                'value': 40,
+                'value': 4.8,
                 'color': 'rgb(255,0,38)',
                 'min': 0,
                 'max': 1000,
@@ -197,13 +197,6 @@ const actions = [
                 'visible': false
             },
             {
-                'label': 'Croque-monsieur (160g)',
-                'value': 0.76,
-                'color': 'rgb(255,250,0)',
-                'min': 0,
-                'max': 1000,
-                'visible': false
-            },    {
                 'label': 'Fromage (150g)',
                 'value': 0.675,
                 'color': 'rgb(255,250,0)',
@@ -382,14 +375,6 @@ const actions = [
         'img': 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/house_1f3e0.png',
         'actions': [
             {
-                'label': '1 livre de poche',
-                'value': 1.18,
-                'color': 'rgb(114,201,35)',
-                'min': 0,
-                'max': 100,
-                'visible': true
-            },
-            {
                 'label': '1 canapé convertible',
                 'value': 197,
                 'color': 'rgb(39,53,121)',
@@ -403,6 +388,52 @@ const actions = [
                 'color': 'rgb(246,246,246)',
                 'min': 0,
                 'max': 1000,
+                'visible': true
+            },
+            {
+                'label': 'Chaise',
+                'value': 24.8,
+                'color': 'rgb(248,84,255)',
+                'min': 0,
+                'max': 10,
+                'visible': true
+            },
+            {
+                'label': 'Table',
+                'value': 60,
+                'color': 'rgb(248,84,255)',
+                'min': 0,
+                'max': 10,
+                'visible': false
+            },
+        ]
+    },
+    {
+        'label': 'Electroménager',
+        'img': 'https://www.emoji.com/wp-content/uploads/filebase/thumbnails/icons/emoji-icon-glossy-07-16-objects-other-object-fridge-72dpi-forPersonalUseOnly.png',
+        'actions': [
+            {
+                'label': 'Lave-vaisselle',
+                'value': 271,
+                'color': 'rgb(255,250,0)',
+                'min': 0,
+                'max': 10,
+                'visible': true
+            },
+            {
+                'label': 'Réfrigérateur',
+                'value': 196,
+                'color': 'rgb(49,213,255)',
+                'min': 0,
+                'max': 10,
+                'visible': true
+            },
+            {
+                'label': 'Aspirateur',
+                'value': 50,
+                'color': 'rgb(255,87,16)',
+                'min': 0,
+                'max': 10,
                 'visible': true
             },
         ]
