@@ -353,7 +353,23 @@ const actions = [
         'actions': [
             {
                 'label': 'Jour de chauffage (gaz)',
-                'value': 18.63,
+                'value': 18.63, // 15000 * 0.23 / 365 * 2
+                'color': 'rgb(255,250,0)',
+                'min': 0,
+                'max': 10000,
+                'visible': true
+            },
+            {
+                'label': 'Jour de chauffage (éléctricité)',
+                'value': 1.64, // 5000 * 0.06 / 365 * 2
+                'color': 'rgb(255,250,0)',
+                'min': 0,
+                'max': 10000,
+                'visible': true
+            },
+            {
+                'label': 'Jour de chauffage (fioul)',
+                'value': 32.05, // 1800 * 3.25 / 365 * 2
                 'color': 'rgb(255,250,0)',
                 'min': 0,
                 'max': 10000,

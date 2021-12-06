@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Slider from '@material-ui/core/Slider';
 import { makeStyles } from '@material-ui/core';
 import Input from '@material-ui/core/Input';
+import Tooltip from '@mui/material/Tooltip';
 
 const iOSBoxShadow =
     '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)';
@@ -90,7 +91,16 @@ export default function CustomSlider({handleActionValueChange, action, isActive}
 
     return (
         <div className={"action-slider-wrapper"}>
-            <div style={{marginBottom: '1.5rem'}}>{action.label}</div>
+            <div style={{marginBottom: '1.5rem'}} className={"d-flex justify-content-between"}>
+                <div>{action.label}</div>
+                <div className={"action-value"}>
+                    <Tooltip title="kgCO2eq">
+                        <div>
+                            {action.value}
+                        </div>
+                    </Tooltip>
+                </div>
+            </div>
             <div className={"d-flex"}>
                 <Slider
                     classes={styles}
