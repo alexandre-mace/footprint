@@ -36,6 +36,7 @@ const options = {
             dataLabels: {
                 style: {
                     fontSize: '16px',
+                    fontWeight: "normal"
                 },
                 enabled: true,
                 format: '<b>{point.name}</b>: {point.percentage:.1f} %'
@@ -63,7 +64,7 @@ const CO2EmissionsBySector = (props) => {
     const [year, setYear] = React.useState('2016')
     const [country, setCountry] = React.useState('World')
 
-    React.useEffect(() => {
+    React.useLayoutEffect(() => {
         getOwidDataCsv(
             ghgEmissionsBySectorData,
             CO2EmissionsBySectorDatasets.rows,

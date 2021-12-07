@@ -507,3 +507,19 @@ footer a {
     top: 0;
     right: 2rem;
 }
+.mode-baseline-title {
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: bold;
+    font-size: calc(18px + 0.4vw);
+}
+.mode-baseline-subtitle {
+    text-align: center;
+    margin: 1rem auto 0 auto;
+    max-width: 1000px;
+    font-size: calc(16px + 0.1vw);
+    color: #595959;
+}
+.highcharts-label * {
+    font-weight: normal !important;
+}

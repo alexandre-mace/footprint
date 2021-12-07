@@ -58,7 +58,7 @@ const MainChart = ({ datasets, chartRef, playRef }) => {
                 <div
                     ref={(reference) => {if (reference !== null) {playRef.current = reference}}}
                     className={"play"}>
-                    Jouez avec les options <br/>
+                    Play with the sliders <br/>
                     <div className={"text-center arrow-wrapper"}><span className="arrow arrow-bar is-bottom"/></div>
                 </div>
                 }

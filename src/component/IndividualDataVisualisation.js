@@ -47,6 +47,8 @@ const IndividualDataVisualisation = ({ actions }) => {
 
     return (
         <>
+            <div className={"mode-baseline-title"}>Carbon footprint (CO2eq) of individual actions</div>
+            <div className={"mode-baseline-subtitle"}>Ever wanted to know which individual choice has the biggest potential to reduce your personnal ghg emissions ? Play with the sliders below to discover the truth.</div>
             <MainChart playRef={playRef} chartRef={chartRef} datasets={[]}/>
             <ActionSliders actions={actions} handleActionValueChange={handleActionValueChange} resetValues={resetValues}/>
         </>
