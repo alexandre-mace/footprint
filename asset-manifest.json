@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/footprint/static/css/main.4fe9f3d6.chunk.css",
-    "main.js": "/footprint/static/js/main.c6c2d21c.chunk.js",
-    "main.js.map": "/footprint/static/js/main.c6c2d21c.chunk.js.map",
+    "main.css": "/footprint/static/css/main.54185c9c.chunk.css",
+    "main.js": "/footprint/static/js/main.ccc61f3d.chunk.js",
+    "main.js.map": "/footprint/static/js/main.ccc61f3d.chunk.js.map",
     "runtime-main.js": "/footprint/static/js/runtime-main.51d4f6c6.js",
     "runtime-main.js.map": "/footprint/static/js/runtime-main.51d4f6c6.js.map",
     "static/js/2.711512a8.chunk.js": "/footprint/static/js/2.711512a8.chunk.js",
@@ -10,7 +10,7 @@
     "static/js/3.ab38171c.chunk.js": "/footprint/static/js/3.ab38171c.chunk.js",
     "static/js/3.ab38171c.chunk.js.map": "/footprint/static/js/3.ab38171c.chunk.js.map",
     "index.html": "/footprint/index.html",
-    "static/css/main.4fe9f3d6.chunk.css.map": "/footprint/static/css/main.4fe9f3d6.chunk.css.map",
+    "static/css/main.54185c9c.chunk.css.map": "/footprint/static/css/main.54185c9c.chunk.css.map",
     "static/js/2.711512a8.chunk.js.LICENSE.txt": "/footprint/static/js/2.711512a8.chunk.js.LICENSE.txt",
     "static/media/ghg-emissions-by-sector-211121.aca3d77c.csv": "/footprint/static/media/ghg-emissions-by-sector-211121.aca3d77c.csv",
     "static/media/App.css": "/footprint/static/media/mattone-regular-webfont.ffc868f1.woff"
@@ -18,7 +18,7 @@
   "entrypoints": [
     "static/js/runtime-main.51d4f6c6.js",
     "static/js/2.711512a8.chunk.js",
-    "static/css/main.4fe9f3d6.chunk.css",
-    "static/js/main.c6c2d21c.chunk.js"
+    "static/css/main.54185c9c.chunk.css",
+    "static/js/main.ccc61f3d.chunk.js"
   ]
 }
