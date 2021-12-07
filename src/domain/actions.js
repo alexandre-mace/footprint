@@ -436,6 +436,54 @@ const actions = [
                 'max': 10,
                 'visible': true
             },
+            {
+                'label': 'Mini-four électrique (cavité 33 litres)',
+                'value': 82.7,
+                'color': 'rgb(27,183,155)',
+                'min': 0,
+                'max': 10,
+                'visible': false
+            },
+            {
+                'label': 'Four électrique encastrable (54 litres)',
+                'value': 217,
+                'color': 'rgb(0,89,74)',
+                'min': 0,
+                'max': 10,
+                'visible': false
+            },
+            {
+                'label': 'Four professionnel vapeur combi électrique',
+                'value': 865,
+                'color': 'rgb(0,54,45)',
+                'min': 0,
+                'max': 10,
+                'visible': false
+            },
+            {
+                'label': 'Lave-vaisselle compact (9 couverts)',
+                'value': 235,
+                'color': 'rgb(160,208,0)',
+                'min': 0,
+                'max': 10,
+                'visible': false
+            },
+            {
+                'label': 'Lave-vaisselle standard (12 couverts)',
+                'value': 271,
+                'color': 'rgb(173,146,0)',
+                'min': 0,
+                'max': 10,
+                'visible': false
+            },
+            {
+                'label': 'Micro-onde',
+                'value': 98.4,
+                'color': 'rgb(183,53,201)',
+                'min': 0,
+                'max': 10,
+                'visible': false
+            },
         ]
     },
 ]
