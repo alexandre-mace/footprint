@@ -7,6 +7,7 @@ import getOwidDataCsv from "../../data/adapter/Owid/getOwidDataCsv";
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import {Autocomplete, TextField} from "@mui/material";
+import useWindowDimensions from "../../utils/useWindowDimension";
 
 
 highcharts3d(Highcharts);
@@ -52,6 +53,55 @@ const options = {
     },
 };
 
+const mobileOptions = {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        backgroundColor: null,
+        plotShadow: false,
+        options3d: {
+            enabled: true,
+            alpha: 45,
+            beta: 0
+        }
+    },
+    title: {
+        text: ''
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            size:'150%',
+            cursor: 'pointer',
+            depth: 35,
+            dataLabels: {
+                style: {
+                    fontSize: '7px',
+                    fontWeight: "normal"
+                },
+                enabled: false,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            },
+            legend: {
+                align: 'center',
+                layout: 'vertical',
+                verticalAlign: 'top',
+                x: 40,
+                y: 0,
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        type: 'pie',
+        data: []
+    }],
+    credits: {
+        enabled: false
+    },
+};
+
+
 
 const CO2EmissionsBySector = (props) => {
     const chartComponentRef = useRef(null);
@@ -63,6 +113,7 @@ const CO2EmissionsBySector = (props) => {
     })
     const [year, setYear] = React.useState('2016')
     const [country, setCountry] = React.useState('World')
+    const {width} = useWindowDimensions();
 
     React.useLayoutEffect(() => {
         getOwidDataCsv(
@@ -128,7 +179,7 @@ const CO2EmissionsBySector = (props) => {
             </Box>
             <HighchartsReact
                 highcharts={Highcharts}
-                options={{...options, ...{series: [{
+                options={{...(width > 500 ? options : mobileOptions), ...{series: [{
                             type: 'pie',
                             data: CO2EmissionsBySectorDatasets.data
                         }]}}}

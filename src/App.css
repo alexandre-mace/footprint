@@ -80,7 +80,6 @@ body {
     text-align: right;
 }
 .add-options-wrapper {
-    margin-right: 1rem;
     margin-top: 0.5rem;
 }
 @media screen and (max-width: 972px) {
@@ -114,7 +113,7 @@ body {
     display: block;
     border-bottom: 1px solid black;
 }
-.main-chart-wrapper  canvas{
+.main-chart-wrapper canvas{
     height: 40vh;
 }
 @media screen and (max-width: 972px) {
@@ -218,7 +217,8 @@ body {
 }
 @media screen and (max-width: 972px) {
     .play {
-        font-size: 18px;
+        font-size: 16px;
+        top: 70%;
     }
 }
 .input-sliders-wrapper::before {
@@ -242,6 +242,7 @@ body {
     padding: 30px 20px 20px 20px;
     margin: 10px;
     max-width: 350px;
+    min-width: 300px;
 }
 .slider-category-wrapper:hover {
     box-shadow: rgba(255, 75, 49, 0.4) 0px 1px 9px;
@@ -512,6 +513,8 @@ footer a {
     margin-top: 1rem;
     font-weight: bold;
     font-size: calc(18px + 0.4vw);
+    max-width: 90vw;
+    margin-left: 5vw;
 }
 .mode-baseline-subtitle {
     text-align: center;
@@ -520,6 +523,15 @@ footer a {
     font-size: calc(16px + 0.1vw);
     color: #595959;
 }
+@media (max-width: 700px) {
+    .mode-baseline-subtitle {
+        max-width: 90vw;
+        margin-left: 5vw;
+    }
+}
 .highcharts-label * {
     font-weight: normal !important;
+}
+.actions-sliders-wrapper {
+    max-width: 1500px;
 }

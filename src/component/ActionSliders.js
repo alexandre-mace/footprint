@@ -33,7 +33,7 @@ const ActionSliders = ({ actions, handleActionValueChange, resetValues }) => {
                     visibleActions={visibleActions}
                     toggleFromVisibleActions={toggleFromVisibleActions}
                 />
-                <div className="d-flex justify-content-center flex-wrap" style={{ marginTop: '1rem'}}>
+                <div className="d-flex justify-content-center flex-wrap actions-sliders-wrapper mx-auto" style={{ marginTop: '1rem'}}>
                     {actions.map((actionCategory, key) => (
                         <div key={key} className={"slider-category-wrapper"} style={{marginBottom: '0.5rem'}}>
                             <div className={"d-flex align-items-center justify-content-center"} style={{marginBottom: '1rem'}}>
