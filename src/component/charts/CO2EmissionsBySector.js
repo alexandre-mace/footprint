@@ -2,8 +2,8 @@ import React, { useRef } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import highcharts3d from "highcharts/highcharts-3d";
-import ghgEmissionsBySectorData from "../../data/dataset/ghg-emissions-by-sector-211121.csv";
-import getOwidDataCsv from "../../data/adapter/Owid/getOwidDataCsv";
+import ghgEmissionsBySectorData from "../../data/dataset/ghg-emissions-by-sector-211121.json";
+import getOwidDataJson from "../../data/adapter/Owid/getOwidDataJson";
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import {Autocomplete, TextField} from "@mui/material";
@@ -105,34 +105,27 @@ const mobileOptions = {
 
 const CO2EmissionsBySector = (props) => {
     const chartComponentRef = useRef(null);
-    const [CO2EmissionsBySectorDatasets, setCO2EmissionsBySectorDatasets] = React.useState({
-        data: {},
-        rows: false,
-        years: [],
-        countries: []
-    })
+    const [CO2EmissionsBySectorDatasets, setCO2EmissionsBySectorDatasets] = React.useState(null)
     const [year, setYear] = React.useState('2016')
     const [country, setCountry] = React.useState('World')
     const {width} = useWindowDimensions();
 
     React.useLayoutEffect(() => {
-        getOwidDataCsv(
+        let data = getOwidDataJson(
             ghgEmissionsBySectorData,
-            CO2EmissionsBySectorDatasets.rows,
-            setCO2EmissionsBySectorDatasets,
             year,
             country
-        )
+        );
+        setCO2EmissionsBySectorDatasets(data)
     }, [])
 
     React.useEffect(() => {
-        getOwidDataCsv(
+        let data = getOwidDataJson(
             ghgEmissionsBySectorData,
-            CO2EmissionsBySectorDatasets.rows,
-            setCO2EmissionsBySectorDatasets,
             year,
             country
-        )
+        );
+        setCO2EmissionsBySectorDatasets(data)
     }, [year, country])
 
     const handleYearChange = (value) => {
@@ -152,43 +145,50 @@ const CO2EmissionsBySector = (props) => {
             <Box alignSelf={'center'} fontSize={'1.1rem'}>
                 <h2>GHG (CO2eq) Emissions by sector</h2>
             </Box>
-            <Box alignSelf={"center"} marginTop={3} marginBottom={3} textAlign={"center"}>
-                <FormControl sx={{ minWidth: 300, maxWidth: 400, marginBottom: 2 }}>
-                    <Autocomplete
-                        disablePortal
-                        id="year-box"
-                        options={CO2EmissionsBySectorDatasets.years}
-                        value={year}
-                        onChange={handleYearChange}
-                        sx={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="Year" />}
+            {CO2EmissionsBySectorDatasets === null &&
+                'Chargement...'
+            }
+            {CO2EmissionsBySectorDatasets !== null &&
+                <>
+                    <Box alignSelf={"center"} marginTop={3} marginBottom={3} textAlign={"center"}>
+                        <FormControl sx={{ minWidth: 300, maxWidth: 400, marginBottom: 2 }}>
+                            <Autocomplete
+                                disablePortal
+                                id="year-box"
+                                options={CO2EmissionsBySectorDatasets.years}
+                                value={year}
+                                onChange={handleYearChange}
+                                sx={{ width: 300 }}
+                                renderInput={(params) => <TextField {...params} label="Year" />}
+                            />
+                        </FormControl>
+                        <FormControl sx={{ minWidth: 300, maxWidth: 400 }}>
+                            <Autocomplete
+                                disablePortal
+                                id="country-box"
+                                options={CO2EmissionsBySectorDatasets.countries}
+                                color={"primary"}
+                                value={country}
+                                onChange={handleCountryChange}
+                                sx={{ width: 300 }}
+                                renderInput={(params) => <TextField {...params} label="Country" />}
+                            />
+                        </FormControl>
+                    </Box>
+                    <HighchartsReact
+                        highcharts={Highcharts}
+                        options={{...(width > 500 ? options : mobileOptions), ...{series: [{
+                                    type: 'pie',
+                                    data: CO2EmissionsBySectorDatasets.data
+                                }]}}}
+                        ref={chartComponentRef}
+                        {...props}
                     />
-                </FormControl>
-                <FormControl sx={{ minWidth: 300, maxWidth: 400 }}>
-                    <Autocomplete
-                        disablePortal
-                        id="country-box"
-                        options={CO2EmissionsBySectorDatasets.countries}
-                        color={"primary"}
-                        value={country}
-                        onChange={handleCountryChange}
-                        sx={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="Country" />}
-                    />
-                </FormControl>
-            </Box>
-            <HighchartsReact
-                highcharts={Highcharts}
-                options={{...(width > 500 ? options : mobileOptions), ...{series: [{
-                            type: 'pie',
-                            data: CO2EmissionsBySectorDatasets.data
-                        }]}}}
-                ref={chartComponentRef}
-                {...props}
-            />
-            <Box alignSelf={'center'} fontSize={'0.7rem'}>
-                <a href="https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-emissions-data-sources=cait&historical-emissions-gases=all-ghg&historical-emissions-regions=All%20Selected&historical-emissions-sectors=All%20Selected&page=1">Sources (CAIT)</a>
-            </Box>
+                    <Box alignSelf={'center'} fontSize={'0.7rem'}>
+                        <a href="https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-emissions-data-sources=cait&historical-emissions-gases=all-ghg&historical-emissions-regions=All%20Selected&historical-emissions-sectors=All%20Selected&page=1">Sources (CAIT)</a>
+                    </Box>
+                </>
+            }
         </>
     )
 }

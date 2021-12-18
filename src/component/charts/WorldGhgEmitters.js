@@ -2,7 +2,7 @@ import React, {useRef} from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import highcharts3d from "highcharts/highcharts-3d";
-import getOwidDataCsv from "../../data/adapter/Owid/getOwidDataCsv";
+import getOwidDataJson from "../../data/adapter/Owid/getOwidDataJson";
 import ghgEmissionsBySectorData from "../../data/dataset/ghg-emissions-by-sector-211121.csv";
 
 highcharts3d(Highcharts);
