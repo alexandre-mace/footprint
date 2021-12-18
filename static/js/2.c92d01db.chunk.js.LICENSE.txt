@@ -4,13 +4,6 @@ object-assign
 @license MIT
 */
 
-/* @license
-Papa Parse
-v5.3.1
-https://github.com/mholt/PapaParse
-License: MIT
-*/
-
 /*!
  * Chart.js v3.3.2
  * https://www.chartjs.org
