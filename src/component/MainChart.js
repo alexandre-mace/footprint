@@ -18,10 +18,14 @@ const options = {
                 size: 15,
             },
             formatter: function(context) {
-                if (context >= 1000) {
-                    return Math.round(context / 1000) + 'T';
+                if (window.innerWidth > 700) {
+                    return context
                 }
-                return Math.round(context);
+
+                if (context >= 1000) {
+                    return context / 1000 + 'T';
+                }
+                return context;
             },
         },
         legend: {
