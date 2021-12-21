@@ -26,7 +26,7 @@ const ActionSliders = ({ actions, handleActionValueChange, resetValues }) => {
 
     return (
         <>
-            <div className="input-sliders-wrapper">
+            <div id={"input-sliders-wrapper"} className="input-sliders-wrapper">
                 <ActionsDisplayManager
                     handleReset={handleReset}
                     actions={actions}

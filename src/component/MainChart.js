@@ -17,7 +17,12 @@ const options = {
             font: {
                 size: 15,
             },
-            formatter: Math.round
+            formatter: function(context) {
+                if (context >= 1000) {
+                    return Math.round(context / 1000) + 'T';
+                }
+                return Math.round(context);
+            },
         },
         legend: {
             position: 'bottom',
@@ -35,7 +40,18 @@ const options = {
             title: {
                 display: true,
                 text: '(kgCO2eq)'
-            }
+            },
+            ticks:  {
+                callback: function(value, index, values) {
+                    if (parseInt(value) >= 1000) {
+                        return parseFloat(value) / 1000 + 'T'
+                    }
+                    return parseFloat(value);
+                }
+            },
+        },
+        xAxis: {
+            barThickness: 2
         }
     }
 }
@@ -52,30 +68,34 @@ const MainChart = ({ datasets, chartRef, playRef }) => {
     }
 
     return (
-        <>
-            <div className={"main-chart-wrapper"}>
-                {datasets.length === 0 &&
-                <div
+        <div className={"chart-section " + (datasets.length > 0 ? '' : 'hidden')}>
+            {datasets.length === 0 &&
+                <a
+                    href={"#input-sliders-wrapper"}
                     ref={(reference) => {if (reference !== null) {playRef.current = reference}}}
                     className={"play"}>
-                    Play with the sliders <br/>
+                    Joue avec les options <br/>
                     <div className={"text-center arrow-wrapper"}><span className="arrow arrow-bar is-bottom"/></div>
+                </a>
+            }
+            <div className={"chart-section-content"}>
+                <div className={"main-chart-wrapper"}>
+                    <Bar
+                        ref={(reference) => {if (reference !== null) {chartRef.current = reference} }}
+                        data={{
+                            labels: ['Empreinte carbone (CO2eq)'],
+                            datasets: datasets
+                        }}
+                        options={options}
+                        type={'bar'}
+                    />
                 </div>
-                }
-                <Bar
-                    ref={(reference) => {if (reference !== null) {chartRef.current = reference} }}
-                    data={{
-                        labels: ['Empreinte carbone (CO2eq)'],
-                        datasets: datasets
-                    }}
-                    options={options}
-                    type={'bar'}
-                />
+                <div className={"main-chart-title"}>Empreinte carbone (CO2eq) d'actions individuelles</div>
+                <div className={"source"}>
+                    Source : <a target="_blank" href="https://data.ademe.fr/datasets/base-carbone(r)">Base carbone® Ademe</a>
+                </div>
             </div>
-            <div className={"source"}>
-                Source : <a target="_blank" href="https://data.ademe.fr/datasets/base-carbone(r)">Base carbone® Ademe</a>
-            </div>
-        </>
+        </div>
     )
 };
 

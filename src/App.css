@@ -18,9 +18,16 @@
     overflow-x: hidden;
     max-width: 100vw;
 }
+html {
+    scroll-behavior: smooth;
+}
 * {
     box-sizing: border-box;
     font-family: 'mattoneregular', sans-serif;
+}
+.header a {
+    text-decoration: none;
+    color: black;
 }
 body {
     overflow-x: hidden;
@@ -62,6 +69,9 @@ body {
     max-width: 1000px;
     margin: auto;
 }
+.hidden .chart-section-content {
+    opacity: 0 !important;
+}
 @media screen and (max-width: 700px) {
     .iframe-wrapper {
         min-width: 95vw;
@@ -79,13 +89,21 @@ body {
 .text-right {
     text-align: right;
 }
-.add-options-wrapper {
-    margin-top: 0.5rem;
-}
 @media screen and (max-width: 972px) {
     .add-options-btn-wrapper {
         margin-right: 0 !important;
     }
+}
+.climate-lab-link {
+    padding: 8px 16px;
+    border-radius: 16px;
+    -webkit-transition: -webkit-background .2s,-webkit-transform .2s;
+    transition: -webkit-background .2s,-webkit-transform .2s;
+    transition: background .2s,transform .2s;
+    transition: background .2s,transform .2s,-webkit-background .2s,-webkit-transform .2s;
+}
+.climate-lab-link:hover {
+    background-color: #afafaf;
 }
 .slider-item {
     font-family: 'mattoneregular', sans-serif;
@@ -95,7 +113,13 @@ body {
     white-space: nowrap;
     margin: 0 10px;
 }
-
+.climate-lab {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: auto;
+    max-width: 100%;
+}
 @keyframes scroll {
     0% { transform: translateX(0); }
     100% { transform: translateX(calc(-250px * 7))}
@@ -118,14 +142,22 @@ body {
 }
 @media screen and (max-width: 972px) {
     .main-chart-wrapper canvas {
-        height: 30vh !important;
+        height: 45vh !important;
     }
 }
 .main-chart-wrapper {
     display: flex;
     padding-left: 5px;
-    padding-top: 30px;
     justify-content: center;
+    position: relative;
+}
+.chart-section {
+    border-top: 1px dashed black;
+    border-bottom: 1px dashed black;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top: 4rem;
+    opacity: 1;
     position: relative;
 }
 .loader {
@@ -152,7 +184,7 @@ body {
     margin-right: 2rem;
 }
 .input-sliders-wrapper {
-    margin-top: 2rem;
+    margin-top: 0.5rem;
     padding-top: 1rem;
     padding-left: 30px;
     padding-right: 20px;
@@ -214,23 +246,16 @@ body {
     font-size: 25px;
     transform: translate(-50%, -50%);
     text-align: center;
+    z-index: 1;
+}
+.play {
+    color: black;
+    text-decoration: none;
 }
 @media screen and (max-width: 972px) {
     .play {
         font-size: 16px;
-        top: 70%;
     }
-}
-.input-sliders-wrapper::before {
-    content: '';
-    position: absolute;
-    padding-left: 53px;
-    display: block;
-    top: 0;
-    left: 0;
-    height: 1px;
-    width: calc(100vw);
-    background-color: black;
 }
 .category-img {
     height: 35px;
@@ -345,9 +370,7 @@ iframe {
     background-size: 90%;
 }
 .header {
-    margin-top: 1rem;
-    padding: 30px 0;
-    font-size: 1.1rem;
+    padding: 25px 0;
 }
 .mobile-header {
     display: none;
@@ -469,7 +492,8 @@ footer {
     align-items: center;
     text-align: center;
     width: 100%;
-    margin-top: auto;
+    margin-top: 2rem;
+    font-size: 0.9rem;
 }
 footer a {
     color: #ff4b31;
@@ -508,25 +532,59 @@ footer a {
     top: 0;
     right: 2rem;
 }
-.mode-baseline-title {
+h1 {
+    font-size: calc(20px + 2.3vw);
+    margin-top: 0.5rem;
+    margin-bottom: 0rem;
+}
+.main-chart-title {
     text-align: center;
     margin-top: 1rem;
-    font-weight: bold;
-    font-size: calc(18px + 0.4vw);
+    font-size: 16px;
     max-width: 90vw;
     margin-left: 5vw;
 }
 .mode-baseline-subtitle {
     text-align: center;
     margin: 1rem auto 0 auto;
-    max-width: 1000px;
-    font-size: calc(16px + 0.1vw);
-    color: #595959;
+    max-width: 700px;
+    font-size: calc(16px + 0.2vw);
 }
 @media (max-width: 700px) {
     .mode-baseline-subtitle {
         max-width: 90vw;
         margin-left: 5vw;
+    }
+}
+@media (max-width: 700px) {
+    .app-title {
+        display: none !important;
+    }
+    .climate-lab {
+        font-size: 0.8rem;
+        margin: auto;
+    }
+    .climate-lab > div {
+        margin-right: 0 !important;
+    }
+    .climate-lab-link {
+        padding: 6px 12px;
+    }
+    .mode-baseline-subtitle {
+        margin-top: 0.5rem;
+        max-width: 80vw;
+        margin-left: 10vw;
+        font-size: calc(14px);
+    }
+    .category-label {
+        font-size: 1rem !important;
+    }
+    .action-slider-wrapper {
+        font-size: 0.7rem;
+    }
+    .main-chart-title {
+        font-size: 14px;
+        margin-bottom: 10px;
     }
 }
 .highcharts-label * {

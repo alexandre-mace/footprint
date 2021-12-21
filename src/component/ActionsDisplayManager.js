@@ -71,12 +71,12 @@ export default function ActionsDisplayManager({ handleReset, actions, visibleAct
     return (
         <div className={"text-center add-options-wrapper"}>
             <React.Fragment key={'right'}>
-                <div className="d-flex justify-content-center flex-wrap">
+                <div className="d-flex justify-content-end flex-wrap">
                     <div className={"add-options-btn-wrapper"} style={{ marginRight: '1rem'}}>
-                        <Button className={'button-black add-options'} onClick={toggleDrawer('right', true)}>Ajouter des options</Button>
+                        <Button size={"small"} className={'button-black add-options'} onClick={toggleDrawer('right', true)}>Ajouter des options</Button>
                     </div>
                     <div>
-                        <Button className={"reset text-right"} onClick={() => handleReset()}>Réinitialiser</Button>
+                        <Button size={"small"} className={"reset text-right"} onClick={() => handleReset()}>Réinitialiser</Button>
                     </div>
                 </div>
                 <Drawer anchor={'right'} open={state['right']} onClose={toggleDrawer('right', false)}>

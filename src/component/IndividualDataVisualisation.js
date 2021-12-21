@@ -42,13 +42,15 @@ const IndividualDataVisualisation = ({ actions }) => {
         if (playRef.current.style.display !== 'none') {
             playRef.current.style.display = 'none'
         }
+        if (document.getElementsByClassName('chart-section')[0].classList.contains('hidden')) {
+            document.getElementsByClassName('chart-section')[0].classList.remove('hidden')
+        }
         chartRef.current.update();
     }
 
     return (
         <>
-            <div className={"mode-baseline-title"}>Carbon footprint (CO2eq) of individual actions</div>
-            <div className={"mode-baseline-subtitle"}>Ever wanted to know which individual choice has the biggest potential to reduce your personnal ghg emissions ? Play with the sliders below to discover the truth.</div>
+            <div className={"mode-baseline-subtitle"}>Découvrez quel choix individuel a le plus grand potentiel pour réduire vos émissions de GES personnelles.</div>
             <MainChart playRef={playRef} chartRef={chartRef} datasets={[]}/>
             <ActionSliders actions={actions} handleActionValueChange={handleActionValueChange} resetValues={resetValues}/>
         </>

@@ -22,15 +22,16 @@ function App() {
             }
             <>
                 <Header mode={mode} setMode={setMode}/>
-                {mode === 'home' &&
-                <Home setMode={setMode}/>
-                }
-                {mode === 'individual' &&
+                <h1 className={"text-center"}>Footprint</h1>
+                {/*{mode === 'home' &&*/}
+                {/*<Home setMode={setMode}/>*/}
+                {/*}*/}
+                {/*{mode === 'individual' &&*/}
                 <IndividualDataVisualisation actions={actions}/>
-                }
-                {mode === 'collective' &&
-                <CollectiveDataVisualisation/>
-                }
+                {/*}*/}
+                {/*{mode === 'collective' &&*/}
+                {/*<CollectiveDataVisualisation/>*/}
+                {/*}*/}
                 <Footer/>
             </>
         </div>
