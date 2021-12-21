@@ -49,9 +49,6 @@ const options = {
                     return parseFloat(value);
                 }
             },
-        },
-        xAxis: {
-            barThickness: 2
         }
     }
 }
