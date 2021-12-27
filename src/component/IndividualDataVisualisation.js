@@ -28,7 +28,7 @@ const IndividualDataVisualisation = ({ actions }) => {
             activeAction = activeAction[0];
         }
 
-        activeAction.value = action.value * newValue;
+        activeAction.value = Math.round(action.value * newValue * 100) / 100;
         activeActions = [
             ...activeActions.filter((filteredAction) => (filteredAction.label !== action.label)),
             activeAction
@@ -50,7 +50,7 @@ const IndividualDataVisualisation = ({ actions }) => {
 
     return (
         <>
-            <div className={"mode-baseline-subtitle"}>Découvrez quel choix individuel a le plus grand potentiel pour réduire vos émissions de GES personnelles.</div>
+            <div className={"mode-baseline-subtitle"}>Apprivoisez les ordres de grandeurs des émissions de gaz à effet de serre relatifs à nos activités quotidiennes.</div>
             <MainChart playRef={playRef} chartRef={chartRef} datasets={[]}/>
             <ActionSliders actions={actions} handleActionValueChange={handleActionValueChange} resetValues={resetValues}/>
         </>
