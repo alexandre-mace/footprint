@@ -32,7 +32,8 @@ html {
 body {
     overflow-x: hidden;
     min-width: 100vw;
-    background-color: #e7e1e1;
+    background-color: #f1efed;
+    /*background-color: #e7e1e1;*/
     /*background-color: #F5F5F5;*/
     /*background-color: rgb(249, 249, 251);*/
 }
@@ -213,7 +214,7 @@ body {
     max-width: 100%;
 }
 .action-slider-wrapper:hover {
-    background-color: #e7e1e1;
+    background-color: #f1eeee;
 }
 .action-value {
     color: #ff4b31;
