@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/footprint/static/css/main.e41e34cc.chunk.css",
+    "main.css": "/footprint/static/css/main.93fca1ca.chunk.css",
     "main.js": "/footprint/static/js/main.6a3b857f.chunk.js",
     "main.js.map": "/footprint/static/js/main.6a3b857f.chunk.js.map",
     "runtime-main.js": "/footprint/static/js/runtime-main.a0badeed.js",
@@ -10,14 +10,14 @@
     "static/js/3.23d0df8f.chunk.js": "/footprint/static/js/3.23d0df8f.chunk.js",
     "static/js/3.23d0df8f.chunk.js.map": "/footprint/static/js/3.23d0df8f.chunk.js.map",
     "index.html": "/footprint/index.html",
-    "static/css/main.e41e34cc.chunk.css.map": "/footprint/static/css/main.e41e34cc.chunk.css.map",
+    "static/css/main.93fca1ca.chunk.css.map": "/footprint/static/css/main.93fca1ca.chunk.css.map",
     "static/js/2.0ad15e9b.chunk.js.LICENSE.txt": "/footprint/static/js/2.0ad15e9b.chunk.js.LICENSE.txt",
     "static/media/App.css": "/footprint/static/media/mattone-regular-webfont.ffc868f1.woff"
   },
   "entrypoints": [
     "static/js/runtime-main.a0badeed.js",
     "static/js/2.0ad15e9b.chunk.js",
-    "static/css/main.e41e34cc.chunk.css",
+    "static/css/main.93fca1ca.chunk.css",
     "static/js/main.6a3b857f.chunk.js"
   ]
 }
