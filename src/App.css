@@ -73,6 +73,9 @@ body {
 .hidden .chart-section-content {
     opacity: 0 !important;
 }
+.hidden.total-wrapper {
+    opacity: 0 !important;
+}
 @media screen and (max-width: 700px) {
     .iframe-wrapper {
         min-width: 95vw;
@@ -214,7 +217,7 @@ body {
     max-width: 100%;
 }
 .action-slider-wrapper:hover {
-    background-color: #f1eeee;
+    background-color: #e7e1e1;
 }
 .action-value {
     color: #ff4b31;

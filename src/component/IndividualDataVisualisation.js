@@ -21,11 +21,9 @@ const IndividualDataVisualisation = ({ actions }) => {
     }
 
     const handleActionValueChange = (action, newValue) => {
-        let activeAction = activeActions.filter((filteredAction) => filteredAction.label === action.label);
-        if (activeAction.length === 0) {
+        let activeAction = activeActions.find((filteredAction) => filteredAction.label === action.label);
+        if (!activeAction) {
             activeAction = {...action};
-        } else {
-            activeAction = activeAction[0];
         }
 
         activeAction.value = Math.round(action.value * newValue * 100) / 100;
@@ -33,6 +31,15 @@ const IndividualDataVisualisation = ({ actions }) => {
             ...activeActions.filter((filteredAction) => (filteredAction.label !== action.label)),
             activeAction
         ];
+
+        let total = 0
+        activeActions.forEach(action => {
+            total+= parseFloat(action.value)
+        })
+
+        if (activeActions.length === 1) {
+            total = parseFloat(activeActions[0].value)
+        }
 
         updateBarChartData(chartRef.current.config.data, activeActions)
         chartRef.current.config.data.datasets = chartRef.current.config.data.datasets.sort((a, b) => {
@@ -45,7 +52,11 @@ const IndividualDataVisualisation = ({ actions }) => {
         if (document.getElementsByClassName('chart-section')[0].classList.contains('hidden')) {
             document.getElementsByClassName('chart-section')[0].classList.remove('hidden')
         }
+        if (document.getElementsByClassName('total-wrapper')[0].classList.contains('hidden')) {
+            document.getElementsByClassName('total-wrapper')[0].classList.remove('hidden')
+        }
         chartRef.current.update();
+        document.getElementById('total').innerText = total.toFixed(2)
     }
 
     return (

@@ -79,6 +79,9 @@ const MainChart = ({ datasets, chartRef, playRef }) => {
                     <div className={"text-center arrow-wrapper"}><span className="arrow arrow-bar is-bottom"/></div>
                 </a>
             }
+            <div className={"text-center total-wrapper hidden"}>
+                Total : <span id="total"/> kgCO2eq
+            </div>
             <div className={"chart-section-content"}>
                 <div className={"main-chart-wrapper"}>
                     <Bar

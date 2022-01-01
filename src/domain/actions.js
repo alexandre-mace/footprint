@@ -52,7 +52,7 @@ const actions = [
                 {
                     'label': 'Smartphone',
                     'value': 32,
-                    'color': 'rgb(83,83,83)',
+                    'color': 'rgb(196,132,132)',
                     'min': 0,
                     'max': 70,
                     'visible': true
@@ -68,7 +68,7 @@ const actions = [
                 {
                     'label': 'Ordinateur portable (15 pouces)',
                     'value': 392,
-                    'color': 'rgb(154,154,154)',
+                    'color': 'rgba(132,112,222,0.75)',
                     'min': 0,
                     'max': 25,
                     'visible': false
@@ -106,7 +106,7 @@ const actions = [
             {
                 'label': 'Ordinateur fixe',
                 'value': 865,
-                'color': 'rgb(90,90,90)',
+                'color': 'rgb(82,204,144)',
                 'min': 0,
                 'max': 20,
                 'visible': false
@@ -114,7 +114,7 @@ const actions = [
             {
                 'label': 'Télévision 45 pouces',
                 'value': 371,
-                'color': 'rgb(88,88,88)',
+                'color': 'rgb(232,94,94)',
                 'min': 0,
                 'max': 10,
                 'visible': true
@@ -207,7 +207,7 @@ const actions = [
             {
                 'label': 'Fondant au chocolat (125g)',
                 'value': 1.21,
-                'color': 'rgb(82,32,0)',
+                'color': 'rgb(171,71,4)',
                 'min': 0,
                 'max': 1000,
                 'visible': false
@@ -247,7 +247,7 @@ const actions = [
             {
                 'label': 'Légumes/fruits importé par avion, saison ou hors saison (100g)',
                 'value': 2.7,
-                'color': 'rgb(54,80,45)',
+                'color': 'rgb(74,110,62)',
                 'min': 0,
                 'max': 1000,
                 'visible': false
@@ -333,7 +333,7 @@ const actions = [
             {
                 'label': '1 jean en coton',
                 'value': 23.2,
-                'color': 'rgb(4,0,121)',
+                'color': 'rgb(38,32,206)',
                 'min': 0,
                 'max': 300,
                 'visible': true
