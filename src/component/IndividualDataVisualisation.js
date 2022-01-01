@@ -61,7 +61,7 @@ const IndividualDataVisualisation = ({ actions }) => {
 
     return (
         <>
-            <div className={"mode-baseline-subtitle"}>Apprivoisez les ordres de grandeurs des émissions de gaz à effet de serre relatifs à nos activités quotidiennes.</div>
+            <div className={"mode-baseline-subtitle"}>Apprivoisez les <span className={"important-word"}>ordres de grandeurs</span> des émissions de gaz à effet de serre relatifs à nos activités quotidiennes.</div>
             <MainChart playRef={playRef} chartRef={chartRef} datasets={[]}/>
             <ActionSliders actions={actions} handleActionValueChange={handleActionValueChange} resetValues={resetValues}/>
         </>
