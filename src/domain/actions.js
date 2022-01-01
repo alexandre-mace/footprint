@@ -8,7 +8,7 @@ const actions = [
                 'value': 0.19,
                 'color': 'rgb(127,127,127)',
                 'min': 0,
-                'max': 1000,
+                'max': 10000,
                 'visible': true
             },
             {
@@ -281,7 +281,7 @@ const actions = [
                 'value': 7.26,
                 'color': 'rgb(172,16,40)',
                 'min': 0,
-                'max': 1000,
+                'max': 365,
                 'visible': true
             },
             {
@@ -289,7 +289,7 @@ const actions = [
                 'value': 1.58,
                 'color': 'rgb(255,250,133)',
                 'min': 0,
-                'max': 1000,
+                'max': 365,
                 'visible': true
             },
             {
@@ -297,7 +297,7 @@ const actions = [
                 'value': 0.51,
                 'color': 'rgb(47,219,65)',
                 'min': 0,
-                'max': 1000,
+                'max': 365,
                 'visible': true
             },
         ]
@@ -311,7 +311,7 @@ const actions = [
                 'value': 15,
                 'color': 'rgb(11,125,140)',
                 'min': 0,
-                'max': 100,
+                'max': 10,
                 'visible': true
             },
             {
@@ -319,7 +319,7 @@ const actions = [
                 'value': 11,
                 'color': 'rgb(245,242,129)',
                 'min': 0,
-                'max': 200,
+                'max': 10,
                 'visible': false
             },
             {
@@ -327,7 +327,7 @@ const actions = [
                 'value': 5.2,
                 'color': 'rgb(144,121,182)',
                 'min': 0,
-                'max': 300,
+                'max': 10,
                 'visible': true
             },
             {
@@ -335,7 +335,7 @@ const actions = [
                 'value': 23.2,
                 'color': 'rgb(38,32,206)',
                 'min': 0,
-                'max': 300,
+                'max': 10,
                 'visible': true
             },
         ]
@@ -349,7 +349,7 @@ const actions = [
                 'value': 18.63, // 15000 * 0.23 / 365 * 2
                 'color': 'rgb(119,8,154)',
                 'min': 0,
-                'max': 10000,
+                'max': 365,
                 'visible': true
             },
             {
@@ -357,7 +357,7 @@ const actions = [
                 'value': 1.64, // 5000 * 0.06 / 365 * 2
                 'color': 'rgb(255,250,0)',
                 'min': 0,
-                'max': 10000,
+                'max': 365,
                 'visible': true
             },
             {
@@ -365,7 +365,7 @@ const actions = [
                 'value': 32.05, // 1800 * 3.25 / 365 * 2
                 'color': 'rgb(117,41,0)',
                 'min': 0,
-                'max': 10000,
+                'max': 365,
                 'visible': true
             },
         ]
@@ -379,7 +379,7 @@ const actions = [
                 'value': 197,
                 'color': 'rgb(39,53,121)',
                 'min': 0,
-                'max': 20,
+                'max': 10,
                 'visible': true
             },
             {
