@@ -83,7 +83,7 @@ const MainChart = ({ datasets, chartRef, playRef }) => {
             }
             <div className={"text-center total-wrapper hidden"}>
                 Total : <span id="total"/> kgCO2eq
-                <div>Objectif neutralité carbone : 2T/an/personne <a className={"info"} target={"_blank"} rel={"noopener"} href="https://www.carbone4.com/wp-content/uploads/2019/06/Publication-Carbone-4-Faire-sa-part-pouvoir-responsabilite-climat.pdf">ℹ️</a></div>
+                <div>Objectif neutralité carbone : 2T/an/personne <a className={"info"} target={"_blank"} rel={"noreferrer"} href="https://www.carbone4.com/wp-content/uploads/2019/06/Publication-Carbone-4-Faire-sa-part-pouvoir-responsabilite-climat.pdf">ℹ️</a></div>
             </div>
             <div className={"chart-section-content"}>
                 <div className={"main-chart-wrapper"}>
@@ -99,7 +99,7 @@ const MainChart = ({ datasets, chartRef, playRef }) => {
                 </div>
                 <div className={"main-chart-title"}>Empreinte carbone (CO2eq) d'actions individuelles</div>
                 <div className={"source"}>
-                    Source : <a target="_blank" href="https://data.ademe.fr/datasets/base-carbone(r)">Base carbone® Ademe</a>
+                    Source : <a target="_blank" rel={"noreferrer"} href="https://data.ademe.fr/datasets/base-carbone(r)">Base carbone® Ademe</a>
                 </div>
             </div>
         </div>

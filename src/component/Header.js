@@ -1,41 +1,39 @@
 import {
-    Box,
-    Button,
-    Drawer,
-    List,
-    ListItem,
-    ListItemText
+    // Box,
+    // List,
+    // ListItem,
+    // ListItemText
 } from "@mui/material";
-import React, {useState} from 'react';
+import React from 'react';
 
 const Header = ({mode, setMode}) => {
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
 
-    const toggleDrawer = () => (event) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
-        }
+    // const toggleDrawer = () => (event) => {
+        // if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            // return;
+        // }
+// 
+        // setMobileMenuOpen(!mobileMenuOpen);
+    // };
 
-        setMobileMenuOpen(!mobileMenuOpen);
-    };
-
-    const list = () => (
-        <Box
-            sx={{ width: 250 }}
-            role="presentation"
-            onClick={toggleDrawer()}
-            onKeyDown={toggleDrawer()}
-        >
-            <List>
-                {[].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemText onClick={() => setMode(text)} className={("menu-item " + (mode === text ? 'menu-item-active' : ''))} primary={text} />
-                    </ListItem>
-                ))}
-            </List>
-        </Box>
-    );
+    // const list = () => (
+    //     <Box
+    //         sx={{ width: 250 }}
+    //         role="presentation"
+    //         onClick={toggleDrawer()}
+    //         onKeyDown={toggleDrawer()}
+    //     >
+    //         <List>
+    //             {[].map((text, index) => (
+    //                 <ListItem button key={text}>
+    //                     <ListItemText onClick={() => setMode(text)} className={("menu-item " + (mode === text ? 'menu-item-active' : ''))} primary={text} />
+    //                 </ListItem>
+    //             ))}
+    //         </List>
+    //     </Box>
+    // );
 
     return (
         <>
