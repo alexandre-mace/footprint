@@ -23,7 +23,7 @@ const options = {
                 }
 
                 if (context >= 1000) {
-                    return context / 1000 + 'T';
+                    return parseFloat((context / 1000).toFixed(2)) + 'T';
                 }
                 return context;
             },
@@ -66,6 +66,8 @@ const MainChart = ({ datasets, chartRef, playRef }) => {
 
     if (size.width < 492) {
         defaults.font.size = 10;
+        options.plugins.datalabels.font.size = 10;
+
     }
 
     return (

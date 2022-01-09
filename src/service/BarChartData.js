@@ -9,7 +9,7 @@ const updateBarChartData = (data, actions) => {
         actionsToAdd.forEach((action) => {
             alreadyAddedLabels.push(action.label)
             data.datasets.push({
-                barThickness : window.innerWidth < 700 ? 20 : 50,
+                barThickness : window.innerWidth < 700 ? 35 : 50,
                 label: [action.label],
                 backgroundColor: [action.color],
                 borderColor: 'transparent',

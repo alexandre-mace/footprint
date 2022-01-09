@@ -80,6 +80,9 @@ body {
     .iframe-wrapper {
         min-width: 95vw;
     }
+    .total-wrapper {
+        font-size: 0.8rem;
+    }
 }
 .d-none {
     display: none;
@@ -110,7 +113,12 @@ body {
     background-color: rgba(255, 75, 49, 0.13);
 }
 #total {
-    font-size: 1.1rem;
+    font-size: 1.6rem;
+}
+@media screen and (max-width: 972px) {
+    #total {
+        font-size: 1.3rem;
+    }
 }
 .info {
     text-decoration: none;
@@ -149,6 +157,7 @@ body {
 }
 .main-chart-wrapper canvas{
     height: 40vh;
+    margin-top: 1rem;
 }
 @media screen and (max-width: 972px) {
     .main-chart-wrapper canvas {
@@ -169,6 +178,11 @@ body {
     margin-top: 4rem;
     opacity: 1;
     position: relative;
+}
+@media screen and (max-width: 972px) {
+    .chart-section {
+        margin-top: 2rem;
+    }
 }
 .loader {
     height: 100vh;
@@ -264,7 +278,7 @@ body {
 }
 @media screen and (max-width: 972px) {
     .play {
-        font-size: 16px;
+        font-size: 20px;
     }
 }
 .category-img {
@@ -543,7 +557,7 @@ footer a {
     right: 2rem;
 }
 h1 {
-    font-size: calc(20px + 2.3vw);
+    font-size: calc(27px + 2.3vw);
     margin-top: 0.5rem;
     margin-bottom: 0rem;
 }
@@ -582,9 +596,9 @@ h1 {
     }
     .mode-baseline-subtitle {
         margin-top: 0.5rem;
-        max-width: 80vw;
-        margin-left: 10vw;
-        font-size: calc(14px);
+        max-width: 90vw;
+        margin-left: 5vw;
+        font-size: calc(16px);
     }
     .category-label {
         font-size: 1rem !important;

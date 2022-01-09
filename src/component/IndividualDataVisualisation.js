@@ -26,7 +26,7 @@ const IndividualDataVisualisation = ({ actions }) => {
             activeAction = {...action};
         }
 
-        activeAction.value = Math.round(action.value * newValue * 100) / 100;
+        activeAction.value = parseFloat((Math.round(action.value * newValue * 100) / 100).toFixed(2));
         activeActions = [
             ...activeActions.filter((filteredAction) => (filteredAction.label !== action.label)),
             activeAction
@@ -57,6 +57,11 @@ const IndividualDataVisualisation = ({ actions }) => {
         }
         chartRef.current.update();
         document.getElementById('total').innerText = total.toFixed(2)
+        if (total > 2000) {
+            document.getElementById('total').style.color = 'red';
+        } else if (total <= 2000) {
+            document.getElementById('total').style.color = 'green';
+        } 
     }
 
     return (
