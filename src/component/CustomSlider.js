@@ -69,6 +69,7 @@ export default function CustomSlider({handleActionValueChange, action, isActive}
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
+        newValue = Number(newValue).toString()
         setValue(newValue);
         handleActionValueChange(action, newValue)
     };
@@ -81,9 +82,10 @@ export default function CustomSlider({handleActionValueChange, action, isActive}
     const handleBlur = () => {
         if (value < 0) {
             setValue(0);
-        } else if (value > action.max) {
-            setValue(action.max);
         }
+        // else if (value > action.max) {
+        //     setValue(action.max);
+        // }
     };
 
     const styles = useStyles(action);
@@ -130,13 +132,15 @@ export default function CustomSlider({handleActionValueChange, action, isActive}
                 <Input
                     className={classes.input}
                     style={{ width: 42 + 4 * action.value.toString().length}}
-                    value={isActive ? value : 0}
+                    value={isActive ? Number(value).toString() : 0}
                     margin="dense"
                     onBlur={handleBlur}
                     onChange={handleInputChange}
+                    max={10000000000}
                     inputProps={{
                         type: 'number',
                         'aria-labelledby': 'ios slider',
+                        max: 10000000000
                     }}
                 />
             </div>
