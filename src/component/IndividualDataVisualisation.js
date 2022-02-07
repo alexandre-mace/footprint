@@ -66,7 +66,11 @@ const IndividualDataVisualisation = ({ actions }) => {
 
     return (
         <>
-            <div className={"mode-baseline-subtitle"}>Apprivoisez les <span className={"important-word"}>ordres de grandeurs</span> des émissions de gaz à effet de serre relatifs à nos activités quotidiennes.</div>
+            <div className={"mode-baseline-subtitle"}>
+                Apprivoisez les <span className={"important-word"}>ordres de grandeurs</span> des émissions de gaz à effet de serre relatifs à nos activités quotidiennes.
+                <div className={"how-to-use"}><span className={"emoji"}>ℹ️</span> Cet outil s'utilise comme un comparateur, il existe également des <a target="_blank" rel="noopener noreferrer" href="https://www.hellocarbo.com/blog/calculer/bilan-carbone-personnel/">calculateurs d'empreinte carbone</a>.</div>
+            </div>
+
             <MainChart playRef={playRef} chartRef={chartRef} datasets={[]}/>
             <ActionSliders actions={actions} handleActionValueChange={handleActionValueChange} resetValues={resetValues}/>
         </>
