@@ -221,6 +221,14 @@ const actions = [
                 'visible': false
             },
             {
+                'label': 'Verre de lait (15cl)',
+                'value': 0.2235,
+                'color': 'rgb(255,255,255)',
+                'min': 0,
+                'max': 1000,
+                'visible': false
+            },
+            {
                 'label': 'Jambon cru (130g)',
                 'value': 1.638,
                 'color': 'rgb(248,130,245)',
