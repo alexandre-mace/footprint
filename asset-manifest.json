@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.6c0894a8.css",
-    "main.js": "/static/js/main.62f25710.js",
+    "main.js": "/static/js/main.6a9f4342.js",
     "static/js/787.67fb7026.chunk.js": "/static/js/787.67fb7026.chunk.js",
     "static/media/mattone-regular-webfont.woff": "/static/media/mattone-regular-webfont.ffc868f192d0ac0f9808.woff",
     "static/media/mattone-regular-webfont.woff2": "/static/media/mattone-regular-webfont.801e1e75861f5bd176fe.woff2",
     "index.html": "/index.html",
     "main.6c0894a8.css.map": "/static/css/main.6c0894a8.css.map",
-    "main.62f25710.js.map": "/static/js/main.62f25710.js.map",
+    "main.6a9f4342.js.map": "/static/js/main.6a9f4342.js.map",
     "787.67fb7026.chunk.js.map": "/static/js/787.67fb7026.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6c0894a8.css",
-    "static/js/main.62f25710.js"
+    "static/js/main.6a9f4342.js"
   ]
 }
