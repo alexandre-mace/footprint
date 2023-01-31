@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import 'chartjs-plugin-datalabels';
 import {createTheme} from "@mui/material";
 import {MuiThemeProvider} from "@material-ui/core";
+const container = document.getElementById('root');
+const root = ReactDOM.createRoot(container);
 
 const theme = createTheme({
     palette: {
@@ -19,13 +21,12 @@ const theme = createTheme({
 });
 
 
-ReactDOM.render(
+root.render(
   <React.StrictMode>
       <MuiThemeProvider theme={theme}>
       <App />
       </MuiThemeProvider>
   </React.StrictMode>,
-  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
