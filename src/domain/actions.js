@@ -1,7 +1,7 @@
 const actions = [
     {
         'label': 'Transport',
-        'img': 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/woman-biking_1f6b4-200d-2640-fe0f.png',
+        'img': 'https://em-content.zobj.net/thumbs/120/apple/285/woman-biking_1f6b4-200d-2640-fe0f.png',
         'actions': [
             {
                 'label': 'Voiture (1km)',
@@ -31,7 +31,7 @@ const actions = [
     },
     {
         'label': 'Numérique',
-            'img': 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/laptop_1f4bb.png',
+            'img': 'https://em-content.zobj.net/thumbs/120/apple/285/laptop_1f4bb.png',
             'actions': [
                 {
                     'label': 'Envoyer un email',
@@ -77,7 +77,7 @@ const actions = [
     },
     {
         'label': 'Multimédia',
-        'img': 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/television_1f4fa.png',
+        'img': 'https://em-content.zobj.net/thumbs/120/apple/285/television_1f4fa.png',
         'actions': [
             {
                 'label': 'Appareil photo',
@@ -123,7 +123,7 @@ const actions = [
     },
     {
         'label': 'Alimentation',
-        'img': 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/curry-rice_1f35b.png',
+        'img': 'https://em-content.zobj.net/thumbs/120/apple/285/curry-rice_1f35b.png',
         'actions': [
             {
                 'label': 'Alcool fort (10cl)',
@@ -312,7 +312,7 @@ const actions = [
     },
     {
         'label': 'Vétements',
-        'img': 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/t-shirt_1f455.png',
+        'img': 'https://em-content.zobj.net/thumbs/120/apple/285/t-shirt_1f455.png',
         'actions': [
             {
                 'label': 'Chaussures',
@@ -350,7 +350,7 @@ const actions = [
     },
     {
         'label': 'Énergie',
-        'img': 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/high-voltage_26a1.png',
+        'img': 'https://em-content.zobj.net/thumbs/120/apple/285/high-voltage_26a1.png',
         'actions': [
             {
                 'label': 'Jour de chauffage (gaz)',
@@ -380,7 +380,7 @@ const actions = [
     },
     {
         'label': 'Maison',
-        'img': 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/house_1f3e0.png',
+        'img': 'https://em-content.zobj.net/thumbs/120/apple/285/house_1f3e0.png',
         'actions': [
             {
                 'label': '1 canapé convertible',
