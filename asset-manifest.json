@@ -1,23 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.4a1648d7.chunk.css",
-    "main.js": "/static/js/main.d4866742.chunk.js",
-    "main.js.map": "/static/js/main.d4866742.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.4abab66e.js",
-    "runtime-main.js.map": "/static/js/runtime-main.4abab66e.js.map",
-    "static/js/2.4818e6e8.chunk.js": "/static/js/2.4818e6e8.chunk.js",
-    "static/js/2.4818e6e8.chunk.js.map": "/static/js/2.4818e6e8.chunk.js.map",
-    "static/js/3.ff000805.chunk.js": "/static/js/3.ff000805.chunk.js",
-    "static/js/3.ff000805.chunk.js.map": "/static/js/3.ff000805.chunk.js.map",
+    "main.css": "/static/css/main.6c0894a8.css",
+    "main.js": "/static/js/main.62f25710.js",
+    "static/js/787.67fb7026.chunk.js": "/static/js/787.67fb7026.chunk.js",
+    "static/media/mattone-regular-webfont.woff": "/static/media/mattone-regular-webfont.ffc868f192d0ac0f9808.woff",
+    "static/media/mattone-regular-webfont.woff2": "/static/media/mattone-regular-webfont.801e1e75861f5bd176fe.woff2",
     "index.html": "/index.html",
-    "static/css/main.4a1648d7.chunk.css.map": "/static/css/main.4a1648d7.chunk.css.map",
-    "static/js/2.4818e6e8.chunk.js.LICENSE.txt": "/static/js/2.4818e6e8.chunk.js.LICENSE.txt",
-    "static/media/App.css": "/static/media/mattone-regular-webfont.ffc868f1.woff"
+    "main.6c0894a8.css.map": "/static/css/main.6c0894a8.css.map",
+    "main.62f25710.js.map": "/static/js/main.62f25710.js.map",
+    "787.67fb7026.chunk.js.map": "/static/js/787.67fb7026.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.4abab66e.js",
-    "static/js/2.4818e6e8.chunk.js",
-    "static/css/main.4a1648d7.chunk.css",
-    "static/js/main.d4866742.chunk.js"
+    "static/css/main.6c0894a8.css",
+    "static/js/main.62f25710.js"
   ]
 }
