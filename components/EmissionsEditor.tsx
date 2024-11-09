@@ -44,7 +44,7 @@ const EmissionsEditor = ({
   };
 
   return (
-    <div className={"relative grid gap-4 md:grid-cols-1 xl:grid-cols-2"}>
+    <div className={"relative grid gap-4 md:grid-cols-1 lg:grid-cols-2"}>
       <div className={"absolute -top-12 flex items-center justify-end gap-2"}>
         <EmissionsEditorConfig
           emissions={emissions}
@@ -83,7 +83,7 @@ const EmissionsEditor = ({
                 <div
                   key={emission.label}
                   className={
-                    "flex justify-between gap-4 rounded-lg border border-dashed border-black p-2 md:p-4"
+                    "flex flex-col sm:flex-row lg:flex-col 2xl:flex-row justify-between gap-4 rounded-lg border border-dashed border-black p-2 md:p-4"
                   }
                 >
                   <div className={"space-y-1"}>
@@ -91,13 +91,14 @@ const EmissionsEditor = ({
                       {emission.label}
                     </div>
                     <div className={"text-xs text-muted-foreground"}>
-                      {emission.value}kco2eq
+                      {emission.value} <span className={"text-[10px]"}>kco2eq</span>
                     </div>
                   </div>
                   <div className={"flex shrink-0 items-center gap-2"}>
                     <Button
                       variant="outline"
                       size="icon"
+                      className={""}
                       onClick={() =>
                         handleEmissionQuantityChange(
                           emission,
