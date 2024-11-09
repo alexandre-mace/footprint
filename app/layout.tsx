@@ -44,7 +44,7 @@ export default function RootLayout({
         sizes="any"
         rel={"icon"}
         href={
-          "https://em-content.zobj.net/source/apple/391/flashlight_1f526.png"
+          "https://em-content.zobj.net/source/apple/391/foot_1f9b6.png"
         }
       />
       <body
