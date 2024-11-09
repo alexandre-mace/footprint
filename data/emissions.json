@@ -1,0 +1,442 @@
+[
+    {
+        "label": "Transport",
+        "img": "https://em-content.zobj.net/source/microsoft-teams/363/airplane_2708-fe0f.png",
+        "emissions": [
+            {
+                "label": "Voiture (1km)",
+                "value": 0.218,
+                "color": "rgb(127,127,127)",
+                "min": 0,
+                "max": 10000,
+                "isVisible": true
+            },
+            {
+                "label": "TGV (1km)",
+                "value": 0.00293,
+                "color": "rgb(156,255,198)",
+                "min": 0,
+                "max": 5000,
+                "isVisible": true
+            },
+            {
+                "label": "Avion (1km)",
+                "value": 0.259,
+                "color": "rgb(142,68,16)",
+                "min": 0,
+                "max": 100000,
+                "isVisible": true
+            }
+        ]
+    },
+    {
+        "label": "Numérique",
+        "img": "https://em-content.zobj.net/source/microsoft-teams/363/laptop_1f4bb.png",
+        "emissions": [
+            {
+                "label": "Envoyer un email",
+                "value": 0.00246,
+                "color": "rgb(255,103,0)",
+                "min": 0,
+                "max": 1000,
+                "isVisible": true
+            },
+            {
+                "label": "Un tweet",
+                "value": 0.00002,
+                "color": "rgb(54,185,255)",
+                "min": 0,
+                "max": 1000,
+                "isVisible": false
+            },
+            {
+                "label": "Smartphone",
+                "value": 85.9,
+                "color": "rgb(196,132,132)",
+                "min": 0,
+                "max": 70,
+                "isVisible": true
+            },
+            {
+                "label": "Streaming vidéo (1H)",
+                "value": 0.064,
+                "color": "rgb(151,151,151)",
+                "min": 0,
+                "max": 7000,
+                "isVisible": true
+            },
+            {
+                "label": "Ordinateur portable (15 pouces)",
+                "value": 193,
+                "color": "rgba(132,112,222,0.75)",
+                "min": 0,
+                "max": 25,
+                "isVisible": false
+            }
+        ]
+    },
+    {
+        "label": "Multimédia",
+        "img": "https://em-content.zobj.net/source/microsoft-teams/363/television_1f4fa.png",
+        "emissions": [
+            {
+                "label": "Appareil photo",
+                "value": 29,
+                "color": "rgb(149,0,255)",
+                "min": 0,
+                "max": 30,
+                "isVisible": true
+            },
+            {
+                "label": "1 livre de poche",
+                "value": 1.10,
+                "color": "rgb(114,201,35)",
+                "min": 0,
+                "max": 100,
+                "isVisible": true
+            },
+            {
+                "label": "Écran d'ordinateur",
+                "value": 91.4,
+                "color": "rgb(255,250,0)",
+                "min": 0,
+                "max": 10,
+                "isVisible": false
+            },
+            {
+                "label": "Ordinateur fixe",
+                "value": 299,
+                "color": "rgb(82,204,144)",
+                "min": 0,
+                "max": 20,
+                "isVisible": false
+            },
+            {
+                "label": "Télévision",
+                "value": 472,
+                "color": "rgb(232,94,94)",
+                "min": 0,
+                "max": 10,
+                "isVisible": true
+            }
+        ]
+    },
+    {
+        "label": "Alimentation",
+        "img": "https://em-content.zobj.net/source/microsoft-teams/363/curry-rice_1f35b.png",
+        "emissions": [
+            {
+                "label": "Repas avec poulet",
+                "value": 1.35,
+                "color": "rgb(205,204,78)",
+                "min": 0,
+                "max": 365,
+                "isVisible": true
+            },
+            {
+                "label": "Repas avec du boeuf",
+                "value": 7.26,
+                "color": "rgb(255,0,38)",
+                "min": 0,
+                "max": 365,
+                "isVisible": true
+            },
+            {
+                "label": "Repas végétarien",
+                "value": 0.51,
+                "color": "rgb(47,219,65)",
+                "min": 0,
+                "max": 365,
+                "isVisible": true
+            },
+            {
+                "label": "Repas végétalien",
+                "value": 0.39,
+                "color": "rgb(47,219,65)",
+                "min": 0,
+                "max": 365,
+                "isVisible": false
+            },
+            {
+                "label": "Repas avec du poisson blanc",
+                "value": 1.98,
+                "color": "rgb(205,204,78)",
+                "min": 0,
+                "max": 1000,
+                "isVisible": false
+            },
+            {
+                "label": "Repas avec du poisson gras",
+                "value": 1.11,
+                "color": "rgb(255,191,0)",
+                "min": 0,
+                "max": 1000,
+                "isVisible": false
+            },
+            {
+                "label": "Légumes/fruits local, de saison (100g)",
+                "value": 0.026,
+                "color": "rgb(85,213,101)",
+                "min": 0,
+                "max": 1000,
+                "isVisible": false
+            },
+            {
+                "label": "Légumes/fruits importé par avion, saison ou hors saison (100g)",
+                "value": 2.7,
+                "color": "rgb(74,110,62)",
+                "min": 0,
+                "max": 1000,
+                "isVisible": false
+            },
+            {
+                "label": "Bière (pinte)",
+                "value": 1.33,
+                "color": "rgb(198,155,27)",
+                "min": 0,
+                "max": 1000,
+                "isVisible": false
+            },
+            {
+                "label": "Eau du robinet (1L)",
+                "value": 0.00013,
+                "color": "rgb(0,50,118)",
+                "min": 0,
+                "max": 1000,
+                "isVisible": false
+            },
+            {
+                "label": "Eau de source (1L)",
+                "value": 0.45,
+                "color": "rgb(4,84,203)",
+                "min": 0,
+                "max": 1000,
+                "isVisible": false
+            },
+            {
+                "label": "Lait de vache (1L)",
+                "value": 1.18,
+                "color": "rgb(255,255,255)",
+                "min": 0,
+                "max": 1000,
+                "isVisible": false
+            },
+            {
+                "label": "Boisson au soja (1L)",
+                "value": 0.446,
+                "color": "rgb(255,255,255)",
+                "min": 0,
+                "max": 1000,
+                "isVisible": false
+            },
+            {
+                "label": "Alcool fort (10cl)",
+                "value": 0.12,
+                "color": "rgb(243,243,243)",
+                "min": 0,
+                "max": 1000,
+                "isVisible": false
+            },
+            {
+                "label": "Brioche (100g)",
+                "value": 0.491,
+                "color": "rgb(255,191,0)",
+                "min": 0,
+                "max": 1000,
+                "isVisible": false
+            },
+            {
+                "label": "Chocolat noir (100g)",
+                "value": 1.8,
+                "color": "rgb(140,11,11)",
+                "min": 0,
+                "max": 1000,
+                "isVisible": false
+            },
+            {
+                "label": "Compote (100g)",
+                "value": 0.08,
+                "color": "rgb(255,0,51)",
+                "min": 0,
+                "max": 1000,
+                "isVisible": false
+            },
+            {
+                "label": "Fromage (150g)",
+                "value": 0.675,
+                "color": "rgb(255,250,0)",
+                "min": 0,
+                "max": 1000,
+                "isVisible": false
+            }
+        ]
+    },
+    {
+        "label": "Vêtements",
+        "img": "https://em-content.zobj.net/source/microsoft-teams/363/t-shirt_1f455.png",
+        "emissions": [
+            {
+                "label": "Chaussures",
+                "value": 18.5,
+                "color": "rgb(11,125,140)",
+                "min": 0,
+                "max": 10,
+                "isVisible": true
+            },
+            {
+                "label": "Chemise",
+                "value": 13.2,
+                "color": "rgb(245,242,129)",
+                "min": 0,
+                "max": 10,
+                "isVisible": false
+            },
+            {
+                "label": "T-shirt coton",
+                "value": 6.43,
+                "color": "rgb(144,121,182)",
+                "min": 0,
+                "max": 10,
+                "isVisible": true
+            },
+            {
+                "label": "1 jean en coton",
+                "value": 25.1,
+                "color": "rgb(38,32,206)",
+                "min": 0,
+                "max": 10,
+                "isVisible": true
+            }
+        ]
+    },
+    {
+        "label": "Énergie",
+        "img": "https://em-content.zobj.net/source/microsoft-teams/363/high-voltage_26a1.png",
+        "emissions": [
+            {
+                "label": "Année de chauffage (éléctricité, 100m2)",
+                "value": 1185,
+                "color": "rgb(255,250,0)",
+                "min": 0,
+                "max": 365,
+                "isVisible": true
+            },
+            {
+                "label": "Année de chauffage (gaz, 100m2)",
+                "value": 3900,
+                "color": "rgb(119,8,154)",
+                "min": 0,
+                "max": 100,
+                "isVisible": true
+            },
+            {
+                "label": "Année de chauffage (fioul, 100m2)",
+                "value": 5717,
+                "color": "rgb(117,41,0)",
+                "min": 0,
+                "max": 100,
+                "isVisible": true
+            },
+            {
+                "label": "Année de chauffage (poêle granulé, 100m2)",
+                "value": 564,
+                "color": "rgb(255,250,0)",
+                "min": 0,
+                "max": 100,
+                "isVisible": false
+            },
+            {
+                "label": "Année de chauffage (pompe à chaleur, 100m2)",
+                "value": 395,
+                "color": "rgb(255,250,0)",
+                "min": 0,
+                "max": 100,
+                "isVisible": false
+            }
+        ]
+    },
+    {
+        "label": "Maison",
+        "img": "https://em-content.zobj.net/source/microsoft-teams/363/house_1f3e0.png",
+        "emissions": [
+            {
+                "label": "1 canapé convertible",
+                "value": 198,
+                "color": "rgb(39,53,121)",
+                "min": 0,
+                "max": 10,
+                "isVisible": true
+            },
+            {
+                "label": "Feuille de papier A4",
+                "value": 0.0046,
+                "color": "rgb(246,246,246)",
+                "min": 0,
+                "max": 1000,
+                "isVisible": true
+            },
+            {
+                "label": "Chaise",
+                "value": 18.6,
+                "color": "rgb(248,84,255)",
+                "min": 0,
+                "max": 10,
+                "isVisible": true
+            },
+            {
+                "label": "Table",
+                "value": 80.2,
+                "color": "rgb(248,84,255)",
+                "min": 0,
+                "max": 10,
+                "isVisible": false
+            }
+        ]
+    },
+    {
+        "label": "Électroménager",
+        "img": "https://em-content.zobj.net/source/microsoft-teams/363/printer_1f5a8-fe0f.png",
+        "emissions": [
+            {
+                "label": "Lave-vaisselle",
+                "value": 468,
+                "color": "rgb(255,250,0)",
+                "min": 0,
+                "max": 10,
+                "isVisible": true
+            },
+            {
+                "label": "Réfrigérateur",
+                "value": 325,
+                "color": "rgb(49,213,255)",
+                "min": 0,
+                "max": 10,
+                "isVisible": true
+            },
+            {
+                "label": "Aspirateur",
+                "value": 47.3,
+                "color": "rgb(255,87,16)",
+                "min": 0,
+                "max": 10,
+                "isVisible": true
+            },
+            {
+                "label": "Four électrique",
+                "value": 263,
+                "color": "rgb(0,89,74)",
+                "min": 0,
+                "max": 10,
+                "isVisible": false
+            },
+            {
+                "label": "Micro-onde",
+                "value": 98.4,
+                "color": "rgb(183,53,201)",
+                "min": 0,
+                "max": 10,
+                "isVisible": false
+            }
+        ]
+    }
+]
