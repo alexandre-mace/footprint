@@ -42,20 +42,20 @@
                 "isVisible": true
             },
             {
+                "label": "Une requête ChatGPT",
+                "value": 0.027,
+                "color": "rgb(255,255,255)",
+                "min": 0,
+                "max": 100000,
+                "isVisible": true
+            },
+            {
                 "label": "Un tweet",
                 "value": 0.00002,
                 "color": "rgb(54,185,255)",
                 "min": 0,
                 "max": 1000,
                 "isVisible": false
-            },
-            {
-                "label": "Smartphone",
-                "value": 85.9,
-                "color": "rgb(196,132,132)",
-                "min": 0,
-                "max": 70,
-                "isVisible": true
             },
             {
                 "label": "Streaming vidéo (1H)",
@@ -80,12 +80,20 @@
         "img": "https://em-content.zobj.net/source/microsoft-teams/363/television_1f4fa.png",
         "emissions": [
             {
+                "label": "Smartphone",
+                "value": 85.9,
+                "color": "rgb(196,132,132)",
+                "min": 0,
+                "max": 70,
+                "isVisible": true
+            },
+            {
                 "label": "Appareil photo",
                 "value": 29,
                 "color": "rgb(149,0,255)",
                 "min": 0,
                 "max": 30,
-                "isVisible": true
+                "isVisible": false
             },
             {
                 "label": "1 livre de poche",
