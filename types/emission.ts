@@ -1,4 +1,5 @@
 type Emission = {
+  id: string;
   label: string;
   value: number;
   quantity: number;

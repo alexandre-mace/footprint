@@ -1,0 +1,98 @@
+[
+  {
+    "id": "commute-daily",
+    "name": "Trajet quotidien",
+    "description": "Trajet domicile-travail typique en voiture",
+    "category": "transport",
+    "isDefault": true,
+    "emissions": {
+      "transport-0": 50,
+      "transport-1": 0,
+      "transport-2": 0
+    }
+  },
+  {
+    "id": "commute-eco",
+    "name": "Trajet écologique",
+    "description": "Privilégier les transports en commun",
+    "category": "transport",
+    "isDefault": true,
+    "emissions": {
+      "transport-0": 10,
+      "transport-1": 40,
+      "transport-2": 0
+    }
+  },
+  {
+    "id": "business-trip",
+    "name": "Voyage d'affaires",
+    "description": "Déplacement professionnel avec avion",
+    "category": "transport",
+    "isDefault": true,
+    "emissions": {
+      "transport-0": 0,
+      "transport-1": 0,
+      "transport-2": 1000
+    }
+  },
+  {
+    "id": "remote-work",
+    "name": "Télétravail",
+    "description": "Journée de travail à domicile",
+    "category": "numérique",
+    "isDefault": true,
+    "emissions": {
+      "numérique-0": 25,
+      "numérique-3": 8,
+      "numérique-1": 20
+    }
+  },
+  {
+    "id": "digital-detox",
+    "name": "Détox numérique",
+    "description": "Utilisation réduite des appareils",
+    "category": "numérique",
+    "isDefault": true,
+    "emissions": {
+      "numérique-0": 5,
+      "numérique-3": 2,
+      "numérique-1": 2
+    }
+  },
+  {
+    "id": "heavy-user",
+    "name": "Utilisateur intensif",
+    "description": "Usage numérique important",
+    "category": "numérique",
+    "isDefault": true,
+    "emissions": {
+      "numérique-0": 100,
+      "numérique-3": 16,
+      "numérique-1": 50
+    }
+  },
+  {
+    "id": "weekend-city",
+    "name": "Week-end en ville",
+    "description": "Sortie urbaine typique",
+    "category": "mixte",
+    "isDefault": true,
+    "emissions": {
+      "transport-0": 30,
+      "numérique-0": 15,
+      "numérique-3": 4
+    }
+  },
+  {
+    "id": "eco-lifestyle",
+    "name": "Mode de vie écolo",
+    "description": "Consommation responsable",
+    "category": "mixte",
+    "isDefault": true,
+    "emissions": {
+      "transport-1": 20,
+      "numérique-0": 10,
+      "numérique-3": 2
+    }
+  }
+]

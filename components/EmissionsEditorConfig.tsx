@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Settings } from "lucide-react";
+import { CirclePlus } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import Category from "@/types/category";
@@ -17,16 +17,17 @@ import { Switch } from "@/components/ui/switch";
 
 export function EmissionsEditorConfig({
   emissions,
-  setEmissions,
+  onToggleVisibility,
 }: {
   emissions: Category[];
-  setEmissions: React.Dispatch<React.SetStateAction<Category[]>>;
+  onToggleVisibility: (emissionId: string) => void;
 }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant={"outline"} size={"icon"}>
-          <Settings className={"h-4 w-4"} />
+        <Button variant={"outline"}>
+          <CirclePlus className={"h-4 w-4 mr-2"} />
+          Autres activités
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[625px] md:max-w-[725px] xl:max-w-[925px]">
@@ -81,26 +82,7 @@ export function EmissionsEditorConfig({
                     <div className={"flex shrink-0 items-center gap-2"}>
                       <Switch
                         checked={emission.isVisible}
-                        onCheckedChange={() =>
-                          setEmissions(
-                            emissions.map((category) => ({
-                              ...category,
-                              emissions: category.emissions.map(
-                                (categoryEmission) => {
-                                  if (
-                                    emission.label === categoryEmission.label
-                                  ) {
-                                    return {
-                                      ...categoryEmission,
-                                      isVisible: !categoryEmission.isVisible,
-                                    };
-                                  }
-                                  return categoryEmission;
-                                },
-                              ),
-                            })),
-                          )
-                        }
+                        onCheckedChange={() => onToggleVisibility(emission.id)}
                       />
                     </div>
                   </div>

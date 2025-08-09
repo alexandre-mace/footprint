@@ -1,66 +1,175 @@
 import Image from "next/image";
+import { AnimatedButton } from "@/components/ui/animated-button";
+import { AnimatedInput } from "@/components/ui/animated-input";
 import { Button } from "@/components/ui/button";
-import { ListRestart, Minus, Plus } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import React, { useState } from "react";
+import { Minus, Plus } from "lucide-react";
+import React, { useCallback, useMemo, useRef } from "react";
 import Emission from "@/types/emission";
 import Category from "@/types/category";
-import emissionsData from "@/data/emissions.json";
-import { Chart as ChartJS } from "chart.js";
-import handleEmissionQuantityChange from "@/lib/handleEmissionQuantityChange";
+import { useEmissions } from "@/hooks/useEmissions";
 import { EmissionsEditorConfig } from "@/components/EmissionsEditorConfig";
-import updateChartData from "@/lib/updateChartData";
+import { PresetSelector } from "@/components/PresetSelector";
+import { ShareButton } from "@/components/ShareButton";
+import { SearchAndFilters } from "@/components/SearchAndFilters";
+import { ResetPopover } from "@/components/ResetPopover";
+import { ChartData } from "@/types/chart";
+import { Versus } from "@/types/versus";
 
-const EmissionsEditor = ({
-  chartRef,
-}: {
-  chartRef: React.MutableRefObject<ChartJS | null>;
-}) => {
-  const [emissions, setEmissions] = useState<Category[]>(
-    emissionsData.map((emissionSector) => ({
-      ...emissionSector,
-      emissions: emissionSector.emissions.map((emission) => ({
-        ...emission,
-        quantity: 0,
-      })),
-    })),
-  );
+interface EmissionsEditorProps {
+  onChartDataChange: (data: ChartData) => void;
+  setApplyVersusRef?: (applyVersus: (versus: Versus) => void) => void;
+  setOpenVersusDialogRef?: (openDialog: () => void) => void;
+}
 
-  const reset = () => {
-    setEmissions(
-      emissionsData.map((emissionSector) => ({
-        ...emissionSector,
-        emissions: emissionSector.emissions.map((emission) => ({
-          ...emission,
-          quantity: 0,
-        })),
-      })),
-    );
-    if (chartRef?.current) {
-      chartRef.current.config.data.datasets = [];
-      updateChartData(chartRef.current.config.data, []);
-      chartRef.current.update();
+const EmissionItem = React.memo<{
+  emission: Emission;
+  onUpdateQuantity: (id: string, quantity: number) => void;
+}>(({ emission, onUpdateQuantity }) => {
+  const itemRef = useRef<HTMLDivElement>(null);
+
+  const validator = useCallback((value: string) => {
+    const num = parseInt(value || "0");
+    if (isNaN(num)) {
+      return { isValid: false, error: "Nombre invalide" };
     }
-  };
+    if (num < emission.min) {
+      return { isValid: false, error: `Minimum: ${emission.min}` };
+    }
+    if (num > emission.max) {
+      return { isValid: false, error: `Maximum: ${emission.max}` };
+    }
+    return { isValid: true };
+  }, [emission.min, emission.max]);
+
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    onUpdateQuantity(emission.id, parseInt(e.target.value === "" ? "0" : e.target.value));
+  }, [emission.id, onUpdateQuantity]);
+
+  const handleDecrement = useCallback(() => {
+    onUpdateQuantity(emission.id, emission.quantity - 1);
+  }, [emission.id, emission.quantity, onUpdateQuantity]);
+
+  const handleIncrement = useCallback(() => {
+    onUpdateQuantity(emission.id, emission.quantity + 1);
+  }, [emission.id, emission.quantity, onUpdateQuantity]);
 
   return (
-    <div className={"relative grid gap-4 md:grid-cols-1 lg:grid-cols-2"}>
-      <div className={"absolute -top-12 flex items-center justify-end gap-2"}>
+    <div
+      ref={itemRef}
+      className={
+        "flex flex-col sm:flex-row lg:flex-col 2xl:flex-row justify-between gap-4 rounded-lg border border-dashed border-black p-2 md:p-4 slide-in"
+      }
+    >
+      <div className={"space-y-1"}>
+        <div className={"text-xs font-medium md:text-sm"}>
+          {emission.label}
+        </div>
+        <div className={"text-xs text-muted-foreground"}>
+          {emission.value} <span className={"text-[10px]"}>kco2eq</span>
+        </div>
+      </div>
+      <div className={"flex shrink-0 items-center gap-2"}>
+        <AnimatedButton
+          variant="outline"
+          size="icon"
+          onClick={handleDecrement}
+          animationType="ripple"
+          disabled={emission.quantity <= emission.min}
+        >
+          <Minus />
+        </AnimatedButton>
+        <AnimatedInput
+          value={emission.quantity}
+          className={"max-w-24 text-center"}
+          onChange={handleInputChange}
+          validator={validator}
+          type="number"
+          min={emission.min}
+          max={emission.max}
+        />
+        <AnimatedButton
+          variant="outline"
+          size="icon"
+          onClick={handleIncrement}
+          animationType="ripple"
+          disabled={emission.quantity >= emission.max}
+        >
+          <Plus />
+        </AnimatedButton>
+      </div>
+    </div>
+  );
+});
+
+EmissionItem.displayName = 'EmissionItem';
+
+const EmissionsEditor: React.FC<EmissionsEditorProps> = ({ onChartDataChange, setApplyVersusRef, setOpenVersusDialogRef }) => {
+  const { 
+    emissions, 
+    resetValues,
+    resetAll,
+    updateEmissionQuantity, 
+    toggleEmissionVisibility,
+    applyVersus,
+    getShareableEmissions,
+    chartData 
+  } = useEmissions();
+
+  const [filteredEmissions, setFilteredEmissions] = React.useState(emissions);
+
+  React.useEffect(() => {
+    onChartDataChange(chartData);
+  }, [chartData, onChartDataChange]);
+
+  React.useEffect(() => {
+    setFilteredEmissions(emissions);
+  }, [emissions]);
+
+  React.useEffect(() => {
+    if (setApplyVersusRef) {
+      setApplyVersusRef(applyVersus);
+    }
+  }, [setApplyVersusRef, applyVersus]);
+
+  const handleFilteredChange = React.useCallback((filtered: Category[]) => {
+    setFilteredEmissions(filtered);
+  }, []);
+
+  return (
+    <div className={"space-y-4"}>
+      {/* Barre d'outils en haut */}
+      <div className={"flex items-center justify-end gap-2"}>
+        <ShareButton emissions={getShareableEmissions()} />
+        <PresetSelector 
+          onApplyVersus={applyVersus} 
+          setOpenDialogRef={setOpenVersusDialogRef}
+        />
         <EmissionsEditorConfig
           emissions={emissions}
-          setEmissions={setEmissions}
+          onToggleVisibility={toggleEmissionVisibility}
         />
-        <Button onClick={reset} variant={"outline"} size={"icon"}>
-          <ListRestart className={"h-4 w-4"} />
-        </Button>
+        <ResetPopover
+          onResetValues={resetValues}
+          onResetAll={resetAll}
+        />
       </div>
 
-      {emissions.map((category) => (
+      {/* Filtres de recherche */}
+      <SearchAndFilters 
+        categories={emissions}
+        onFilteredChange={handleFilteredChange}
+        onToggleVisibility={toggleEmissionVisibility}
+      />
+
+      {/* Grille des émissions */}
+      <div className={"grid gap-4 md:grid-cols-1 lg:grid-cols-2"}>
+        {filteredEmissions.map((category, index) => (
         <div
           className={
             "space-y-2 rounded-xl border bg-white p-4 hover:shadow-orange-light"
           }
           key={category.label}
+          style={{ animationDelay: `${index * 100}ms` }}
         >
           <div className={"flex items-center gap-2"}>
             <Image
@@ -80,70 +189,24 @@ const EmissionsEditor = ({
             {category.emissions
               .filter((emission: Emission) => emission.isVisible)
               .map((emission) => (
-                <div
-                  key={emission.label}
-                  className={
-                    "flex flex-col sm:flex-row lg:flex-col 2xl:flex-row justify-between gap-4 rounded-lg border border-dashed border-black p-2 md:p-4"
-                  }
-                >
-                  <div className={"space-y-1"}>
-                    <div className={"text-xs font-medium md:text-sm"}>
-                      {emission.label}
-                    </div>
-                    <div className={"text-xs text-muted-foreground"}>
-                      {emission.value} <span className={"text-[10px]"}>kco2eq</span>
-                    </div>
-                  </div>
-                  <div className={"flex shrink-0 items-center gap-2"}>
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      className={""}
-                      onClick={() =>
-                        handleEmissionQuantityChange(
-                          emission,
-                          emission.quantity - 1,
-                          setEmissions,
-                          chartRef,
-                        )
-                      }
-                    >
-                      <Minus />
-                    </Button>
-                    <Input
-                      value={emission.quantity}
-                      className={"max-w-24 text-center"}
-                      onChange={(e) =>
-                        handleEmissionQuantityChange(
-                          emission,
-                          parseInt(
-                            e.target.value === "" ? "0" : e.target.value,
-                          ),
-                          setEmissions,
-                          chartRef,
-                        )
-                      }
-                    />
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() =>
-                        handleEmissionQuantityChange(
-                          emission,
-                          emission.quantity + 1,
-                          setEmissions,
-                          chartRef,
-                        )
-                      }
-                    >
-                      <Plus />
-                    </Button>
-                  </div>
-                </div>
+                <EmissionItem
+                  key={emission.id}
+                  emission={emission}
+                  onUpdateQuantity={updateEmissionQuantity}
+                />
               ))}
           </div>
         </div>
-      ))}
+        ))}
+      </div>
+
+      {/* Message si aucun résultat */}
+      {filteredEmissions.length === 0 && (
+        <div className="text-center py-8 text-muted-foreground">
+          <p className="text-lg font-medium mb-2">Aucune émission trouvée</p>
+          <p className="text-sm">Essayez de modifier vos critères de recherche ou filtres.</p>
+        </div>
+      )}
     </div>
   );
 };
