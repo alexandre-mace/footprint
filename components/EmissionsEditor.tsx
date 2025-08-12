@@ -74,13 +74,14 @@ const EmissionItem = React.memo<{
           size="icon"
           onClick={handleDecrement}
           animationType="ripple"
+          className={"shrink-0"}
           disabled={emission.quantity <= emission.min}
         >
           <Minus />
         </AnimatedButton>
         <AnimatedInput
           value={emission.quantity}
-          className={"max-w-24 text-center"}
+          className={"md:max-w-24 text-center grow"}
           onChange={handleInputChange}
           validator={validator}
           type="number"
@@ -92,6 +93,7 @@ const EmissionItem = React.memo<{
           size="icon"
           onClick={handleIncrement}
           animationType="ripple"
+          className={"shrink-0"}
           disabled={emission.quantity >= emission.max}
         >
           <Plus />
@@ -138,7 +140,7 @@ const EmissionsEditor: React.FC<EmissionsEditorProps> = ({ onChartDataChange, se
   return (
     <div className={"space-y-4"}>
       {/* Barre d'outils en haut */}
-      <div className={"flex items-center justify-end gap-2"}>
+      <div className={"flex items-center justify-end gap-2 flex-wrap"}>
         <ShareButton emissions={getShareableEmissions()} />
         <PresetSelector 
           onApplyVersus={applyVersus} 

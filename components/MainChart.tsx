@@ -79,16 +79,17 @@ const MainChart = React.memo<{
   // Si pas de données, afficher les suggestions de versus
   if (chartData.length === 0) {
     return (
-      <div className="h-[50vh] w-full flex flex-col items-center justify-center space-y-4">
+      <div className="md:h-[50vh] w-full flex flex-col items-center justify-center space-y-4">
         <div className="text-center mb-4">
           <p className="text-sm text-muted-foreground mb-2">Aucune donnée à afficher</p>
           <p className="text-xs text-muted-foreground">Essayez ces comparaisons :</p>
         </div>
         <div className="flex flex-col gap-3 w-full max-w-2xl">
           {versus.slice(0, 3).map(versusItem => (
-            <div
+            <Button
               key={versusItem.id}
-              className="cursor-pointer hover:bg-muted/30 transition-colors rounded-lg p-3 border border-border"
+              variant={"outline"}
+              className={"py-2 h-auto"}
               onClick={() => onApplyVersus?.(versusItem)}
             >
               <div className="flex items-center justify-center gap-2 text-xs flex-wrap">
@@ -118,17 +119,18 @@ const MainChart = React.memo<{
                   </>
                 )}
               </div>
-            </div>
+            </Button>
           ))}
-          <div
-            className="cursor-pointer hover:bg-muted/30 transition-colors rounded-lg p-3 border border-dashed border-border"
-            onClick={() => onOpenVersusDialog?.()}
+          <Button
+          variant={"outline"}
+          className={"py-2 h-auto"}
+          onClick={() => onOpenVersusDialog?.()}
           >
             <div className="flex items-center justify-center gap-2 text-xs">
               <Swords className="h-3 w-3 text-orange-500" />
               <span>Voir les autres versus</span>
             </div>
-          </div>
+          </Button>
         </div>
       </div>
     );
@@ -140,7 +142,8 @@ const MainChart = React.memo<{
         accessibilityLayer
         data={chartData}
         margin={{
-          top: 20,
+          top: 40,
+          bottom: 20
         }}
         barCategoryGap={2}
       >

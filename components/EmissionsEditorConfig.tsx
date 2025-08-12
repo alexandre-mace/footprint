@@ -27,7 +27,7 @@ export function EmissionsEditorConfig({
       <DialogTrigger asChild>
         <Button variant={"outline"}>
           <CirclePlus className={"h-4 w-4 mr-2"} />
-          Autres activités
+          Autres <span className={"hidden md:block"}>activités</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[625px] md:max-w-[725px] xl:max-w-[925px]">
