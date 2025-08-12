@@ -109,7 +109,7 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({ onApplyVersus, s
         </DialogHeader>
 
         {/* Liste des versus */}
-        <div className="grid gap-3 max-h-96 overflow-y-auto pr-2">
+        <div className="grid gap-3 max-h-96 overflow-y-auto">
           {versus.map(versusItem => (
             <Card 
               key={versusItem.id} 

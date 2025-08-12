@@ -81,7 +81,7 @@ const EmissionItem = React.memo<{
         </AnimatedButton>
         <AnimatedInput
           value={emission.quantity}
-          className={"md:max-w-24 text-center grow"}
+          className={"md:max-w-24 text-center grow md:w-24"}
           onChange={handleInputChange}
           validator={validator}
           type="number"
