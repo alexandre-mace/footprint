@@ -76,7 +76,7 @@ export function EmissionsEditorConfig({
                         {emission.label}
                       </div>
                       <div className={"text-xs text-muted-foreground"}>
-                        {emission.value}kco2eq
+                        {emission.value}kg CO2eq
                       </div>
                     </div>
                     <div className={"flex shrink-0 items-center gap-2"}>

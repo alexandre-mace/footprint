@@ -14,6 +14,10 @@ import { Swords, Mail, Car, Smartphone, Zap, Beef, Train, Plane, Flame, MonitorS
 import { Versus, VersusRaw } from "@/types/versus";
 import versusData from "@/data/versus.json";
 
+export interface MainChartRef {
+  exportToPNG: () => void;
+}
+
 const chartConfig = {
   value: {
     label: "value",
@@ -21,11 +25,80 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-const MainChart = React.memo<{
+const MainChart = React.forwardRef<MainChartRef, {
   chartData: ChartData;
   onApplyVersus?: (versus: Versus) => void;
   onOpenVersusDialog?: () => void;
-}>(({ chartData, onApplyVersus, onOpenVersusDialog }) => {
+}>(({ chartData, onApplyVersus, onOpenVersusDialog }, ref) => {
+  const chartRef = React.useRef<HTMLDivElement>(null);
+
+  const exportToPNG = React.useCallback(() => {
+    const chartContainer = chartRef.current;
+    if (!chartContainer) return;
+    
+    const svgElement = chartContainer.querySelector('svg');
+    if (!svgElement) return;
+
+    // Créer un canvas pour l'export PNG
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Cloner le SVG pour éviter de modifier l'original
+    const svgClone = svgElement.cloneNode(true) as SVGElement;
+    
+    // Ajouter un style pour forcer une police sans-serif lisible
+    const defs = svgClone.querySelector('defs') || document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+    if (!svgClone.querySelector('defs')) {
+      svgClone.insertBefore(defs, svgClone.firstChild);
+    }
+    
+    const style = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+    style.textContent = `
+      text {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+        font-weight: 500;
+      }
+    `;
+    defs.appendChild(style);
+
+    const svgData = new XMLSerializer().serializeToString(svgClone);
+    const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(svgBlob);
+    
+    const img = new Image();
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      
+      // Fond blanc pour le PNG
+      ctx.fillStyle = 'white';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.drawImage(img, 0, 0);
+      
+      // Télécharger le PNG
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const downloadUrl = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = downloadUrl;
+          a.download = 'footprint-chart.png';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(downloadUrl);
+        }
+      }, 'image/png');
+      
+      URL.revokeObjectURL(url);
+    };
+    img.src = url;
+  }, []);
+
+  React.useImperativeHandle(ref, () => ({
+    exportToPNG
+  }), [exportToPNG]);
   // Fonction pour obtenir l'icône appropriée selon l'activité
   const getActivityIcon = (label: string) => {
     const lowerLabel = label.toLowerCase();
@@ -137,38 +210,51 @@ const MainChart = React.memo<{
   }
 
   return (
-    <ChartContainer config={chartConfig} className={"h-[50vh] w-full"}>
-      <BarChart
-        accessibilityLayer
-        data={chartData}
-        margin={{
-          top: 40,
-          bottom: 20
-        }}
-        barCategoryGap={2}
-      >
-        <CartesianGrid vertical={false} />
-        <XAxis
-          dataKey="label"
-          tickLine={false}
-          tickMargin={10}
-          axisLine={false}
-          tickFormatter={(value) => value}
-        />
-        <ChartTooltip
-          cursor={false}
-          content={<ChartTooltipContent hideLabel />}
-        />
-        <Bar dataKey="value" radius={8} barSize={32}>
-          <LabelList
-            position="top"
-            offset={12}
-            className="fill-foreground"
-            fontSize={12}
+    <div className="relative">
+      <ChartContainer config={chartConfig} className={"h-[50vh] w-full"} ref={chartRef}>
+        <BarChart
+          accessibilityLayer
+          data={chartData}
+          margin={{
+            top: 40,
+            bottom: 20
+          }}
+          barCategoryGap={2}
+        >
+          <CartesianGrid vertical={false} />
+          <XAxis
+            dataKey="label"
+            tickLine={false}
+            tickMargin={10}
+            axisLine={false}
+            tickFormatter={(value) => value}
           />
-        </Bar>
-      </BarChart>
-    </ChartContainer>
+          <ChartTooltip
+            cursor={false}
+            content={<ChartTooltipContent hideLabel formatter={(value) => [`${value} kg CO2eq`, '']} />}
+          />
+          <Bar dataKey="value" radius={8} barSize={32}>
+            <LabelList
+              position="top"
+              offset={12}
+              className="fill-foreground"
+              fontSize={12}
+            />
+          </Bar>
+          {/* Indicateur d'unité dans le SVG */}
+          <text
+            x="95%"
+            y="8%"
+            textAnchor="end"
+            className="fill-muted-foreground"
+            fontSize={12}
+            fontWeight={500}
+          >
+            kg CO2eq
+          </text>
+        </BarChart>
+      </ChartContainer>
+    </div>
   );
 });
 

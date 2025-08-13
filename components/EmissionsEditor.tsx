@@ -65,7 +65,7 @@ const EmissionItem = React.memo<{
           {emission.label}
         </div>
         <div className={"text-xs text-muted-foreground"}>
-          {emission.value} <span className={"text-[10px]"}>kco2eq</span>
+          {emission.value} <span className={"text-[10px]"}>kg CO2eq</span>
         </div>
       </div>
       <div className={"flex shrink-0 items-center gap-2"}>

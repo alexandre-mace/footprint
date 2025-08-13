@@ -2,18 +2,21 @@
 
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import EmissionsEditor from "@/components/EmissionsEditor";
-import MainChart from "@/components/MainChart";
+import MainChart, { MainChartRef } from "@/components/MainChart";
 import Loader from "@/components/Loader";
 import Link from "next/link";
 import { ChartData } from "@/types/chart";
 import { Toaster } from "@/components/ui/sonner";
 import { Versus } from "@/types/versus";
+import { Button } from "@/components/ui/button";
+import { Download } from "lucide-react";
 
 const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [chartData, setChartData] = useState<ChartData>([]);
   const applyVersusRef = useRef<((versus: Versus) => void) | null>(null);
   const openVersusDialogRef = useRef<(() => void) | null>(null);
+  const mainChartRef = useRef<MainChartRef>(null);
 
   useEffect(() => {
     setTimeout(() => {
@@ -45,6 +48,12 @@ const App = () => {
     }
   }, []);
 
+  const handleExportToPNG = useCallback(() => {
+    if (mainChartRef.current) {
+      mainChartRef.current.exportToPNG();
+    }
+  }, []);
+
   return (
     <>
       <div className={`${!isLoaded ? "max-h-screen overflow-hidden" : ""}`}>
@@ -66,19 +75,34 @@ const App = () => {
               <div className={"sticky top-4"}>
                 <div className={"text-center mb-4"}>Le comparateur</div>
                 <MainChart 
+                  ref={mainChartRef}
                   chartData={chartData}
                   onApplyVersus={handleApplyVersus}
                   onOpenVersusDialog={handleOpenVersusDialog}
                 />
-                <div className={"text-end text-xs text-muted-foreground mt-4"}>
-                  Source :{" "}
-                  <Link
-                    className={"underline"}
-                    href={"https://base-empreinte.ademe.fr"}
-                    target={"_blank"}
-                  >
-                    Base Carbone® Ademe
-                  </Link>
+                <div className={"flex gap-4 items-center justify-between mt-4"}>
+                    {chartData.length > 0 && (
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-7 text-xs px-2"
+                            onClick={handleExportToPNG}
+                            title="Exporter en PNG"
+                        >
+                            <Download className="h-3 w-3 mr-1" />
+                            Exporter
+                        </Button>
+                    )}
+                    <div className={"text-xs text-muted-foreground"}>
+                    Source :{" "}
+                    <Link
+                      className={"underline"}
+                      href={"https://base-empreinte.ademe.fr"}
+                      target={"_blank"}
+                    >
+                      Base Carbone® Ademe
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

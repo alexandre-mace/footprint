@@ -87,7 +87,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ emissions, className }
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
+            <DialogTitle className="flex items-center gap-2 font-medium">
               <Share2 className="h-5 w-5" />
               Partager votre configuration
             </DialogTitle>
