@@ -43,7 +43,7 @@
             },
             {
                 "label": "Une requête ChatGPT",
-                "value": 0.027,
+                "value": 0.0027,
                 "color": "rgb(255,255,255)",
                 "min": 0,
                 "max": 100000,
