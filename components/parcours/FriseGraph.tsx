@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Poste } from "@/lib/simulation";
+import { Poste, formatTonnes } from "@/lib/simulation";
 import {
   categoryColor,
   categoryLegendColor,
@@ -12,6 +12,7 @@ interface FriseGraphProps {
   postes: Poste[];
   total: number;
   referenceTotal: number;
+  parisTargetKg: number;
 }
 
 function splitName(name: string): { label: string; emoji: string } {
@@ -31,20 +32,22 @@ export default function FriseGraph({
   postes,
   total,
   referenceTotal,
+  parisTargetKg,
 }: FriseGraphProps) {
-  const barRef = useRef<HTMLDivElement>(null);
-  const [barWidth, setBarWidth] = useState(0);
+  const fillRef = useRef<HTMLDivElement>(null);
+  const [fillWidth, setFillWidth] = useState(0);
   const sorted = [...postes].sort((a, b) => b.size - a.size);
-  const widthPercent =
-    total >= referenceTotal
-      ? 100
-      : 20 + Math.floor(80 * (total / referenceTotal));
+  const scale = Math.max(total, referenceTotal);
+  const fillPercent = (total / scale) * 100;
+  const targetPercent = (parisTargetKg / scale) * 100;
+  const averagePercent = (referenceTotal / scale) * 100;
+  const aboveAverage = total > referenceTotal;
 
   useEffect(() => {
-    const element = barRef.current;
+    const element = fillRef.current;
     if (!element) return;
     const observer = new ResizeObserver((entries) => {
-      setBarWidth(entries[0]?.contentRect.width ?? 0);
+      setFillWidth(entries[0]?.contentRect.width ?? 0);
     });
     observer.observe(element);
     return () => observer.disconnect();
@@ -52,14 +55,15 @@ export default function FriseGraph({
 
   return (
     <div>
-      <div
-        className="ml-auto transition-all duration-500"
-        style={{ width: `${widthPercent}%` }}
-      >
-        <div ref={barRef} className="flex h-16 w-full overflow-hidden rounded-md md:h-20">
+      <div className="relative h-16 w-full overflow-hidden rounded-md bg-neutral-200/60 md:h-20">
+        <div
+          ref={fillRef}
+          className="flex h-full transition-all duration-500"
+          style={{ width: `${fillPercent}%` }}
+        >
           {sorted.map((poste) => {
             const share = poste.size / total;
-            const segmentPx = share * barWidth;
+            const segmentPx = share * fillWidth;
             const { label, emoji } = splitName(poste.name);
             const content =
               segmentPx >= FULL_LABEL_MIN_PX
@@ -82,20 +86,52 @@ export default function FriseGraph({
             );
           })}
         </div>
+        <div
+          className="absolute top-0 h-full w-0.5 bg-orange-500"
+          style={{ left: `${targetPercent}%` }}
+        />
+        {aboveAverage && (
+          <div
+            className="absolute top-0 h-full w-0.5 bg-neutral-500"
+            style={{ left: `${averagePercent}%` }}
+          />
+        )}
       </div>
-      <div className="mt-2 flex flex-wrap justify-end gap-x-3 gap-y-1">
-        {categoryOrder.map((category) => (
-          <span
-            key={category}
-            className="flex items-center gap-1 text-[11px] text-muted-foreground"
-          >
-            <span
-              className="inline-block h-2 w-2 rounded-sm"
-              style={{ backgroundColor: categoryLegendColor(category) }}
-            />
-            {category}
+      <div className="mt-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+          <span className="flex items-center gap-1">
+            <span className="inline-block h-2.5 w-0.5 bg-orange-500" />
+            objectif 2 t (accord de Paris)
           </span>
-        ))}
+          <span className="flex items-center gap-1">
+            {aboveAverage ? (
+              <>
+                <span className="inline-block h-2.5 w-0.5 bg-neutral-500" />
+                moyenne française ({formatTonnes(referenceTotal)} t)
+              </>
+            ) : (
+              <>
+                <span className="inline-block h-2 w-3 rounded-sm bg-neutral-200" />
+                le fond gris va jusqu&apos;à la moyenne française (
+                {formatTonnes(referenceTotal)} t)
+              </>
+            )}
+          </span>
+        </div>
+        <div className="flex flex-wrap gap-x-3 gap-y-1">
+          {categoryOrder.map((category) => (
+            <span
+              key={category}
+              className="flex items-center gap-1 text-[11px] text-muted-foreground"
+            >
+              <span
+                className="inline-block h-2 w-2 rounded-sm"
+                style={{ backgroundColor: categoryLegendColor(category) }}
+              />
+              {category}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );

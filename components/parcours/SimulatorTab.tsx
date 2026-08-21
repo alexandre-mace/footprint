@@ -112,12 +112,9 @@ export default function SimulatorTab({
       : "omnivore";
   const deltaVsAverage = total - FRENCH_AVERAGE_KG;
   const showDelta = Math.abs(deltaVsAverage) >= 50;
-  const scaleMax = Math.max(total, FRENCH_AVERAGE_KG);
-
   return (
     <div className="p-4">
-      <div className="mx-auto max-w-4xl rounded-xl border border-dashed border-black bg-white p-5 md:p-6">
-        <div className="flex flex-col items-center gap-5 md:flex-row md:gap-8">
+      <div className="flex flex-col items-center">
           <div className="shrink-0 text-center">
             <div className="text-sm text-muted-foreground">Ton empreinte</div>
             <div className="text-5xl font-semibold tracking-tight">
@@ -138,51 +135,9 @@ export default function SimulatorTab({
                 : "dans la moyenne française"}
             </div>
           </div>
-          <div className="w-full flex-1">
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-2">
-                <span className="w-16 shrink-0 text-right text-xs text-muted-foreground">
-                  Toi
-                </span>
-                <div className="relative h-4 flex-1 overflow-hidden rounded-full bg-neutral-100">
-                  <div
-                    className="h-4 rounded-full bg-black transition-all"
-                    style={{ width: `${(total / scaleMax) * 100}%` }}
-                  />
-                  <div
-                    className="absolute top-0 h-4 w-0.5 bg-orange-500"
-                    style={{ left: `${(PARIS_TARGET_KG / scaleMax) * 100}%` }}
-                  />
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="w-16 shrink-0 text-right text-xs text-muted-foreground">
-                  Moyenne
-                </span>
-                <div className="relative h-4 flex-1 overflow-hidden rounded-full bg-neutral-100">
-                  <div
-                    className="h-4 rounded-full bg-neutral-400 transition-all"
-                    style={{
-                      width: `${(FRENCH_AVERAGE_KG / scaleMax) * 100}%`,
-                    }}
-                  />
-                  <div
-                    className="absolute top-0 h-4 w-0.5 bg-orange-500"
-                    style={{ left: `${(PARIS_TARGET_KG / scaleMax) * 100}%` }}
-                  />
-                </div>
-              </div>
-              <div className="text-right text-xs text-muted-foreground">
-                <span className="mr-1 inline-block h-2 w-0.5 bg-orange-500 align-middle" />
-                objectif 2 t (accord de Paris)
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
 
-      <div className="mt-8 w-full md:px-6">
+      <div className="mt-6 w-full md:px-6">
           <div className="mb-3 flex justify-center gap-1">
             <button
               type="button"
@@ -214,6 +169,7 @@ export default function SimulatorTab({
               postes={postes}
               total={total}
               referenceTotal={FRENCH_AVERAGE_KG}
+              parisTargetKg={PARIS_TARGET_KG}
             />
           ) : (
             <TreemapGraph postes={postes} />
