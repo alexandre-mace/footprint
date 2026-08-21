@@ -1,16 +1,19 @@
 import computeData from "@/lib/simulation-compute";
 
+export const DEFAULT_CAR_KM = 12000;
+export const DEFAULT_MEAT_MEALS = 7;
+
 export interface SimulationState {
   vegan: boolean;
   vegetarian: boolean;
-  noCar: boolean;
+  carKm: number;
   noThrash: boolean;
   keeper: boolean;
   flat: boolean;
   noHousingFossile: boolean;
   secondHandClothes: boolean;
   publicDecarb: boolean;
-  meatReduction: number;
+  meatMealsPerWeek: number;
   longFlights: number;
   mediumFlights: number;
   localFood: boolean;
@@ -21,14 +24,14 @@ export interface SimulationState {
 export const defaultSimulationState: SimulationState = {
   vegan: false,
   vegetarian: false,
-  noCar: false,
+  carKm: DEFAULT_CAR_KM,
   noThrash: false,
   keeper: false,
   flat: false,
   noHousingFossile: false,
   secondHandClothes: false,
   publicDecarb: false,
-  meatReduction: 0,
+  meatMealsPerWeek: DEFAULT_MEAT_MEALS,
   longFlights: 0,
   mediumFlights: 0.5,
   localFood: false,
@@ -43,23 +46,35 @@ export interface Poste {
 }
 
 export function computePostes(s: SimulationState): Poste[] {
-  return computeData(
+  const postes = computeData(
     s.vegan,
     s.vegetarian,
-    s.noCar,
+    false,
     s.noThrash,
     s.keeper,
     s.flat,
     s.noHousingFossile,
     s.secondHandClothes,
     s.publicDecarb,
-    s.meatReduction,
+    0,
     s.longFlights,
     s.mediumFlights,
     s.localFood,
     s.shortShowers,
     s.stopYoutubeStreaming,
   );
+  return postes.map((poste) => {
+    if (poste.name.startsWith("Voiture")) {
+      return { ...poste, size: poste.size * (s.carKm / DEFAULT_CAR_KM) };
+    }
+    if (poste.name.startsWith("Viande") && !s.vegan && !s.vegetarian) {
+      return {
+        ...poste,
+        size: poste.size * (s.meatMealsPerWeek / DEFAULT_MEAT_MEALS),
+      };
+    }
+    return poste;
+  });
 }
 
 export function computeTotal(s: SimulationState): number {
@@ -104,22 +119,28 @@ export const climateActions: ClimateAction[] = [
     id: "vegetarian",
     label: "Devenir végétarien",
     emoji: "🥦",
-    apply: (s) => ({ ...s, vegetarian: true, meatReduction: 0 }),
+    apply: (s) => ({ ...s, vegetarian: true }),
   },
   {
     id: "less-meat",
-    label: "Diviser ma consommation de viande par 2",
+    label: "Passer à 2 repas de viande par semaine",
     emoji: "🥩",
     apply: (s) =>
       s.vegan || s.vegetarian
         ? s
-        : { ...s, meatReduction: Math.max(s.meatReduction, 2) },
+        : { ...s, meatMealsPerWeek: Math.min(s.meatMealsPerWeek, 2) },
   },
   {
     id: "no-car",
     label: "Me passer de voiture",
     emoji: "🚲",
-    apply: (s) => ({ ...s, noCar: true }),
+    apply: (s) => ({ ...s, carKm: 0 }),
+  },
+  {
+    id: "half-car",
+    label: "Diviser mes km en voiture par 2 (covoiturage, vélo)",
+    emoji: "🚴",
+    apply: (s) => ({ ...s, carKm: s.carKm / 2 }),
   },
   {
     id: "no-fossil-heating",

@@ -17,7 +17,7 @@ const tabs: { id: TabId; label: string }[] = [
   { id: "agir", label: "3 · Agir" },
 ];
 
-const STORAGE_KEY = "footprint-simulation";
+const STORAGE_KEY = "footprint-simulation-v2";
 
 export default function ParcoursTabs() {
   const [activeTab, setActiveTab] = useState<TabId>("comprendre");
