@@ -1,7 +1,7 @@
-import App from "@/components/App";
+import ParcoursTabs from "@/components/parcours/ParcoursTabs";
 
 export default function Home() {
   return (
-      <App />
+      <ParcoursTabs />
   );
 }
