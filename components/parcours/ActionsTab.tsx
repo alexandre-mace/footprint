@@ -116,9 +116,16 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
                     }`}
                   >
                     −{formatTonnes(action.deltaAverage)} t
-                    {!isPersonalized &&
-                      action.deltaAverage > 0 &&
-                      ` · ${Math.round((action.deltaAverage / averageTotal) * 100)} % de l'empreinte`}
+                    {!isPersonalized && action.deltaAverage > 0 && (
+                      <span className="hidden sm:inline">
+                        {" "}
+                        ·{" "}
+                        {Math.round(
+                          (action.deltaAverage / averageTotal) * 100,
+                        )}{" "}
+                        % de l&apos;empreinte
+                      </span>
+                    )}
                   </span>
                 </div>
                 {isPersonalized && (
@@ -132,9 +139,12 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
                           }}
                         />
                         <span className="text-[11px] font-semibold tabular-nums">
-                          −{formatTonnes(action.deltaMe)} t ·{" "}
-                          {Math.round((action.deltaMe / total) * 100)} % de ton
-                          empreinte
+                          −{formatTonnes(action.deltaMe)} t
+                          <span className="hidden sm:inline">
+                            {" "}
+                            · {Math.round((action.deltaMe / total) * 100)} % de
+                            ton empreinte
+                          </span>
                         </span>
                       </>
                     ) : (

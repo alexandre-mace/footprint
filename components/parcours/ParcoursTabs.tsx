@@ -37,10 +37,15 @@ export default function ParcoursTabs() {
     } catch {
       // ignore corrupted storage
     }
-    const hash = window.location.hash.replace("#", "");
-    if (isTabId(hash)) {
-      setActiveTab(hash);
-    }
+    const syncFromHash = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (isTabId(hash)) {
+        setActiveTab(hash);
+      }
+    };
+    syncFromHash();
+    window.addEventListener("hashchange", syncFromHash);
+    return () => window.removeEventListener("hashchange", syncFromHash);
   }, []);
 
   const goTo = (tab: TabId) => {
@@ -60,11 +65,17 @@ export default function ParcoursTabs() {
 
   return (
     <div>
-      <nav className="sticky top-0 z-20 flex justify-center gap-1.5 border-b bg-white/90 p-3 backdrop-blur sm:gap-2">
+      <nav
+        role="tablist"
+        aria-label="Étapes du parcours"
+        className="sticky top-0 z-20 flex justify-center gap-1.5 border-b bg-white/90 p-3 backdrop-blur sm:gap-2"
+      >
         {tabs.map((tab) => (
           <button
             key={tab.id}
             type="button"
+            role="tab"
+            aria-selected={activeTab === tab.id}
             onClick={() => goTo(tab.id)}
             className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-xs transition-colors sm:px-4 sm:text-sm ${
               activeTab === tab.id

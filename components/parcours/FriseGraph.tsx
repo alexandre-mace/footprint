@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { Poste } from "@/lib/simulation";
 import {
   categoryColor,
@@ -13,25 +14,41 @@ interface FriseGraphProps {
   referenceTotal: number;
 }
 
-function stripEmoji(name: string): string {
-  return name.replace(/\p{Extended_Pictographic}/gu, "").trim();
+function splitName(name: string): { label: string; emoji: string } {
+  const tokens = name.split(" ");
+  const last = tokens[tokens.length - 1];
+  const isEmoji = last !== undefined && !/[a-zA-Z0-9]/.test(last);
+  return {
+    label: isEmoji ? tokens.slice(0, -1).join(" ") : name,
+    emoji: isEmoji ? last : "",
+  };
 }
 
-function emojiOf(name: string): string {
-  const match = name.match(/\p{Extended_Pictographic}+/u);
-  return match ? match[0] : "";
-}
+const FULL_LABEL_MIN_PX = 90;
+const EMOJI_MIN_PX = 26;
 
 export default function FriseGraph({
   postes,
   total,
   referenceTotal,
 }: FriseGraphProps) {
+  const barRef = useRef<HTMLDivElement>(null);
+  const [barWidth, setBarWidth] = useState(0);
   const sorted = [...postes].sort((a, b) => b.size - a.size);
   const widthPercent =
     total >= referenceTotal
       ? 100
       : 20 + Math.floor(80 * (total / referenceTotal));
+
+  useEffect(() => {
+    const element = barRef.current;
+    if (!element) return;
+    const observer = new ResizeObserver((entries) => {
+      setBarWidth(entries[0]?.contentRect.width ?? 0);
+    });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div>
@@ -39,14 +56,16 @@ export default function FriseGraph({
         className="ml-auto transition-all duration-500"
         style={{ width: `${widthPercent}%` }}
       >
-        <div className="flex h-16 w-full overflow-hidden rounded-md md:h-20">
+        <div ref={barRef} className="flex h-16 w-full overflow-hidden rounded-md md:h-20">
           {sorted.map((poste) => {
             const share = poste.size / total;
-            const label =
-              share > 0.1
-                ? stripEmoji(poste.name)
-                : share > 0.04
-                  ? emojiOf(poste.name)
+            const segmentPx = share * barWidth;
+            const { label, emoji } = splitName(poste.name);
+            const content =
+              segmentPx >= FULL_LABEL_MIN_PX
+                ? label
+                : segmentPx >= EMOJI_MIN_PX
+                  ? emoji
                   : "";
             return (
               <div
@@ -58,7 +77,7 @@ export default function FriseGraph({
                   backgroundColor: categoryColor(poste.category, poste.size),
                 }}
               >
-                <span className="truncate px-1">{label}</span>
+                {content && <span className="truncate px-1">{content}</span>}
               </div>
             );
           })}

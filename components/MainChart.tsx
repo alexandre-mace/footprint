@@ -195,6 +195,17 @@ const MainChart = React.forwardRef<MainChartRef, {
             </Button>
           ))}
           <Button
+            variant={"outline"}
+            className={"h-auto border-dashed border-black py-2"}
+            onClick={() => {
+              window.location.hash = "situer";
+            }}
+          >
+            <div className="flex items-center justify-center gap-2 text-xs">
+              <span>👉 ...ou situe directement ton empreinte</span>
+            </div>
+          </Button>
+          <Button
           variant={"outline"}
           className={"py-2 h-auto"}
           onClick={() => onOpenVersusDialog?.()}
