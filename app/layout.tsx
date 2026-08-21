@@ -3,8 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Link from "next/link";
-import { Info } from "lucide-react";
 
 const mattone = localFont({
   src: [
@@ -54,22 +52,10 @@ export default function RootLayout({
         <section className={"container mx-auto max-w-3xl space-y-2 px-4"}>
           <h1 className={"mt-2 text-2xl md:mt-0 md:text-4xl"}>Footprint</h1>
           <div className={"max-w-3xl text-sm md:text-base"}>
-            Apprivoisez les{" "}
-            <span className={"text-project-main"}>ordres de grandeurs</span> des
-            émissions de gaz à effet de serre relatifs à nos activités
-            quotidiennes.
-          </div>
-          <div className={"max-w-3xl text-xs text-muted-foreground md:text-xs"}>
-            <Info className={"inline-block h-4 w-4 -translate-y-0.5"} /> Cet
-            outil s&#39;utilise comme un comparateur, il existe également des{" "}
-            <Link
-              href={"https://nosgestesclimat.fr"}
-              target={"_blank"}
-              className={"underline"}
-            >
-              calculateurs d&#39;empreinte carbone
-            </Link>
-            .
+            <span className={"text-project-main"}>Comprends</span> les ordres de
+            grandeurs des émissions de gaz à effet de serre,{" "}
+            <span className={"text-project-main"}>situe</span> ton empreinte et
+            sache par où <span className={"text-project-main"}>agir</span>.
           </div>
         </section>
         <main>

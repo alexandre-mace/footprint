@@ -18,6 +18,7 @@ import {
 interface SimulatorTabProps {
   state: SimulationState;
   onChange: (state: SimulationState) => void;
+  onNextStep: () => void;
 }
 
 interface ToggleRowProps {
@@ -82,7 +83,7 @@ function SliderRow({
 
 function GroupTitle({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mb-1 mt-6 text-xs font-semibold uppercase tracking-wide text-muted-foreground first:mt-0">
+    <div className="mb-1 mt-6 text-sm font-semibold text-muted-foreground first:mt-0 md:first:mt-0">
       {children}
     </div>
   );
@@ -94,7 +95,11 @@ const diets = [
   { id: "vegan", label: "Vegan" },
 ] as const;
 
-export default function SimulatorTab({ state, onChange }: SimulatorTabProps) {
+export default function SimulatorTab({
+  state,
+  onChange,
+  onNextStep,
+}: SimulatorTabProps) {
   const [view, setView] = useState<"frise" | "cubes">("frise");
   const postes = computePostes(state);
   const total = computeTotal(state);
@@ -106,152 +111,14 @@ export default function SimulatorTab({ state, onChange }: SimulatorTabProps) {
       ? "vegetarian"
       : "omnivore";
   const deltaVsAverage = total - FRENCH_AVERAGE_KG;
+  const showDelta = Math.abs(deltaVsAverage) >= 50;
   const scaleMax = Math.max(total, FRENCH_AVERAGE_KG);
 
   return (
-    <div className="mx-auto flex max-w-4xl flex-col-reverse gap-8 p-4 md:flex-row">
-      <div className="md:w-1/2">
-        <GroupTitle>Déplacements</GroupTitle>
-        <SliderRow
-          label="Voiture"
-          emoji="🚗"
-          value={state.carKm}
-          displayValue={`${state.carKm.toLocaleString("fr-FR")} km/an`}
-          min={0}
-          max={30000}
-          step={1000}
-          onValueChange={(carKm) => set({ carKm })}
-        />
-        <SliderRow
-          label="Vols moyen-courrier"
-          emoji="✈️"
-          value={state.mediumFlights}
-          displayValue={`${state.mediumFlights} / an`}
-          min={0}
-          max={6}
-          step={0.5}
-          onValueChange={(mediumFlights) => set({ mediumFlights })}
-        />
-        <SliderRow
-          label="Vols long-courrier"
-          emoji="🌏"
-          value={state.longFlights}
-          displayValue={`${state.longFlights} / an`}
-          min={0}
-          max={4}
-          step={0.5}
-          onValueChange={(longFlights) => set({ longFlights })}
-        />
-
-        <GroupTitle>Nourriture</GroupTitle>
-        <div className="flex gap-2 py-2">
-          {diets.map((d) => (
-            <button
-              key={d.id}
-              type="button"
-              onClick={() =>
-                set({
-                  vegan: d.id === "vegan",
-                  vegetarian: d.id === "vegetarian",
-                })
-              }
-              className={`rounded-full border px-3 py-1 text-sm transition-colors ${
-                diet === d.id
-                  ? "border-black bg-black text-white"
-                  : "border-input text-muted-foreground hover:bg-accent"
-              }`}
-            >
-              {d.label}
-            </button>
-          ))}
-        </div>
-        {diet === "omnivore" && (
-          <SliderRow
-            label="Repas avec de la viande"
-            emoji="🥩"
-            value={state.meatMealsPerWeek}
-            displayValue={`${state.meatMealsPerWeek} / semaine`}
-            min={0}
-            max={14}
-            step={1}
-            onValueChange={(meatMealsPerWeek) => set({ meatMealsPerWeek })}
-          />
-        )}
-        <ToggleRow
-          label="Je mange local"
-          emoji="🧑‍🌾"
-          checked={state.localFood}
-          onCheckedChange={(localFood) => set({ localFood })}
-        />
-
-        <GroupTitle>Logement</GroupTitle>
-        <ToggleRow
-          label="J'habite en appartement"
-          emoji="🏢"
-          checked={state.flat}
-          onCheckedChange={(flat) => set({ flat })}
-        />
-        <ToggleRow
-          label="Je me chauffe sans énergie fossile (PAC, électrique...)"
-          emoji="🔥"
-          checked={state.noHousingFossile}
-          onCheckedChange={(noHousingFossile) => set({ noHousingFossile })}
-        />
-        <ToggleRow
-          label="Je prends des douches courtes"
-          emoji="🚿"
-          checked={state.shortShowers}
-          onCheckedChange={(shortShowers) => set({ shortShowers })}
-        />
-
-        <GroupTitle>Consommation</GroupTitle>
-        <ToggleRow
-          label="Je garde mes objets longtemps"
-          emoji="🛋️"
-          checked={state.keeper}
-          onCheckedChange={(keeper) => set({ keeper })}
-        />
-        <ToggleRow
-          label="Mes vêtements sont de seconde main"
-          emoji="🧢"
-          checked={state.secondHandClothes}
-          onCheckedChange={(secondHandClothes) => set({ secondHandClothes })}
-        />
-        <ToggleRow
-          label="Mode de vie zéro déchet"
-          emoji="🗑️"
-          checked={state.noThrash}
-          onCheckedChange={(noThrash) => set({ noThrash })}
-        />
-        <ToggleRow
-          label="Une heure de streaming en moins par jour"
-          emoji="📺"
-          checked={state.stopYoutubeStreaming}
-          onCheckedChange={(stopYoutubeStreaming) =>
-            set({ stopYoutubeStreaming })
-          }
-        />
-
-        <GroupTitle>Société</GroupTitle>
-        <ToggleRow
-          label="Des services publics décarbonés"
-          emoji="🏛️"
-          checked={state.publicDecarb}
-          onCheckedChange={(publicDecarb) => set({ publicDecarb })}
-        />
-
-        <button
-          type="button"
-          onClick={() => onChange(defaultSimulationState)}
-          className="mt-6 text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground"
-        >
-          Réinitialiser la simulation
-        </button>
-      </div>
-
-      <div className="md:w-1/2">
-        <div className="sticky top-16 rounded-xl border border-dashed border-black bg-white p-6">
-          <div className="text-center">
+    <div className="mx-auto max-w-4xl p-4">
+      <div className="rounded-xl border border-dashed border-black bg-white p-5 md:p-6">
+        <div className="flex flex-col items-center gap-5 md:flex-row md:gap-8">
+          <div className="shrink-0 text-center">
             <div className="text-sm text-muted-foreground">Ton empreinte</div>
             <div className="text-5xl font-semibold tracking-tight">
               {formatTonnes(total)} t
@@ -259,89 +126,253 @@ export default function SimulatorTab({ state, onChange }: SimulatorTabProps) {
             <div className="text-sm text-muted-foreground">CO₂e par an</div>
             <div
               className={`mt-1 text-sm font-medium ${
-                deltaVsAverage <= 0 ? "text-green-700" : "text-orange-600"
+                showDelta
+                  ? deltaVsAverage <= 0
+                    ? "text-green-700"
+                    : "text-orange-600"
+                  : "text-muted-foreground"
               }`}
             >
-              {deltaVsAverage <= 0 ? "−" : "+"}
-              {formatTonnes(Math.abs(deltaVsAverage))} t vs moyenne française
+              {showDelta
+                ? `${deltaVsAverage <= 0 ? "−" : "+"}${formatTonnes(Math.abs(deltaVsAverage))} t vs moyenne française`
+                : "dans la moyenne française"}
             </div>
           </div>
-
-          <div className="mt-6 flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <span className="w-16 shrink-0 text-right text-xs text-muted-foreground">
-                Toi
-              </span>
-              <div className="relative h-4 flex-1 overflow-hidden rounded-full bg-neutral-100">
-                <div
-                  className="h-4 rounded-full bg-black transition-all"
-                  style={{ width: `${(total / scaleMax) * 100}%` }}
-                />
-                <div
-                  className="absolute top-0 h-4 w-0.5 bg-orange-500"
-                  style={{ left: `${(PARIS_TARGET_KG / scaleMax) * 100}%` }}
-                />
+          <div className="w-full flex-1">
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <span className="w-16 shrink-0 text-right text-xs text-muted-foreground">
+                  Toi
+                </span>
+                <div className="relative h-4 flex-1 overflow-hidden rounded-full bg-neutral-100">
+                  <div
+                    className="h-4 rounded-full bg-black transition-all"
+                    style={{ width: `${(total / scaleMax) * 100}%` }}
+                  />
+                  <div
+                    className="absolute top-0 h-4 w-0.5 bg-orange-500"
+                    style={{ left: `${(PARIS_TARGET_KG / scaleMax) * 100}%` }}
+                  />
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-16 shrink-0 text-right text-xs text-muted-foreground">
+                  Moyenne
+                </span>
+                <div className="relative h-4 flex-1 overflow-hidden rounded-full bg-neutral-100">
+                  <div
+                    className="h-4 rounded-full bg-neutral-400 transition-all"
+                    style={{
+                      width: `${(FRENCH_AVERAGE_KG / scaleMax) * 100}%`,
+                    }}
+                  />
+                  <div
+                    className="absolute top-0 h-4 w-0.5 bg-orange-500"
+                    style={{ left: `${(PARIS_TARGET_KG / scaleMax) * 100}%` }}
+                  />
+                </div>
+              </div>
+              <div className="text-right text-xs text-muted-foreground">
+                <span className="mr-1 inline-block h-2 w-0.5 bg-orange-500 align-middle" />
+                objectif 2 t (accord de Paris)
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="w-16 shrink-0 text-right text-xs text-muted-foreground">
-                Moyenne
-              </span>
-              <div className="relative h-4 flex-1 overflow-hidden rounded-full bg-neutral-100">
-                <div
-                  className="h-4 rounded-full bg-neutral-400 transition-all"
-                  style={{ width: `${(FRENCH_AVERAGE_KG / scaleMax) * 100}%` }}
-                />
-                <div
-                  className="absolute top-0 h-4 w-0.5 bg-orange-500"
-                  style={{ left: `${(PARIS_TARGET_KG / scaleMax) * 100}%` }}
-                />
-              </div>
-            </div>
-            <div className="text-right text-xs text-muted-foreground">
-              <span className="mr-1 inline-block h-2 w-0.5 bg-orange-500 align-middle" />
-              objectif 2 t (accord de Paris)
-            </div>
-          </div>
-
-          <div className="mt-6 border-t border-dashed pt-4">
-            <div className="mb-3 flex justify-center gap-1">
-              <button
-                type="button"
-                aria-label="Vue frise"
-                onClick={() => setView("frise")}
-                className={`rounded-md border px-2.5 py-1 text-xs transition-colors ${
-                  view === "frise"
-                    ? "border-black bg-black text-white"
-                    : "border-input text-muted-foreground hover:bg-accent"
-                }`}
-              >
-                ▬ frise
-              </button>
-              <button
-                type="button"
-                aria-label="Vue cubes"
-                onClick={() => setView("cubes")}
-                className={`rounded-md border px-2.5 py-1 text-xs transition-colors ${
-                  view === "cubes"
-                    ? "border-black bg-black text-white"
-                    : "border-input text-muted-foreground hover:bg-accent"
-                }`}
-              >
-                ▦ cubes
-              </button>
-            </div>
-            {view === "frise" ? (
-              <FriseGraph
-                postes={postes}
-                total={total}
-                referenceTotal={FRENCH_AVERAGE_KG}
-              />
-            ) : (
-              <TreemapGraph postes={postes} />
-            )}
           </div>
         </div>
+
+        <div className="mt-5 border-t border-dashed pt-4">
+          <div className="mb-3 flex justify-center gap-1">
+            <button
+              type="button"
+              aria-label="Vue frise"
+              onClick={() => setView("frise")}
+              className={`rounded-md border px-2.5 py-1 text-xs transition-colors ${
+                view === "frise"
+                  ? "border-black bg-black text-white"
+                  : "border-input text-muted-foreground hover:bg-accent"
+              }`}
+            >
+              ▬ frise
+            </button>
+            <button
+              type="button"
+              aria-label="Vue cubes"
+              onClick={() => setView("cubes")}
+              className={`rounded-md border px-2.5 py-1 text-xs transition-colors ${
+                view === "cubes"
+                  ? "border-black bg-black text-white"
+                  : "border-input text-muted-foreground hover:bg-accent"
+              }`}
+            >
+              ▦ cubes
+            </button>
+          </div>
+          {view === "frise" ? (
+            <FriseGraph
+              postes={postes}
+              total={total}
+              referenceTotal={FRENCH_AVERAGE_KG}
+            />
+          ) : (
+            <TreemapGraph postes={postes} />
+          )}
+        </div>
+      </div>
+
+      <div className="mt-8 grid gap-x-12 md:grid-cols-2">
+        <div>
+          <GroupTitle>Déplacements</GroupTitle>
+          <SliderRow
+            label="Voiture"
+            emoji="🚗"
+            value={state.carKm}
+            displayValue={`${state.carKm.toLocaleString("fr-FR")} km/an`}
+            min={0}
+            max={30000}
+            step={1000}
+            onValueChange={(carKm) => set({ carKm })}
+          />
+          <SliderRow
+            label="Vols moyen-courrier"
+            emoji="✈️"
+            value={state.mediumFlights}
+            displayValue={`${state.mediumFlights} / an`}
+            min={0}
+            max={6}
+            step={0.5}
+            onValueChange={(mediumFlights) => set({ mediumFlights })}
+          />
+          <SliderRow
+            label="Vols long-courrier"
+            emoji="🌏"
+            value={state.longFlights}
+            displayValue={`${state.longFlights} / an`}
+            min={0}
+            max={4}
+            step={0.5}
+            onValueChange={(longFlights) => set({ longFlights })}
+          />
+
+          <GroupTitle>Nourriture</GroupTitle>
+          <div className="flex gap-2 py-2">
+            {diets.map((d) => (
+              <button
+                key={d.id}
+                type="button"
+                onClick={() =>
+                  set({
+                    vegan: d.id === "vegan",
+                    vegetarian: d.id === "vegetarian",
+                  })
+                }
+                className={`rounded-full border px-3 py-1 text-sm transition-colors ${
+                  diet === d.id
+                    ? "border-black bg-black text-white"
+                    : "border-input text-muted-foreground hover:bg-accent"
+                }`}
+              >
+                {d.label}
+              </button>
+            ))}
+          </div>
+          <div className="min-h-[62px]">
+            {diet === "omnivore" && (
+              <SliderRow
+                label="Repas avec de la viande"
+                emoji="🥩"
+                value={state.meatMealsPerWeek}
+                displayValue={`${state.meatMealsPerWeek} / semaine`}
+                min={0}
+                max={14}
+                step={1}
+                onValueChange={(meatMealsPerWeek) => set({ meatMealsPerWeek })}
+              />
+            )}
+          </div>
+          <ToggleRow
+            label="Je mange local"
+            emoji="🧑‍🌾"
+            checked={state.localFood}
+            onCheckedChange={(localFood) => set({ localFood })}
+          />
+        </div>
+
+        <div>
+          <GroupTitle>Logement</GroupTitle>
+          <ToggleRow
+            label="J'habite en appartement"
+            emoji="🏢"
+            checked={state.flat}
+            onCheckedChange={(flat) => set({ flat })}
+          />
+          <ToggleRow
+            label="Je me chauffe sans énergie fossile (PAC, électrique...)"
+            emoji="🔥"
+            checked={state.noHousingFossile}
+            onCheckedChange={(noHousingFossile) => set({ noHousingFossile })}
+          />
+          <ToggleRow
+            label="Je prends des douches courtes"
+            emoji="🚿"
+            checked={state.shortShowers}
+            onCheckedChange={(shortShowers) => set({ shortShowers })}
+          />
+
+          <GroupTitle>Consommation</GroupTitle>
+          <ToggleRow
+            label="Je garde mes objets longtemps"
+            emoji="🛋️"
+            checked={state.keeper}
+            onCheckedChange={(keeper) => set({ keeper })}
+          />
+          <ToggleRow
+            label="Mes vêtements sont de seconde main"
+            emoji="🧢"
+            checked={state.secondHandClothes}
+            onCheckedChange={(secondHandClothes) =>
+              set({ secondHandClothes })
+            }
+          />
+          <ToggleRow
+            label="Mode de vie zéro déchet"
+            emoji="🗑️"
+            checked={state.noThrash}
+            onCheckedChange={(noThrash) => set({ noThrash })}
+          />
+          <ToggleRow
+            label="Une heure de streaming en moins par jour"
+            emoji="📺"
+            checked={state.stopYoutubeStreaming}
+            onCheckedChange={(stopYoutubeStreaming) =>
+              set({ stopYoutubeStreaming })
+            }
+          />
+
+          <GroupTitle>Société</GroupTitle>
+          <ToggleRow
+            label="Des services publics décarbonés"
+            emoji="🏛️"
+            checked={state.publicDecarb}
+            onCheckedChange={(publicDecarb) => set({ publicDecarb })}
+          />
+        </div>
+      </div>
+
+      <div className="mt-8 flex items-center justify-between">
+        <button
+          type="button"
+          onClick={() => onChange(defaultSimulationState)}
+          className="text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground"
+        >
+          Réinitialiser la simulation
+        </button>
+        <button
+          type="button"
+          onClick={onNextStep}
+          className="rounded-full border border-black bg-black px-5 py-2 text-sm text-white transition-transform hover:-translate-y-0.5"
+        >
+          Étape suivante : Agir →
+        </button>
       </div>
     </div>
   );

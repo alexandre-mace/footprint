@@ -17,6 +17,9 @@ const tabs: { id: TabId; label: string }[] = [
   { id: "agir", label: "3 · Agir" },
 ];
 
+const isTabId = (value: string): value is TabId =>
+  tabs.some((tab) => tab.id === value);
+
 const STORAGE_KEY = "footprint-simulation-v2";
 
 export default function ParcoursTabs() {
@@ -34,7 +37,17 @@ export default function ParcoursTabs() {
     } catch {
       // ignore corrupted storage
     }
+    const hash = window.location.hash.replace("#", "");
+    if (isTabId(hash)) {
+      setActiveTab(hash);
+    }
   }, []);
+
+  const goTo = (tab: TabId) => {
+    setActiveTab(tab);
+    window.history.replaceState(null, "", `#${tab}`);
+    window.scrollTo({ top: 0 });
+  };
 
   const handleSimulationChange = (state: SimulationState) => {
     setSimulation(state);
@@ -47,13 +60,13 @@ export default function ParcoursTabs() {
 
   return (
     <div>
-      <nav className="sticky top-0 z-20 flex justify-center gap-2 border-b bg-white/90 p-3 backdrop-blur">
+      <nav className="sticky top-0 z-20 flex justify-center gap-1.5 border-b bg-white/90 p-3 backdrop-blur sm:gap-2">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             type="button"
-            onClick={() => setActiveTab(tab.id)}
-            className={`rounded-full border px-4 py-1.5 text-sm transition-colors ${
+            onClick={() => goTo(tab.id)}
+            className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-xs transition-colors sm:px-4 sm:text-sm ${
               activeTab === tab.id
                 ? "border-black bg-black text-white"
                 : "border-input text-muted-foreground hover:bg-accent"
@@ -63,11 +76,30 @@ export default function ParcoursTabs() {
           </button>
         ))}
       </nav>
-      {activeTab === "comprendre" && <App />}
-      {activeTab === "situer" && (
-        <SimulatorTab state={simulation} onChange={handleSimulationChange} />
+      {activeTab === "comprendre" && (
+        <>
+          <App />
+          <div className="mb-10 mt-2 flex justify-center">
+            <button
+              type="button"
+              onClick={() => goTo("situer")}
+              className="rounded-full border border-black bg-black px-5 py-2 text-sm text-white transition-transform hover:-translate-y-0.5"
+            >
+              Étape suivante : Me situer →
+            </button>
+          </div>
+        </>
       )}
-      {activeTab === "agir" && <ActionsTab state={simulation} />}
+      {activeTab === "situer" && (
+        <SimulatorTab
+          state={simulation}
+          onChange={handleSimulationChange}
+          onNextStep={() => goTo("agir")}
+        />
+      )}
+      {activeTab === "agir" && (
+        <ActionsTab state={simulation} onGoToSimulator={() => goTo("situer")} />
+      )}
     </div>
   );
 }

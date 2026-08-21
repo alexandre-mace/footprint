@@ -13,6 +13,15 @@ interface FriseGraphProps {
   referenceTotal: number;
 }
 
+function stripEmoji(name: string): string {
+  return name.replace(/\p{Extended_Pictographic}/gu, "").trim();
+}
+
+function emojiOf(name: string): string {
+  const match = name.match(/\p{Extended_Pictographic}+/u);
+  return match ? match[0] : "";
+}
+
 export default function FriseGraph({
   postes,
   total,
@@ -30,24 +39,26 @@ export default function FriseGraph({
         className="ml-auto transition-all duration-500"
         style={{ width: `${widthPercent}%` }}
       >
-        <div className="flex h-14 w-full overflow-hidden rounded-md">
+        <div className="flex h-16 w-full overflow-hidden rounded-md md:h-20">
           {sorted.map((poste) => {
             const share = poste.size / total;
+            const label =
+              share > 0.1
+                ? stripEmoji(poste.name)
+                : share > 0.04
+                  ? emojiOf(poste.name)
+                  : "";
             return (
               <div
                 key={poste.name}
                 title={`${poste.name} — ${Math.round(poste.size)} kgCO₂eq`}
-                className="flex h-full items-center justify-center overflow-hidden whitespace-nowrap text-[10px] font-medium text-white transition-all duration-500"
+                className="flex h-full items-center justify-center overflow-hidden text-[11px] font-medium text-white transition-all duration-500"
                 style={{
                   width: `${share * 100}%`,
                   backgroundColor: categoryColor(poste.category, poste.size),
                 }}
               >
-                {share > 0.09
-                  ? poste.name
-                  : share > 0.045
-                    ? poste.name.split(" ").at(-1)
-                    : ""}
+                <span className="truncate px-1">{label}</span>
               </div>
             );
           })}

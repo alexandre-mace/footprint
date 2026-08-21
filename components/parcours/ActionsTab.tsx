@@ -11,9 +11,12 @@ import {
 
 interface ActionsTabProps {
   state: SimulationState;
+  onGoToSimulator: () => void;
 }
 
-export default function ActionsTab({ state }: ActionsTabProps) {
+export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) {
+  const isPersonalized =
+    JSON.stringify(state) !== JSON.stringify(defaultSimulationState);
   const total = computeTotal(state);
   const averageTotal = computeTotal(defaultSimulationState);
 
@@ -22,9 +25,14 @@ export default function ActionsTab({ state }: ActionsTabProps) {
       ...action,
       deltaAverage: Math.max(
         0,
-        Math.round(averageTotal - computeTotal(action.apply(defaultSimulationState))),
+        Math.round(
+          averageTotal - computeTotal(action.apply(defaultSimulationState)),
+        ),
       ),
-      deltaMe: Math.max(0, Math.round(total - computeTotal(action.apply(state)))),
+      deltaMe: Math.max(
+        0,
+        Math.round(total - computeTotal(action.apply(state))),
+      ),
     }))
     .sort((a, b) => b.deltaAverage - a.deltaAverage);
 
@@ -43,20 +51,44 @@ export default function ActionsTab({ state }: ActionsTabProps) {
     <div className="mx-auto max-w-2xl p-4">
       <p className="text-lg font-medium">Le top des actions</p>
       <p className="mb-4 text-sm text-muted-foreground">
-        Classées par économie pour un Français moyen, comparées à ce
-        qu&apos;elles changeraient <em>pour toi</em> (d&apos;après
-        l&apos;étape 2, empreinte actuelle : {formatTonnes(total)} t).
+        {isPersonalized ? (
+          <>
+            Classées par économie pour un Français moyen, comparées à ce
+            qu&apos;elles changeraient <em>pour toi</em> (empreinte actuelle :{" "}
+            {formatTonnes(total)} t).
+          </>
+        ) : (
+          <>
+            Ce qu&apos;elles économisent pour un Français moyen (
+            {formatTonnes(averageTotal)} t/an).
+          </>
+        )}
       </p>
-      <div className="mb-4 flex justify-end gap-4 text-xs text-muted-foreground">
-        <span className="flex items-center gap-1.5">
-          <span className="inline-block h-2.5 w-2.5 rounded-sm bg-neutral-300" />
-          Français moyen
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="inline-block h-2.5 w-2.5 rounded-sm bg-black" />
-          Toi
-        </span>
-      </div>
+
+      {!isPersonalized && (
+        <button
+          type="button"
+          onClick={onGoToSimulator}
+          className="mb-4 w-full rounded-xl border border-dashed border-black bg-white p-3 text-left text-sm transition-transform hover:-translate-y-0.5"
+        >
+          👉 Passe par l&apos;étape 2 pour voir ce que chaque action changerait{" "}
+          <em>pour toi</em>.
+        </button>
+      )}
+
+      {isPersonalized && (
+        <div className="mb-4 flex justify-end gap-4 text-xs text-muted-foreground">
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block h-2.5 w-2.5 rounded-sm bg-neutral-300" />
+            Français moyen
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block h-2.5 w-2.5 rounded-sm bg-black" />
+            Toi
+          </span>
+        </div>
+      )}
+
       <div className="flex flex-col gap-2">
         {rows.map((action) => (
           <div
@@ -69,39 +101,74 @@ export default function ActionsTab({ state }: ActionsTabProps) {
               <div className="mt-1.5 flex flex-col gap-1">
                 <div className="flex items-center gap-2">
                   <div
-                    className="h-2.5 rounded-sm bg-neutral-300 transition-all"
+                    className={`h-2.5 rounded-sm transition-all ${
+                      isPersonalized ? "bg-neutral-300" : "bg-black"
+                    }`}
                     style={{
                       width: `${(action.deltaAverage / maxDelta) * 160}px`,
                     }}
                   />
-                  <span className="text-[11px] tabular-nums text-muted-foreground">
+                  <span
+                    className={`text-[11px] tabular-nums ${
+                      isPersonalized
+                        ? "text-muted-foreground"
+                        : "font-semibold"
+                    }`}
+                  >
                     −{formatTonnes(action.deltaAverage)} t
+                    {!isPersonalized &&
+                      action.deltaAverage > 0 &&
+                      ` · ${Math.round((action.deltaAverage / averageTotal) * 100)} % de l'empreinte`}
                   </span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <div
-                    className="h-2.5 rounded-sm bg-black transition-all"
-                    style={{ width: `${(action.deltaMe / maxDelta) * 160}px` }}
-                  />
-                  <span className="text-[11px] font-semibold tabular-nums">
-                    −{formatTonnes(action.deltaMe)} t
-                  </span>
-                </div>
+                {isPersonalized && (
+                  <div className="flex items-center gap-2">
+                    {action.deltaMe > 0 ? (
+                      <>
+                        <div
+                          className="h-2.5 rounded-sm bg-black transition-all"
+                          style={{
+                            width: `${(action.deltaMe / maxDelta) * 160}px`,
+                          }}
+                        />
+                        <span className="text-[11px] font-semibold tabular-nums">
+                          −{formatTonnes(action.deltaMe)} t ·{" "}
+                          {Math.round((action.deltaMe / total) * 100)} % de ton
+                          empreinte
+                        </span>
+                      </>
+                    ) : (
+                      <span className="text-[11px] text-muted-foreground">
+                        ✓ déjà le cas pour toi
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
-            <span className="w-12 shrink-0 text-right text-xs text-muted-foreground">
-              {action.deltaMe > 0
-                ? `${Math.round((action.deltaMe / total) * 100)} %`
-                : "fait ✓"}
-            </span>
           </div>
         ))}
       </div>
 
       <div className="mt-6 rounded-xl border border-dashed border-black bg-white p-4 text-sm">
-        En cumulant tout ce qui dépend de toi :{" "}
-        <span className="font-semibold">{formatTonnes(totalIfAll)} t</span> au
-        lieu de <span className="font-semibold">{formatTonnes(total)} t</span>.
+        {isPersonalized ? (
+          <>
+            En cumulant tout ce qui dépend de toi :{" "}
+            <span className="font-semibold">{formatTonnes(totalIfAll)} t</span>{" "}
+            au lieu de <span className="font-semibold">{formatTonnes(total)} t</span>.
+          </>
+        ) : (
+          <>
+            En cumulant toutes ces actions, un Français moyen passerait de{" "}
+            <span className="font-semibold">{formatTonnes(averageTotal)} t</span>{" "}
+            à{" "}
+            <span className="font-semibold">
+              {formatTonnes(computeTotal(climateActions.reduce((s, a) => a.apply(s), defaultSimulationState)))}{" "}
+              t
+            </span>
+            .
+          </>
+        )}
         {totalIfAll > PARIS_TARGET_KG && (
           <span className="text-muted-foreground">
             {" "}
@@ -112,9 +179,8 @@ export default function ActionsTab({ state }: ActionsTabProps) {
       </div>
 
       <p className="mt-4 text-xs text-muted-foreground">
-        Une action à 0 t pour toi signifie que tu la fais déjà (ou
-        qu&apos;elle ne s&apos;applique pas à ton profil). L&apos;avion reste
-        énorme en général : un seul aller-retour long-courrier pèse environ 2 t.
+        L&apos;avion reste énorme en général : un seul aller-retour
+        long-courrier pèse environ 2 t.
       </p>
     </div>
   );
