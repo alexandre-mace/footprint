@@ -1,10 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
+import FriseGraph from "@/components/parcours/FriseGraph";
+import TreemapGraph from "@/components/parcours/TreemapGraph";
 import {
   SimulationState,
-  computeByCategory,
+  computePostes,
   computeTotal,
   defaultSimulationState,
   formatTonnes,
@@ -92,9 +95,9 @@ const diets = [
 ] as const;
 
 export default function SimulatorTab({ state, onChange }: SimulatorTabProps) {
+  const [view, setView] = useState<"frise" | "cubes">("frise");
+  const postes = computePostes(state);
   const total = computeTotal(state);
-  const byCategory = computeByCategory(state);
-  const maxCategory = Math.max(...byCategory.map((c) => c.size));
   const set = (patch: Partial<SimulationState>) =>
     onChange({ ...state, ...patch });
   const diet = state.vegan
@@ -301,21 +304,42 @@ export default function SimulatorTab({ state, onChange }: SimulatorTabProps) {
             </div>
           </div>
 
-          <div className="mt-6 flex flex-col gap-2 border-t border-dashed pt-4">
-            {byCategory.map((c) => (
-              <div key={c.category} className="flex items-center gap-2">
-                <span className="w-36 shrink-0 text-xs text-muted-foreground">
-                  {c.category}
-                </span>
-                <div
-                  className="h-3 rounded-sm bg-black/80 transition-all"
-                  style={{ width: `${(c.size / maxCategory) * 100 * 0.55}%` }}
-                />
-                <span className="text-xs tabular-nums text-muted-foreground">
-                  {formatTonnes(c.size)} t
-                </span>
-              </div>
-            ))}
+          <div className="mt-6 border-t border-dashed pt-4">
+            <div className="mb-3 flex justify-center gap-1">
+              <button
+                type="button"
+                aria-label="Vue frise"
+                onClick={() => setView("frise")}
+                className={`rounded-md border px-2.5 py-1 text-xs transition-colors ${
+                  view === "frise"
+                    ? "border-black bg-black text-white"
+                    : "border-input text-muted-foreground hover:bg-accent"
+                }`}
+              >
+                ▬ frise
+              </button>
+              <button
+                type="button"
+                aria-label="Vue cubes"
+                onClick={() => setView("cubes")}
+                className={`rounded-md border px-2.5 py-1 text-xs transition-colors ${
+                  view === "cubes"
+                    ? "border-black bg-black text-white"
+                    : "border-input text-muted-foreground hover:bg-accent"
+                }`}
+              >
+                ▦ cubes
+              </button>
+            </div>
+            {view === "frise" ? (
+              <FriseGraph
+                postes={postes}
+                total={total}
+                referenceTotal={FRENCH_AVERAGE_KG}
+              />
+            ) : (
+              <TreemapGraph postes={postes} />
+            )}
           </div>
         </div>
       </div>
