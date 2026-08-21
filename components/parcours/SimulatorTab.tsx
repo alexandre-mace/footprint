@@ -115,8 +115,8 @@ export default function SimulatorTab({
   const scaleMax = Math.max(total, FRENCH_AVERAGE_KG);
 
   return (
-    <div className="mx-auto max-w-4xl p-4">
-      <div className="rounded-xl border border-dashed border-black bg-white p-5 md:p-6">
+    <div className="p-4">
+      <div className="mx-auto max-w-4xl rounded-xl border border-dashed border-black bg-white p-5 md:p-6">
         <div className="flex flex-col items-center gap-5 md:flex-row md:gap-8">
           <div className="shrink-0 text-center">
             <div className="text-sm text-muted-foreground">Ton empreinte</div>
@@ -180,7 +180,9 @@ export default function SimulatorTab({
           </div>
         </div>
 
-        <div className="mt-5 border-t border-dashed pt-4">
+      </div>
+
+      <div className="mt-8 w-full md:px-6">
           <div className="mb-3 flex justify-center gap-1">
             <button
               type="button"
@@ -216,10 +218,9 @@ export default function SimulatorTab({
           ) : (
             <TreemapGraph postes={postes} />
           )}
-        </div>
       </div>
 
-      <div className="mt-8 grid gap-x-12 md:grid-cols-2">
+      <div className="mx-auto mt-10 grid max-w-4xl gap-x-12 md:grid-cols-2">
         <div>
           <GroupTitle>Déplacements</GroupTitle>
           <SliderRow
@@ -358,7 +359,7 @@ export default function SimulatorTab({
         </div>
       </div>
 
-      <div className="mt-8 flex items-center justify-between">
+      <div className="mx-auto mt-8 flex max-w-4xl items-center justify-between">
         <button
           type="button"
           onClick={() => onChange(defaultSimulationState)}
