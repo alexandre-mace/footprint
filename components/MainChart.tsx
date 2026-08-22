@@ -155,7 +155,7 @@ const MainChart = React.forwardRef<MainChartRef, {
       <div className="md:h-[50vh] w-full flex flex-col items-center justify-center space-y-4">
         <div className="text-center mb-4">
           <p className="text-sm text-muted-foreground mb-2">Aucune donnée à afficher</p>
-          <p className="text-xs text-muted-foreground">Essayez ces comparaisons :</p>
+          <p className="text-xs text-muted-foreground">Essaie ces comparaisons :</p>
         </div>
         <div className="flex flex-col gap-3 w-full max-w-2xl">
           {versus.slice(0, 3).map(versusItem => (

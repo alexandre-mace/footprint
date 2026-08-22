@@ -186,7 +186,7 @@ export default function SimulatorTab({
             label="Vols moyen-courrier"
             emoji="✈️"
             value={state.mediumFlights}
-            displayValue={`${state.mediumFlights} / an`}
+            displayValue={`${state.mediumFlights.toLocaleString("fr-FR")} / an`}
             min={0}
             max={6}
             step={0.5}
@@ -196,7 +196,7 @@ export default function SimulatorTab({
             label="Vols long-courrier"
             emoji="🌏"
             value={state.longFlights}
-            displayValue={`${state.longFlights} / an`}
+            displayValue={`${state.longFlights.toLocaleString("fr-FR")} / an`}
             min={0}
             max={4}
             step={0.5}
@@ -312,7 +312,10 @@ export default function SimulatorTab({
       <div className="mx-auto mt-8 flex max-w-4xl items-center justify-between">
         <button
           type="button"
-          onClick={() => onChange(defaultSimulationState)}
+          onClick={() => {
+            lastToastedTotal.current = computeTotal(defaultSimulationState);
+            onChange(defaultSimulationState);
+          }}
           className="text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground"
         >
           Réinitialiser la simulation
