@@ -79,7 +79,9 @@ const EmissionItem = React.memo<{
         </AnimatedButton>
         <AnimatedInput
           value={emission.quantity}
-          className={"h-7 w-16 text-center text-xs"}
+          className={
+            "h-7 w-20 px-1 text-center text-xs [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+          }
           onChange={handleInputChange}
           validator={validator}
           type="number"
