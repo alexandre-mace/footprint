@@ -1,75 +1,70 @@
 "use client";
 
 import React, { useRef, useEffect } from 'react';
-import { Button, ButtonProps } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useAnimations } from '@/hooks/useAnimations';
 
-interface AnimatedButtonProps extends ButtonProps {
+type AnimatedButtonProps = React.ComponentProps<typeof Button> & {
   animationType?: 'ripple' | 'bounce' | 'pulse' | 'none';
   successAnimation?: boolean;
   errorAnimation?: boolean;
-}
+};
 
-export const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
-  ({ 
-    className, 
-    animationType = 'ripple', 
-    successAnimation = false,
-    errorAnimation = false,
-    children, 
-    onClick,
-    ...props 
-  }, ref) => {
-    const buttonRef = useRef<HTMLButtonElement>(null);
-    const { bounceElement, shakeElement, pulseSuccess } = useAnimations();
+export const AnimatedButton = ({
+  className,
+  animationType = 'ripple',
+  successAnimation = false,
+  errorAnimation = false,
+  children,
+  onPress,
+  ...props
+}: AnimatedButtonProps) => {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const { bounceElement, shakeElement, pulseSuccess } = useAnimations();
 
-    // Gérer les animations de succès/erreur
-    useEffect(() => {
-      if (successAnimation) {
-        bounceElement(buttonRef.current);
-      }
-    }, [successAnimation, bounceElement]);
+  // Gérer les animations de succès/erreur
+  useEffect(() => {
+    if (successAnimation) {
+      bounceElement(buttonRef.current);
+    }
+  }, [successAnimation, bounceElement]);
 
-    useEffect(() => {
-      if (errorAnimation) {
-        shakeElement(buttonRef.current);
-      }
-    }, [errorAnimation, shakeElement]);
+  useEffect(() => {
+    if (errorAnimation) {
+      shakeElement(buttonRef.current);
+    }
+  }, [errorAnimation, shakeElement]);
 
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (animationType === 'pulse') {
-        pulseSuccess(buttonRef.current);
-      }
-      
-      if (onClick) {
-        onClick(e);
-      }
-    };
+  const handlePress: typeof onPress = (e) => {
+    if (animationType === 'pulse') {
+      pulseSuccess(buttonRef.current);
+    }
+    onPress?.(e);
+  };
 
-    const getAnimationClasses = () => {
-      const classes: string[] = [];
-      
-      if (animationType === 'ripple') {
-        classes.push('ripple-effect');
-      }
-      
-      classes.push('focus-ring');
-      
-      return classes.join(' ');
-    };
+  const getAnimationClasses = () => {
+    const classes: string[] = [];
 
-    return (
-      <Button
-        ref={ref || buttonRef}
-        className={cn(getAnimationClasses(), className)}
-        onClick={handleClick}
-        {...props}
-      >
-        {children}
-      </Button>
-    );
-  }
-);
+    if (animationType === 'ripple') {
+      classes.push('ripple-effect');
+    }
+
+    classes.push('focus-ring');
+
+    return classes.join(' ');
+  };
+
+  return (
+    <Button
+      ref={buttonRef}
+      className={cn(getAnimationClasses(), className)}
+      onPress={handlePress}
+      {...props}
+    >
+      {children}
+    </Button>
+  );
+};
 
 AnimatedButton.displayName = 'AnimatedButton';

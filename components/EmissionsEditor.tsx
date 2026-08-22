@@ -70,10 +70,10 @@ const EmissionItem = React.memo<{
         <AnimatedButton
           variant="outline"
           size="icon"
-          onClick={handleDecrement}
+          onPress={handleDecrement}
           animationType="ripple"
           className={"h-7 w-7 shrink-0"}
-          disabled={emission.quantity <= emission.min}
+          isDisabled={emission.quantity <= emission.min}
         >
           <Minus className={"h-3 w-3"} />
         </AnimatedButton>
@@ -91,10 +91,10 @@ const EmissionItem = React.memo<{
         <AnimatedButton
           variant="outline"
           size="icon"
-          onClick={handleIncrement}
+          onPress={handleIncrement}
           animationType="ripple"
           className={"h-7 w-7 shrink-0"}
-          disabled={emission.quantity >= emission.max}
+          isDisabled={emission.quantity >= emission.max}
         >
           <Plus className={"h-3 w-3"} />
         </AnimatedButton>

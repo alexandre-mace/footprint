@@ -1,8 +1,8 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
@@ -11,16 +11,14 @@ import {
 
 export default function MethodologyDialog() {
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <button
-          type="button"
-          className="text-[11px] text-muted-foreground underline underline-offset-2 hover:text-foreground"
-        >
-          Comment c&apos;est calculé ?
-        </button>
-      </DialogTrigger>
-      <DialogContent>
+    <DialogTrigger>
+      <Button
+        variant="link"
+        className="h-auto p-0 text-[11px] font-normal text-muted-foreground underline underline-offset-2 hover:text-foreground"
+      >
+        Comment c&apos;est calculé ?
+      </Button>
+      <Dialog>
         <DialogHeader>
           <DialogTitle>Comment c&apos;est calculé ?</DialogTitle>
           <DialogDescription>
@@ -69,7 +67,7 @@ export default function MethodologyDialog() {
             .
           </p>
         </div>
-      </DialogContent>
-    </Dialog>
+      </Dialog>
+    </DialogTrigger>
   );
 }

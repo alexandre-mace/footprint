@@ -31,13 +31,20 @@ interface ToggleRowProps {
 
 function ToggleRow({ label, emoji, checked, onCheckedChange }: ToggleRowProps) {
   return (
-    <label className="flex cursor-pointer items-center justify-between gap-4 py-2">
-      <span className="text-sm">
+    <div className="flex items-center justify-between gap-4 py-2">
+      <span
+        className="cursor-pointer text-sm select-none"
+        onClick={() => onCheckedChange(!checked)}
+      >
         <span className="mr-1.5">{emoji}</span>
         {label}
       </span>
-      <Switch checked={checked} onCheckedChange={onCheckedChange} />
-    </label>
+      <Switch
+        aria-label={label}
+        isSelected={checked}
+        onChange={onCheckedChange}
+      />
+    </div>
   );
 }
 
@@ -72,11 +79,12 @@ function SliderRow({
         <span className="font-semibold tabular-nums">{displayValue}</span>
       </div>
       <Slider
-        value={[value]}
-        min={min}
-        max={max}
+        aria-label={label}
+        value={value}
+        minValue={min}
+        maxValue={max}
         step={step}
-        onValueChange={([v]) => onValueChange(v)}
+        onChange={(v) => onValueChange(Array.isArray(v) ? v[0] : v)}
       />
     </div>
   );

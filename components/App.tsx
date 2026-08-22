@@ -87,8 +87,7 @@ const App = () => {
                             variant="outline"
                             size="sm"
                             className="h-7 text-xs px-2"
-                            onClick={handleExportToPNG}
-                            title="Exporter en PNG"
+                            onPress={handleExportToPNG}
                         >
                             <Download className="h-3 w-3 mr-1" />
                             Exporter

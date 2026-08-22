@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
-  DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
@@ -93,14 +92,12 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({ onApplyVersus, s
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline">
-          <Swords className="h-4 w-4 mr-2" />
-          Versus
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="max-w-4xl max-h-[80vh] overflow-hidden">
+    <DialogTrigger isOpen={isOpen} onOpenChange={setIsOpen}>
+      <Button variant="outline">
+        <Swords className="h-4 w-4 mr-2" />
+        Versus
+      </Button>
+      <Dialog className="max-w-4xl max-h-[80vh] overflow-hidden sm:max-w-4xl">
         <DialogHeader>
           <DialogTitle className="font-normal">Versus prédéfinis</DialogTitle>
           <DialogDescription>
@@ -145,20 +142,18 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({ onApplyVersus, s
                   )}
                 </div>
                 
-                <Button size="sm" variant="ghost" className="shrink-0 h-7 px-2">
+                <span className="flex h-7 shrink-0 items-center px-2">
                   <Swords className="h-3 w-3" />
-                </Button>
+                </span>
               </div>
             </Card>
           ))}
         </div>
 
         <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outline">Fermer</Button>
-          </DialogClose>
+          <DialogClose>Fermer</DialogClose>
         </DialogFooter>
-      </DialogContent>
-    </Dialog>
+      </Dialog>
+    </DialogTrigger>
   );
 };

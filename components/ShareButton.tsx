@@ -5,12 +5,10 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
-  DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Share2, Copy, Check, ExternalLink } from "lucide-react";
@@ -73,19 +71,18 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ emissions, className }
 
   return (
     <>
-      <Button 
-        onClick={handleGenerateUrl}
-        variant="outline" 
+      <Button
+        onPress={handleGenerateUrl}
+        variant="outline"
         size="icon"
-        disabled={!hasData}
+        isDisabled={!hasData}
         className={className}
-        title={hasData ? "Partager cette configuration" : "Ajoutez des émissions pour partager"}
+        aria-label={hasData ? "Partager cette configuration" : "Ajoutez des émissions pour partager"}
       >
         <Share2 className="h-4 w-4" />
       </Button>
 
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="sm:max-w-md">
+      <Dialog isOpen={isOpen} onOpenChange={setIsOpen} className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 font-medium">
               <Share2 className="h-5 w-5" />
@@ -106,7 +103,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ emissions, className }
                   className="flex-1"
                 />
                 <Button
-                  onClick={handleCopyUrl}
+                  onPress={handleCopyUrl}
                   variant="outline"
                   size="icon"
                   className="shrink-0"
@@ -122,7 +119,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ emissions, className }
 
             <div className="flex gap-2 pt-2">
               <Button
-                onClick={handleCopyUrl}
+                onPress={handleCopyUrl}
                 variant="default"
                 className="flex-1"
               >
@@ -132,7 +129,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ emissions, className }
 
               {typeof navigator !== 'undefined' && 'share' in navigator && (
                 <Button
-                  onClick={handleShareNative}
+                  onPress={handleShareNative}
                   variant="outline"
                   className="flex-1"
                 >
@@ -153,11 +150,8 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ emissions, className }
           </div>
 
           <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Fermer</Button>
-            </DialogClose>
+            <DialogClose>Fermer</DialogClose>
           </DialogFooter>
-        </DialogContent>
       </Dialog>
     </>
   );
