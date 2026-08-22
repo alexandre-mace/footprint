@@ -44,15 +44,8 @@ export const AnimatedButton = ({
   };
 
   const getAnimationClasses = () => {
-    const classes: string[] = [];
-
-    if (animationType === 'ripple') {
-      classes.push('ripple-effect');
-    }
-
-    classes.push('focus-ring');
-
-    return classes.join(' ');
+    // le focus visible est géré par le Button du registre
+    return animationType === 'ripple' ? 'ripple-effect' : '';
   };
 
   return (

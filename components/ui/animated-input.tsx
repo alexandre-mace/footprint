@@ -61,7 +61,7 @@ export const AnimatedInput = ({
     <Input
       ref={inputRef}
       className={cn(
-        'focus-ring transition-all duration-200',
+        'transition-all duration-200',
         isInvalid && 'border-destructive focus:ring-destructive',
         className
       )}
