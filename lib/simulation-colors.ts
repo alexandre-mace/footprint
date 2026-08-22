@@ -17,4 +17,9 @@ export function categoryLegendColor(category: string): string {
   return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
 }
 
+export function categoryFadedColor(category: string): string {
+  const rgb = categoryRgb[category] ?? [128, 128, 128];
+  return `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.25)`;
+}
+
 export const categoryOrder = Object.keys(categoryRgb);

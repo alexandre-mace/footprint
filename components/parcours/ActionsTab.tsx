@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "sonner";
 import {
   SimulationState,
   climateActions,
@@ -8,6 +9,10 @@ import {
   formatTonnes,
   PARIS_TARGET_KG,
 } from "@/lib/simulation";
+import {
+  categoryFadedColor,
+  categoryLegendColor,
+} from "@/lib/simulation-colors";
 
 interface ActionsTabProps {
   state: SimulationState;
@@ -80,11 +85,11 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
       {isPersonalized && (
         <div className="mb-4 flex justify-end gap-4 text-xs text-muted-foreground">
           <span className="flex items-center gap-1.5">
-            <span className="inline-block h-2.5 w-2.5 rounded-sm bg-neutral-300" />
+            <span className="inline-block h-2.5 w-2.5 rounded-sm bg-neutral-400/30" />
             Français moyen
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="inline-block h-2.5 w-2.5 rounded-sm bg-black" />
+            <span className="inline-block h-2.5 w-2.5 rounded-sm bg-neutral-700" />
             Toi
           </span>
         </div>
@@ -109,18 +114,21 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
               <div className="mt-1.5 flex flex-col gap-1">
                 <div className="flex items-center gap-2">
                   <div
-                    className={`h-2.5 rounded-sm transition-all ${
-                      isPersonalized ? "bg-neutral-300" : "bg-black"
-                    }`}
+                    className="h-2.5 rounded-sm transition-all"
                     style={{
                       width: `${(action.deltaAverage / maxDelta) * 160}px`,
+                      backgroundColor: isPersonalized
+                        ? categoryFadedColor(action.category)
+                        : categoryLegendColor(action.category),
                     }}
                   />
                   <span
                     className={`text-[11px] tabular-nums ${
                       isPersonalized
                         ? "text-muted-foreground"
-                        : "font-semibold"
+                        : action.deltaAverage > 0
+                          ? "font-semibold text-green-700"
+                          : "font-semibold"
                     }`}
                   >
                     −{formatTonnes(action.deltaAverage)} t
@@ -141,12 +149,15 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
                     {action.deltaMe > 0 ? (
                       <>
                         <div
-                          className="h-2.5 rounded-sm bg-black transition-all"
+                          className="h-2.5 rounded-sm transition-all"
                           style={{
                             width: `${(action.deltaMe / maxDelta) * 160}px`,
+                            backgroundColor: categoryLegendColor(
+                              action.category,
+                            ),
                           }}
                         />
-                        <span className="text-[11px] font-semibold tabular-nums">
+                        <span className="text-[11px] font-semibold text-green-700 tabular-nums">
                           −{formatTonnes(action.deltaMe)} t
                           <span className="hidden sm:inline">
                             {" "}
@@ -200,6 +211,40 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
         L&apos;avion reste énorme en général : un seul aller-retour
         long-courrier pèse environ 2 t.
       </p>
+
+      <div className="mt-8 flex flex-col gap-2 sm:flex-row">
+        <button
+          type="button"
+          onClick={async () => {
+            const url = window.location.origin;
+            if (navigator.share) {
+              try {
+                await navigator.share({
+                  title: "Footprint",
+                  text: "Comprends ce qui pèse vraiment dans une empreinte carbone",
+                  url,
+                });
+              } catch {
+                // partage annulé
+              }
+            } else {
+              await navigator.clipboard.writeText(url);
+              toast.success("Lien copié, à diffuser sans modération");
+            }
+          }}
+          className="rounded-lg border border-black bg-black px-5 py-2 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
+        >
+          Partager l&apos;outil autour de toi
+        </button>
+        <a
+          href="https://climatelab.fr"
+          target="_blank"
+          rel="noreferrer"
+          className="rounded-lg border border-input bg-white px-5 py-2 text-center text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+        >
+          Découvrir les autres outils du ClimateLab →
+        </a>
+      </div>
     </div>
   );
 }

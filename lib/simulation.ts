@@ -105,24 +105,29 @@ export interface ClimateAction {
   id: string;
   label: string;
   emoji: string;
+  /** Catégorie de la frise (étape 2) sur laquelle l'action agit */
+  category: string;
   apply: (s: SimulationState) => SimulationState;
 }
 
 export const climateActions: ClimateAction[] = [
   {
     id: "no-flights",
+    category: "Déplacements",
     label: "Remplacer l'avion par le train",
     emoji: "🚄",
     apply: (s) => ({ ...s, longFlights: 0, mediumFlights: 0 }),
   },
   {
     id: "vegetarian",
+    category: "Nourriture",
     label: "Devenir végétarien",
     emoji: "🥦",
     apply: (s) => ({ ...s, vegetarian: true }),
   },
   {
     id: "less-meat",
+    category: "Nourriture",
     label: "Passer à 2 repas de viande par semaine",
     emoji: "🥩",
     apply: (s) =>
@@ -132,54 +137,63 @@ export const climateActions: ClimateAction[] = [
   },
   {
     id: "no-car",
+    category: "Déplacements",
     label: "Me passer de voiture",
     emoji: "🚲",
     apply: (s) => ({ ...s, carKm: 0 }),
   },
   {
     id: "half-car",
+    category: "Déplacements",
     label: "Diviser mes km en voiture par 2 (covoiturage, vélo)",
     emoji: "🚴",
     apply: (s) => ({ ...s, carKm: s.carKm / 2 }),
   },
   {
     id: "no-fossil-heating",
+    category: "Logement",
     label: "Me chauffer sans énergie fossile",
     emoji: "🔥",
     apply: (s) => ({ ...s, noHousingFossile: true }),
   },
   {
     id: "local-food",
+    category: "Nourriture",
     label: "Manger local",
     emoji: "🧑‍🌾",
     apply: (s) => ({ ...s, localFood: true }),
   },
   {
     id: "keeper",
+    category: "Achats",
     label: "Garder mes objets deux fois plus longtemps",
     emoji: "🛋️",
     apply: (s) => ({ ...s, keeper: true }),
   },
   {
     id: "second-hand",
+    category: "Achats",
     label: "Acheter mes vêtements d'occasion",
     emoji: "🧢",
     apply: (s) => ({ ...s, secondHandClothes: true }),
   },
   {
     id: "zero-waste",
+    category: "Achats",
     label: "Passer au zéro déchet",
     emoji: "🗑️",
     apply: (s) => ({ ...s, noThrash: true }),
   },
   {
     id: "short-showers",
+    category: "Logement",
     label: "Prendre des douches courtes",
     emoji: "🚿",
     apply: (s) => ({ ...s, shortShowers: true }),
   },
   {
     id: "less-streaming",
+    category: "Logement",
     label: "Une heure de streaming en moins par jour",
     emoji: "📺",
     apply: (s) => ({ ...s, stopYoutubeStreaming: true }),

@@ -1,7 +1,14 @@
 "use client";
 
 import React from "react";
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  LabelList,
+  XAxis,
+  YAxis,
+} from "recharts";
 import {
   ChartConfig,
   ChartContainer,
@@ -27,6 +34,26 @@ const chartConfig = {
 
 const TICK_LINE_MAX_CHARS = 14;
 
+const formatKg = (value: unknown) =>
+  Number(value ?? 0).toLocaleString("fr-FR", { maximumFractionDigits: 1 });
+
+function wrapWords(text: string, maxChars: number): string[] {
+  const words = text.split(" ");
+  const lines: string[] = [];
+  let current = "";
+  words.forEach((word) => {
+    const candidate = current ? `${current} ${word}` : word;
+    if (candidate.length > maxChars && current) {
+      lines.push(current);
+      current = word;
+    } else {
+      current = candidate;
+    }
+  });
+  if (current) lines.push(current);
+  return lines;
+}
+
 const MultilineTick = ({
   x,
   y,
@@ -36,19 +63,7 @@ const MultilineTick = ({
   y?: number;
   payload?: { value?: string | number };
 }) => {
-  const words = String(payload?.value ?? "").split(" ");
-  const lines: string[] = [];
-  let current = "";
-  words.forEach((word) => {
-    const candidate = current ? `${current} ${word}` : word;
-    if (candidate.length > TICK_LINE_MAX_CHARS && current) {
-      lines.push(current);
-      current = word;
-    } else {
-      current = candidate;
-    }
-  });
-  if (current) lines.push(current);
+  const lines = wrapWords(String(payload?.value ?? ""), TICK_LINE_MAX_CHARS);
   return (
     <text
       x={x}
@@ -65,12 +80,49 @@ const MultilineTick = ({
   );
 };
 
+const MobileYTick = ({
+  x,
+  y,
+  payload,
+}: {
+  x?: number;
+  y?: number;
+  payload?: { value?: string | number };
+}) => {
+  const lines = wrapWords(String(payload?.value ?? ""), 16).slice(0, 3);
+  const firstDy = 4 - (lines.length - 1) * 5.5;
+  return (
+    <text
+      x={x}
+      y={y}
+      textAnchor="end"
+      className="fill-muted-foreground"
+      fontSize={10}
+    >
+      {lines.map((line, index) => (
+        <tspan key={index} x={x} dy={index === 0 ? firstDy : 11}>
+          {line}
+        </tspan>
+      ))}
+    </text>
+  );
+};
+
 const MainChart = React.forwardRef<MainChartRef, {
   chartData: ChartData;
   onApplyVersus?: (versus: Versus) => void;
   onOpenVersusDialog?: () => void;
 }>(({ chartData, onApplyVersus, onOpenVersusDialog }, ref) => {
   const chartRef = React.useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const query = window.matchMedia("(max-width: 639px)");
+    const sync = () => setIsMobile(query.matches);
+    sync();
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
+  }, []);
 
   const exportToPNG = React.useCallback(() => {
     const chartContainer = chartRef.current;
@@ -260,6 +312,63 @@ const MainChart = React.forwardRef<MainChartRef, {
     );
   }
 
+  const tooltipFormatter = (value: unknown) => [
+    `${formatKg(Number(value))} kg CO2eq`,
+    "",
+  ];
+
+  if (isMobile) {
+    // Barres horizontales sur mobile : chaque activité garde toute la
+    // largeur pour son label, quel que soit le nombre de barres
+    return (
+      <div className="relative">
+        <ChartContainer
+          config={chartConfig}
+          className="w-full"
+          style={{ height: chartData.length * 52 + 24 }}
+          ref={chartRef}
+        >
+          <BarChart
+            accessibilityLayer
+            data={chartData}
+            layout="vertical"
+            margin={{ top: 8, right: 44, bottom: 8, left: 0 }}
+          >
+            <CartesianGrid horizontal={false} />
+            <XAxis type="number" hide />
+            <YAxis
+              dataKey="label"
+              type="category"
+              width={118}
+              tickLine={false}
+              axisLine={false}
+              interval={0}
+              tick={<MobileYTick />}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={
+                <ChartTooltipContent hideLabel formatter={tooltipFormatter} />
+              }
+            />
+            <Bar dataKey="value" radius={6} barSize={18}>
+              <LabelList
+                position="right"
+                offset={6}
+                className="fill-foreground"
+                fontSize={11}
+                formatter={formatKg}
+              />
+            </Bar>
+          </BarChart>
+        </ChartContainer>
+        <div className="mt-1 text-right text-[11px] text-muted-foreground">
+          kg CO2eq
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="relative">
       <ChartContainer config={chartConfig} className={"h-[50vh] w-full"} ref={chartRef}>
@@ -282,7 +391,9 @@ const MainChart = React.forwardRef<MainChartRef, {
           />
           <ChartTooltip
             cursor={false}
-            content={<ChartTooltipContent hideLabel formatter={(value) => [`${value} kg CO2eq`, '']} />}
+            content={
+              <ChartTooltipContent hideLabel formatter={tooltipFormatter} />
+            }
           />
           <Bar dataKey="value" radius={8} barSize={32}>
             <LabelList
@@ -290,6 +401,7 @@ const MainChart = React.forwardRef<MainChartRef, {
               offset={12}
               className="fill-foreground"
               fontSize={12}
+              formatter={formatKg}
             />
           </Bar>
           {/* Indicateur d'unité dans le SVG */}
