@@ -11,11 +11,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Card } from "@/components/ui/card";
 import { Swords, Mail, Car, Smartphone, Zap, Beef, Train, Plane, Flame, MonitorSpeaker } from "lucide-react";
 import { Versus, VersusRaw } from "@/types/versus";
 import versusData from "@/data/versus.json";
-import { toast } from "sonner";
 
 interface PresetSelectorProps {
   onApplyVersus: (versus: Versus) => void;
@@ -86,8 +84,8 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({ onApplyVersus, s
   }));
 
   const handleApplyVersus = (versusItem: Versus) => {
+    // le toast de confirmation est émis par useEmissions.applyVersus
     onApplyVersus(versusItem);
-    toast.success(`Versus "${versusItem.name}" appliqué`);
     setIsOpen(false);
   };
 
@@ -108,9 +106,10 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({ onApplyVersus, s
         {/* Liste des versus */}
         <div className="grid gap-3 max-h-96 overflow-y-auto">
           {versus.map(versusItem => (
-            <Card 
-              key={versusItem.id} 
-              className="p-3 cursor-pointer hover:bg-muted/30 transition-colors"
+            <button
+              type="button"
+              key={versusItem.id}
+              className="rounded-lg border bg-card p-3 text-left transition-colors hover:bg-muted/50"
               onClick={() => handleApplyVersus(versusItem)}
             >
               <div className="flex items-center justify-between gap-2">
@@ -146,7 +145,7 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({ onApplyVersus, s
                   <Swords className="h-3 w-3" />
                 </span>
               </div>
-            </Card>
+            </button>
           ))}
         </div>
 
