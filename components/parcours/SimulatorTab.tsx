@@ -371,7 +371,7 @@ export default function SimulatorTab({
         />
       </div>
 
-      <div className="mx-auto mt-8 flex max-w-4xl items-center justify-between">
+      <div className="mx-auto mt-8 flex max-w-4xl flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <Button
           variant="outline"
           size="lg"
