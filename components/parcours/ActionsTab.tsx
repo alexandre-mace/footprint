@@ -9,10 +9,6 @@ import {
   formatTonnes,
   PARIS_TARGET_KG,
 } from "@/lib/simulation";
-import {
-  categoryFadedColor,
-  categoryLegendColor,
-} from "@/lib/simulation-colors";
 
 interface ActionsTabProps {
   state: SimulationState;
@@ -85,11 +81,11 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
       {isPersonalized && (
         <div className="mb-4 flex justify-end gap-4 text-xs text-muted-foreground">
           <span className="flex items-center gap-1.5">
-            <span className="inline-block h-2.5 w-2.5 rounded-sm bg-neutral-400/30" />
+            <span className="inline-block h-2.5 w-2.5 rounded-sm bg-neutral-300" />
             Français moyen
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="inline-block h-2.5 w-2.5 rounded-sm bg-neutral-700" />
+            <span className="inline-block h-2.5 w-2.5 rounded-sm bg-green-600" />
             Toi
           </span>
         </div>
@@ -114,12 +110,11 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
               <div className="mt-1.5 flex flex-col gap-1">
                 <div className="flex items-center gap-2">
                   <div
-                    className="h-2.5 rounded-sm transition-all"
+                    className={`h-2.5 rounded-sm transition-all ${
+                      isPersonalized ? "bg-neutral-300" : "bg-green-600"
+                    }`}
                     style={{
                       width: `${(action.deltaAverage / maxDelta) * 160}px`,
-                      backgroundColor: isPersonalized
-                        ? categoryFadedColor(action.category)
-                        : categoryLegendColor(action.category),
                     }}
                   />
                   <span
@@ -147,12 +142,9 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
                     {action.deltaMe > 0 ? (
                       <>
                         <div
-                          className="h-2.5 rounded-sm transition-all"
+                          className="h-2.5 rounded-sm bg-green-600 transition-all"
                           style={{
                             width: `${(action.deltaMe / maxDelta) * 160}px`,
-                            backgroundColor: categoryLegendColor(
-                              action.category,
-                            ),
                           }}
                         />
                         <span className="text-[11px] font-semibold tabular-nums">
