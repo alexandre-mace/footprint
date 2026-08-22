@@ -209,7 +209,7 @@ const EmissionsEditor: React.FC<EmissionsEditorProps> = ({ onChartDataChange, se
       {filteredEmissions.length === 0 && (
         <div className="text-center py-8 text-muted-foreground">
           <p className="text-lg font-medium mb-2">Aucune émission trouvée</p>
-          <p className="text-sm">Essayez de modifier vos critères de recherche ou filtres.</p>
+          <p className="text-sm">Essaie de modifier ta recherche.</p>
         </div>
       )}
     </div>
