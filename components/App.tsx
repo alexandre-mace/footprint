@@ -10,17 +10,25 @@ import { Versus } from "@/types/versus";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 
+// Le loader de bienvenue ne doit jouer qu'une fois par chargement de page,
+// pas à chaque retour sur l'onglet 1 (App est démonté/remonté par les onglets)
+let hasShownWelcomeLoader = false;
+
 const App = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(hasShownWelcomeLoader);
   const [chartData, setChartData] = useState<ChartData>([]);
   const applyVersusRef = useRef<((versus: Versus) => void) | null>(null);
   const openVersusDialogRef = useRef<(() => void) | null>(null);
   const mainChartRef = useRef<MainChartRef>(null);
 
   useEffect(() => {
-    setTimeout(() => {
+    if (isLoaded) return;
+    const timer = setTimeout(() => {
+      hasShownWelcomeLoader = true;
       setIsLoaded(true);
     }, 250);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChartDataChange = useCallback((data: ChartData) => {
