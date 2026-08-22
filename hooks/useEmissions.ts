@@ -10,8 +10,18 @@ import { Preset } from "@/types/preset";
 import { Versus } from "@/types/versus";
 import { parseShareUrl, ShareData } from "@/lib/urlSharing";
 
+// Comparaison chargée par défaut : les activités qui cristallisent les débats
+const DEFAULT_DEBATE_QUANTITIES: Record<string, number> = {
+  "transport-avion-1km": 1000,
+  "alimentation-repas-avec-du-boeuf": 10,
+  "transport-voiture-1km": 100,
+  "alimentation-repas-v-g-tarien": 10,
+  "transport-tgv-1km": 1000,
+  "numérique-une-requ-te-chatgpt": 1000,
+};
+
 export const useEmissions = () => {
-  
+
   const initializeEmissions = useCallback((): Category[] => {
     try {
       // D'abord ajouter les IDs, puis valider
@@ -38,8 +48,16 @@ export const useEmissions = () => {
         toast.success("Configuration importée depuis le lien partagé");
         return updatedEmissions;
       }
-      
-      return validatedData;
+
+      // Sans lien partagé, précharger la comparaison par défaut
+      return validatedData.map(category => ({
+        ...category,
+        emissions: category.emissions.map(emission => {
+          const defaultQuantity = DEFAULT_DEBATE_QUANTITIES[emission.id];
+          if (defaultQuantity === undefined) return emission;
+          return { ...emission, quantity: defaultQuantity, isVisible: true };
+        })
+      }));
     } catch (error) {
       console.error("Erreur d'initialisation:", error);
       toast.error("Erreur lors du chargement des données");

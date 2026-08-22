@@ -25,6 +25,46 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
+const TICK_LINE_MAX_CHARS = 14;
+
+const MultilineTick = ({
+  x,
+  y,
+  payload,
+}: {
+  x?: number;
+  y?: number;
+  payload?: { value?: string | number };
+}) => {
+  const words = String(payload?.value ?? "").split(" ");
+  const lines: string[] = [];
+  let current = "";
+  words.forEach((word) => {
+    const candidate = current ? `${current} ${word}` : word;
+    if (candidate.length > TICK_LINE_MAX_CHARS && current) {
+      lines.push(current);
+      current = word;
+    } else {
+      current = candidate;
+    }
+  });
+  if (current) lines.push(current);
+  return (
+    <text
+      x={x}
+      y={y}
+      textAnchor="middle"
+      className="fill-muted-foreground text-[9px] sm:text-[11px]"
+    >
+      {lines.map((line, index) => (
+        <tspan key={index} x={x} dy={index === 0 ? 12 : 13}>
+          {line}
+        </tspan>
+      ))}
+    </text>
+  );
+};
+
 const MainChart = React.forwardRef<MainChartRef, {
   chartData: ChartData;
   onApplyVersus?: (versus: Versus) => void;
@@ -228,7 +268,7 @@ const MainChart = React.forwardRef<MainChartRef, {
           data={chartData}
           margin={{
             top: 40,
-            bottom: 20
+            bottom: 36
           }}
           barCategoryGap={2}
         >
@@ -236,9 +276,9 @@ const MainChart = React.forwardRef<MainChartRef, {
           <XAxis
             dataKey="label"
             tickLine={false}
-            tickMargin={10}
             axisLine={false}
-            tickFormatter={(value) => value}
+            interval={0}
+            tick={<MultilineTick />}
           />
           <ChartTooltip
             cursor={false}

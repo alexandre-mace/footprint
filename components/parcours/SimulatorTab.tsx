@@ -318,7 +318,7 @@ export default function SimulatorTab({
           }}
           className="text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground"
         >
-          Réinitialiser la simulation
+          ↺ Revenir au Français moyen
         </button>
         <button
           type="button"
