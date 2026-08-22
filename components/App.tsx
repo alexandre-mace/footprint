@@ -47,14 +47,14 @@ const App = () => {
 
   return (
     <div className="flex flex-col-reverse gap-4 p-4 md:mt-10 md:flex-row">
-            <div className="mt-12 md:mt-0 md:w-2/5">
+            <div className="mt-12 md:mt-0 md:w-[380px] md:shrink-0">
               <EmissionsEditor
                 onChartDataChange={handleChartDataChange}
                 setApplyVersusRef={setApplyVersusRef}
                 setOpenVersusDialogRef={setOpenVersusDialogRef}
               />
             </div>
-            <div className={"relative h-auto md:w-3/5"}>
+            <div className={"relative h-auto md:min-w-0 md:flex-1"}>
               <div className={"sticky top-16"}>
                 <MainChart
                   ref={mainChartRef}
