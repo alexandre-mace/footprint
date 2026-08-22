@@ -316,7 +316,7 @@ export default function SimulatorTab({
             lastToastedTotal.current = computeTotal(defaultSimulationState);
             onChange(defaultSimulationState);
           }}
-          className="text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground"
+          className="rounded-full border border-input bg-white px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
         >
           ↺ Revenir au Français moyen
         </button>
