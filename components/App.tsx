@@ -20,7 +20,7 @@ const App = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoaded(true);
-    }, 500);
+    }, 250);
   }, []);
 
   const handleChartDataChange = useCallback((data: ChartData) => {
