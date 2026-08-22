@@ -223,7 +223,7 @@ export default function SimulatorTab({
                     vegetarian: d.id === "vegetarian",
                   })
                 }
-                className={`rounded-full border px-3 py-1 text-sm transition-colors ${
+                className={`rounded-lg border px-3 py-1 text-sm font-medium transition-colors ${
                   diet === d.id
                     ? "border-black bg-black text-white"
                     : "border-input text-muted-foreground hover:bg-accent"
@@ -324,14 +324,14 @@ export default function SimulatorTab({
             lastToastedTotal.current = computeTotal(defaultSimulationState);
             onChange(defaultSimulationState);
           }}
-          className="rounded-full border border-input bg-white px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+          className="rounded-lg border border-input bg-white px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
         >
           ↺ Revenir au Français moyen
         </button>
         <button
           type="button"
           onClick={onNextStep}
-          className="rounded-full border border-black bg-black px-5 py-2 text-sm text-white transition-transform hover:-translate-y-0.5"
+          className="rounded-lg border border-black bg-black px-5 py-2 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
         >
           Étape suivante : Agir →
         </button>

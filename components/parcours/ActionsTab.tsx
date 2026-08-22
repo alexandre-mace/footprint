@@ -101,7 +101,7 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
               <div className="truncate text-sm">
                 {action.label}
                 {isPersonalized && index === 0 && action.deltaMe > 0 && (
-                  <span className="ml-2 rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-medium text-orange-700">
+                  <span className="ml-2 rounded-md bg-orange-100 px-2 py-0.5 text-[10px] font-medium text-orange-700">
                     ton levier n°1
                   </span>
                 )}

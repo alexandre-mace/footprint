@@ -82,7 +82,7 @@ export default function ParcoursTabs() {
             role="tab"
             aria-selected={activeTab === tab.id}
             onClick={() => goTo(tab.id)}
-            className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-xs transition-colors sm:px-4 sm:text-sm ${
+            className={`whitespace-nowrap rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors sm:px-4 sm:text-sm ${
               activeTab === tab.id
                 ? "border-black bg-black text-white"
                 : "border-input text-muted-foreground hover:bg-accent"
@@ -99,7 +99,7 @@ export default function ParcoursTabs() {
             <button
               type="button"
               onClick={() => goTo("situer")}
-              className="rounded-full border border-black bg-black px-5 py-2 text-sm text-white transition-transform hover:-translate-y-0.5"
+              className="rounded-lg border border-black bg-black px-5 py-2 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
             >
               Étape suivante : Me situer →
             </button>

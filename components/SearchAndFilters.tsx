@@ -85,7 +85,7 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
         placeholder="Rechercher une activité..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="pl-9 text-xs"
+        className="bg-background pl-9 text-xs"
       />
     </div>
   );
