@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef } from "react";
+import { toast } from "sonner";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import FriseGraph from "@/components/parcours/FriseGraph";
-import TreemapGraph from "@/components/parcours/TreemapGraph";
+import MethodologyDialog from "@/components/parcours/MethodologyDialog";
 import {
   SimulationState,
   computePostes,
@@ -100,9 +101,28 @@ export default function SimulatorTab({
   onChange,
   onNextStep,
 }: SimulatorTabProps) {
-  const [view, setView] = useState<"frise" | "cubes">("frise");
   const postes = computePostes(state);
   const total = computeTotal(state);
+  const lastToastedTotal = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (lastToastedTotal.current === null) {
+      lastToastedTotal.current = total;
+      return;
+    }
+    const timer = setTimeout(() => {
+      const previous = lastToastedTotal.current;
+      if (previous === null || Math.abs(total - previous) < 100) return;
+      const delta = total - previous;
+      lastToastedTotal.current = total;
+      if (delta < 0) {
+        toast.success(`${formatTonnes(delta)} t sur ton empreinte, bien joué`);
+      } else {
+        toast(`+${formatTonnes(delta)} t sur ton empreinte`);
+      }
+    }, 900);
+    return () => clearTimeout(timer);
+  }, [total]);
   const set = (patch: Partial<SimulationState>) =>
     onChange({ ...state, ...patch });
   const diet = state.vegan
@@ -137,43 +157,16 @@ export default function SimulatorTab({
           </div>
       </div>
 
-      <div className="mt-6 w-full md:px-6">
-          <div className="mb-3 flex justify-center gap-1">
-            <button
-              type="button"
-              aria-label="Vue frise"
-              onClick={() => setView("frise")}
-              className={`rounded-md border px-2.5 py-1 text-xs transition-colors ${
-                view === "frise"
-                  ? "border-black bg-black text-white"
-                  : "border-input text-muted-foreground hover:bg-accent"
-              }`}
-            >
-              ▬ frise
-            </button>
-            <button
-              type="button"
-              aria-label="Vue cubes"
-              onClick={() => setView("cubes")}
-              className={`rounded-md border px-2.5 py-1 text-xs transition-colors ${
-                view === "cubes"
-                  ? "border-black bg-black text-white"
-                  : "border-input text-muted-foreground hover:bg-accent"
-              }`}
-            >
-              ▦ cubes
-            </button>
+      <div className="mt-2 w-full md:px-6">
+          <FriseGraph
+            postes={postes}
+            total={total}
+            referenceTotal={FRENCH_AVERAGE_KG}
+            parisTargetKg={PARIS_TARGET_KG}
+          />
+          <div className="mt-1">
+            <MethodologyDialog />
           </div>
-          {view === "frise" ? (
-            <FriseGraph
-              postes={postes}
-              total={total}
-              referenceTotal={FRENCH_AVERAGE_KG}
-              parisTargetKg={PARIS_TARGET_KG}
-            />
-          ) : (
-            <TreemapGraph postes={postes} />
-          )}
       </div>
 
       <div className="mx-auto mt-10 grid max-w-4xl gap-x-12 md:grid-cols-2">
@@ -252,6 +245,14 @@ export default function SimulatorTab({
             checked={state.localFood}
             onCheckedChange={(localFood) => set({ localFood })}
           />
+
+          <GroupTitle>Société</GroupTitle>
+          <ToggleRow
+            label="Des services publics décarbonés"
+            emoji="🏛️"
+            checked={state.publicDecarb}
+            onCheckedChange={(publicDecarb) => set({ publicDecarb })}
+          />
         </div>
 
         <div>
@@ -305,13 +306,6 @@ export default function SimulatorTab({
             }
           />
 
-          <GroupTitle>Société</GroupTitle>
-          <ToggleRow
-            label="Des services publics décarbonés"
-            emoji="🏛️"
-            checked={state.publicDecarb}
-            onCheckedChange={(publicDecarb) => set({ publicDecarb })}
-          />
         </div>
       </div>
 

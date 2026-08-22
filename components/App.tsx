@@ -6,7 +6,6 @@ import MainChart, { MainChartRef } from "@/components/MainChart";
 import Loader from "@/components/Loader";
 import Link from "next/link";
 import { ChartData } from "@/types/chart";
-import { Toaster } from "@/components/ui/sonner";
 import { Versus } from "@/types/versus";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
@@ -109,7 +108,6 @@ const App = () => {
           </div>
         )}
       </div>
-      <Toaster />
     </>
   );
 };

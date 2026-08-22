@@ -1,0 +1,75 @@
+"use client";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
+export default function MethodologyDialog() {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <button
+          type="button"
+          className="text-[11px] text-muted-foreground underline underline-offset-2 hover:text-foreground"
+        >
+          Comment c&apos;est calculé ?
+        </button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Comment c&apos;est calculé ?</DialogTitle>
+          <DialogDescription>
+            Les chiffres du simulateur sont des estimations qui illustrent les
+            ordres de grandeur, pas un bilan carbone personnel.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="flex flex-col gap-2 text-sm text-muted-foreground">
+          <p>
+            Les valeurs initiales des postes (l&apos;empreinte moyenne
+            française et sa répartition) proviennent du{" "}
+            <a
+              className="underline"
+              href="https://www.carbone4.com/files/graphique_final.png"
+              target="_blank"
+              rel="noreferrer"
+            >
+              graphique Carbone 4 / MyCO2
+            </a>
+            . Chaque curseur applique une règle simple à ces valeurs (par
+            exemple, les kilomètres en voiture proratisent le poste voiture).
+          </p>
+          <p>
+            Les activités du comparateur (étape 1) s&apos;appuient sur la{" "}
+            <a
+              className="underline"
+              href="https://base-empreinte.ademe.fr/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Base Empreinte® de l&apos;Ademe
+            </a>
+            .
+          </p>
+          <p>
+            Pour une estimation précise et personnalisée de ton empreinte,
+            utilise{" "}
+            <a
+              className="underline"
+              href="https://nosgestesclimat.fr"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Nos Gestes Climat
+            </a>
+            .
+          </p>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}

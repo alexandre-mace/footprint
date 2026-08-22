@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import App from "@/components/App";
+import { Toaster } from "@/components/ui/sonner";
 import SimulatorTab from "@/components/parcours/SimulatorTab";
 import ActionsTab from "@/components/parcours/ActionsTab";
 import {
@@ -65,6 +66,7 @@ export default function ParcoursTabs() {
 
   return (
     <div>
+      <Toaster position="bottom-right" />
       <nav
         role="tablist"
         aria-label="Étapes du parcours"

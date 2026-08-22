@@ -51,11 +51,16 @@ export default function RootLayout({
         <Header />
         <section className={"container mx-auto max-w-3xl space-y-2 px-4"}>
           <h1 className={"mt-2 text-2xl md:mt-0 md:text-4xl"}>Footprint</h1>
-          <div className={"max-w-3xl text-sm md:text-base"}>
+          <div className={"hidden max-w-3xl text-sm sm:block md:text-base"}>
             <span className={"text-project-main"}>Comprends</span> les ordres de
             grandeurs des émissions de gaz à effet de serre,{" "}
             <span className={"text-project-main"}>situe</span> ton empreinte et
             sache par où <span className={"text-project-main"}>agir</span>.
+          </div>
+          <div className={"text-sm sm:hidden"}>
+            <span className={"text-project-main"}>Comprends</span> les ordres de
+            grandeurs, <span className={"text-project-main"}>situe</span> ton
+            empreinte, <span className={"text-project-main"}>agis</span>.
           </div>
         </section>
         <main>
