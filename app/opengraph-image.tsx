@@ -57,16 +57,16 @@ export default function Image() {
               flexWrap: "wrap",
             }}
           >
-            <span style={{ color: "#0737FF", marginRight: 10 }}>
+            <span style={{ color: "#171717", fontWeight: 600, marginRight: 10 }}>
               Comprends
             </span>
             <span style={{ marginRight: 10 }}>
               les ordres de grandeur du carbone,
             </span>
-            <span style={{ color: "#0737FF", marginRight: 10 }}>situe</span>
+            <span style={{ color: "#171717", fontWeight: 600, marginRight: 10 }}>situe</span>
             <span style={{ marginRight: 10 }}>ton empreinte et sache</span>
             <span style={{ marginRight: 10 }}>par où</span>
-            <span style={{ color: "#0737FF" }}>agir</span>
+            <span style={{ color: "#171717", fontWeight: 600 }}>agir</span>
             <span>.</span>
           </div>
           <div
