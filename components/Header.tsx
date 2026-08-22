@@ -6,7 +6,7 @@ const Header = () => (
     <LinkButton
       href="/"
       variant="ghost"
-      className="hidden px-0 font-display font-medium hover:bg-transparent sm:inline-flex"
+      className="hidden px-0 font-medium hover:bg-transparent sm:inline-flex"
     >
       <Image
         src="https://em-content.zobj.net/source/apple/391/foot_1f9b6.png"

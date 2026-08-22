@@ -1,30 +1,8 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
-const mattone = localFont({
-  src: [
-    {
-      path: "./fonts/Mattone-Regular.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "./fonts/Mattone-Bold.woff2",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "./fonts/Mattone-Black.woff2",
-      weight: "900",
-      style: "normal",
-    },
-  ],
-  variable: "--font-mattone",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://footprint.climatelab.fr"),
@@ -50,22 +28,22 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body
-        className={`${mattone.variable} ${GeistSans.variable} overflow-x-hidden bg-background font-sans antialiased`}
+        className={`${GeistSans.variable} overflow-x-hidden bg-background font-sans antialiased`}
       >
         <Header />
         <section className={"container mx-auto max-w-3xl space-y-2 px-4"}>
-          <h1 className={"mt-2 font-display text-2xl md:mt-0 md:text-4xl"}>
+          <h1 className={"mt-2 text-2xl font-semibold tracking-tight md:mt-0 md:text-4xl"}>
           Footprint
         </h1>
-          <div className={"hidden max-w-3xl text-sm text-muted-foreground sm:block md:text-base"}>
+          <div className={"hidden max-w-3xl text-sm text-pretty text-muted-foreground sm:block md:text-base"}>
             <span className={"font-medium text-foreground"}>Comprends</span> les ordres de
-            grandeurs des émissions de gaz à effet de serre,{" "}
+            grandeur des émissions de gaz à effet de serre,{" "}
             <span className={"font-medium text-foreground"}>situe</span> ton empreinte et
             sache par où <span className={"font-medium text-foreground"}>agir</span>.
           </div>
-          <div className={"text-sm text-muted-foreground sm:hidden"}>
+          <div className={"text-sm text-pretty text-muted-foreground sm:hidden"}>
             <span className={"font-medium text-foreground"}>Comprends</span> les ordres de
-            grandeurs, <span className={"font-medium text-foreground"}>situe</span> ton
+            grandeur, <span className={"font-medium text-foreground"}>situe</span> ton
             empreinte, <span className={"font-medium text-foreground"}>agis</span>.
           </div>
         </section>

@@ -196,7 +196,7 @@ export default function SimulatorTab({
       <div className="bg-background md:sticky md:top-[54px] md:z-10">
         {condensed ? (
           <div className="hidden items-baseline justify-center gap-3 pt-1 md:flex">
-            <span className="font-display text-2xl font-semibold tracking-tight">
+            <span className="text-2xl font-semibold tracking-tight">
               {formatTonnes(total)} t
             </span>
             <span className={`text-xs font-medium ${deltaColor}`}>
@@ -208,7 +208,7 @@ export default function SimulatorTab({
           <div className="flex flex-col items-center">
             <div className="shrink-0 text-center">
               <div className="text-sm text-muted-foreground">Ton empreinte</div>
-              <div className="font-display text-5xl font-semibold tracking-tight">
+              <div className="text-5xl font-semibold tracking-tight">
                 {formatTonnes(total)} t
               </div>
               <div className="text-sm text-muted-foreground">CO₂e par an</div>

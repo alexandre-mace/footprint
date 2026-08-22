@@ -6,7 +6,6 @@
 
 @theme inline {
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
-  --font-display: var(--font-mattone), var(--font-geist-sans), sans-serif;
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
@@ -162,11 +161,6 @@
 }
 
 @layer utilities {
-  @font-face {
-    font-family: 'mattone';
-    src: url('./fonts/Mattone-Regular.woff2') format('woff2');
-  }
-
   .horizontal-scroll-infinite {
     animation: scroll 15s linear infinite;
   }
