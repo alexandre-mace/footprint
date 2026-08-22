@@ -142,7 +142,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ emissions, className }
               )}
             </div>
 
-            <div className="text-xs text-muted-foreground p-3 bg-muted rounded-lg">
+            <div className="text-xs text-muted-foreground p-3 bg-muted rounded-md">
               <div className="font-medium mb-1">ℹ️ À propos du partage</div>
               <ul className="space-y-1">
                 <li>• Le lien contient votre configuration actuelle</li>

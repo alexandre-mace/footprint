@@ -87,7 +87,7 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
           placeholder="Rechercher une activité..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="pl-9 rounded-lg text-xs"
+          className="pl-9 text-xs"
         />
       </div>
     </Card>

@@ -68,7 +68,7 @@ export function EmissionsEditorConfig({
                   <div
                     key={emission.label}
                     className={
-                      "flex h-full items-center justify-between gap-4 rounded-lg border p-4"
+                      "flex h-full items-center justify-between gap-4 rounded-md border p-4"
                     }
                   >
                     <div className={"space-y-1"}>
