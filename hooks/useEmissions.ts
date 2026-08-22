@@ -13,7 +13,9 @@ import { parseShareUrl, ShareData } from "@/lib/urlSharing";
 // Comparaison chargée par défaut : les activités qui cristallisent les débats
 const DEFAULT_DEBATE_QUANTITIES: Record<string, number> = {
   "transport-avion-1km": 1000,
+  "multimédia-smartphone": 1,
   "alimentation-repas-avec-du-boeuf": 10,
+  "numérique-streaming-vid-o-1h": 365,
   "transport-voiture-1km": 100,
   "alimentation-repas-v-g-tarien": 10,
   "transport-tgv-1km": 1000,
