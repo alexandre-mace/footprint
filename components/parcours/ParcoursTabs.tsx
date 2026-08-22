@@ -70,7 +70,7 @@ export default function ParcoursTabs() {
       <nav
         role="tablist"
         aria-label="Étapes du parcours"
-        className="sticky top-0 z-20 flex justify-center gap-1.5 border-b bg-white/90 p-3 backdrop-blur sm:gap-2"
+        className="sticky top-0 z-20 mt-5 flex justify-center gap-1.5 bg-[#F1EFED]/90 px-3 py-3 backdrop-blur sm:gap-2"
       >
         {tabs.map((tab) => (
           <button
