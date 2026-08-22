@@ -13,6 +13,10 @@ interface FriseGraphProps {
   total: number;
   referenceTotal: number;
   parisTargetKg: number;
+  /** Version condensée pour le récap sticky : frise fine, sans légende */
+  compact?: boolean;
+  /** Contenu ajouté en fin de ligne de légende (ex. lien méthodologie) */
+  footerExtra?: React.ReactNode;
 }
 
 function splitName(name: string): { label: string; emoji: string } {
@@ -33,6 +37,8 @@ export default function FriseGraph({
   total,
   referenceTotal,
   parisTargetKg,
+  compact = false,
+  footerExtra,
 }: FriseGraphProps) {
   const fillRef = useRef<HTMLDivElement>(null);
   const [fillWidth, setFillWidth] = useState(0);
@@ -55,7 +61,11 @@ export default function FriseGraph({
 
   return (
     <div>
-      <div className="relative mt-6 h-16 w-full rounded-md bg-neutral-200/60 md:h-20">
+      <div
+        className={`relative w-full rounded-md bg-neutral-200/60 ${
+          compact ? "mt-1 h-8" : "mt-6 h-16 md:h-20"
+        }`}
+      >
         <div
           ref={fillRef}
           className="flex h-full overflow-hidden rounded-md transition-all duration-500"
@@ -90,48 +100,55 @@ export default function FriseGraph({
           className="absolute -top-1.5 -bottom-1.5 w-0.5 bg-orange-500"
           style={{ left: `${targetPercent}%` }}
         />
-        <div
-          className="absolute -top-6 -translate-x-1/2 whitespace-nowrap text-[10px] font-semibold text-orange-600"
-          style={{ left: `${targetPercent}%` }}
-        >
-          2 t
-        </div>
+        {!compact && (
+          <div
+            className="absolute -top-6 -translate-x-1/2 whitespace-nowrap text-[10px] font-semibold text-orange-600"
+            style={{ left: `${targetPercent}%` }}
+          >
+            2 t
+          </div>
+        )}
         {aboveAverage && (
           <div
             className="absolute -top-1.5 -bottom-1.5 w-0.5 bg-neutral-600"
             style={{ left: `${averagePercent}%` }}
           />
         )}
-        <div
-          className={`absolute -top-6 whitespace-nowrap text-[10px] font-semibold text-neutral-500 ${
-            averagePercent > 88 ? "-translate-x-full" : "-translate-x-1/2"
-          }`}
-          style={{ left: `${averagePercent}%` }}
-        >
-          moy. {formatTonnes(referenceTotal)} t
-        </div>
+        {!compact && (
+          <div
+            className={`absolute -top-6 whitespace-nowrap text-[10px] font-semibold text-neutral-500 ${
+              averagePercent > 88 ? "-translate-x-full" : "-translate-x-1/2"
+            }`}
+            style={{ left: `${averagePercent}%` }}
+          >
+            moy. {formatTonnes(referenceTotal)} t
+          </div>
+        )}
       </div>
-      <div className="mt-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
-        <div className="text-[11px] text-muted-foreground">
-          <span className="text-orange-600">2 t</span> = objectif de
-          l&apos;accord de Paris · <span className="font-medium">moy.</span> =
-          empreinte moyenne française
-        </div>
-        <div className="flex flex-wrap gap-x-3 gap-y-1">
-          {categoryOrder.map((category) => (
-            <span
-              key={category}
-              className="flex items-center gap-1 text-[11px] text-muted-foreground"
-            >
+      {!compact && (
+        <div className="mt-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+          <div className="text-[11px] text-muted-foreground">
+            <span className="text-orange-600">2 t</span> = objectif de
+            l&apos;accord de Paris · <span className="font-medium">moy.</span> =
+            empreinte moyenne française
+            {footerExtra && <> · {footerExtra}</>}
+          </div>
+          <div className="flex flex-wrap gap-x-3 gap-y-1">
+            {categoryOrder.map((category) => (
               <span
-                className="inline-block h-2 w-2 rounded-sm"
-                style={{ backgroundColor: categoryLegendColor(category) }}
-              />
-              {category}
-            </span>
-          ))}
+                key={category}
+                className="flex items-center gap-1 text-[11px] text-muted-foreground"
+              >
+                <span
+                  className="inline-block h-2 w-2 rounded-sm"
+                  style={{ backgroundColor: categoryLegendColor(category) }}
+                />
+                {category}
+              </span>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

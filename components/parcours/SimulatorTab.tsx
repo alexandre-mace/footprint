@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
@@ -90,9 +90,18 @@ function SliderRow({
   );
 }
 
-function GroupTitle({ children }: { children: React.ReactNode }) {
+function GroupCard({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
-    <div className="mb-1 mt-6 text-sm font-semibold text-muted-foreground first:mt-0 md:first:mt-0">
+    <div className="rounded-xl border bg-white p-4">
+      <div className="mb-1 text-sm font-semibold text-muted-foreground">
+        {title}
+      </div>
       {children}
     </div>
   );
@@ -112,6 +121,24 @@ export default function SimulatorTab({
   const postes = computePostes(state);
   const total = computeTotal(state);
   const lastToastedTotal = useRef<number | null>(null);
+  const [condensed, setCondensed] = useState(false);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+
+  // Sur desktop, le récap (chiffre + frise) se condense et reste collé sous
+  // la barre d'onglets pendant qu'on manipule les contrôles
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+        setCondensed(isDesktop && !entry.isIntersecting);
+      },
+      { rootMargin: "-60px 0px 0px 0px" },
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (lastToastedTotal.current === null) {
@@ -140,46 +167,57 @@ export default function SimulatorTab({
       : "omnivore";
   const deltaVsAverage = total - FRENCH_AVERAGE_KG;
   const showDelta = Math.abs(deltaVsAverage) >= 50;
+  const deltaText = showDelta
+    ? `${deltaVsAverage <= 0 ? "−" : "+"}${formatTonnes(Math.abs(deltaVsAverage))} t vs moyenne française`
+    : "dans la moyenne française";
+  const deltaColor = showDelta
+    ? deltaVsAverage <= 0
+      ? "text-green-700"
+      : "text-orange-600"
+    : "text-muted-foreground";
+
   return (
     <div className="p-4">
-      <div className="flex flex-col items-center">
-          <div className="shrink-0 text-center">
-            <div className="text-sm text-muted-foreground">Ton empreinte</div>
-            <div className="font-display text-5xl font-semibold tracking-tight">
+      <div ref={sentinelRef} aria-hidden className="h-px" />
+      <div className="bg-project-bg md:sticky md:top-[54px] md:z-10">
+        {condensed ? (
+          <div className="hidden items-baseline justify-center gap-3 pt-1 md:flex">
+            <span className="font-display text-2xl font-semibold tracking-tight">
               {formatTonnes(total)} t
-            </div>
-            <div className="text-sm text-muted-foreground">CO₂e par an</div>
-            <div
-              className={`mt-1 text-sm font-medium ${
-                showDelta
-                  ? deltaVsAverage <= 0
-                    ? "text-green-700"
-                    : "text-orange-600"
-                  : "text-muted-foreground"
-              }`}
-            >
-              {showDelta
-                ? `${deltaVsAverage <= 0 ? "−" : "+"}${formatTonnes(Math.abs(deltaVsAverage))} t vs moyenne française`
-                : "dans la moyenne française"}
+            </span>
+            <span className={`text-xs font-medium ${deltaColor}`}>
+              {deltaText}
+            </span>
+          </div>
+        ) : null}
+        <div className={condensed ? "md:hidden" : ""}>
+          <div className="flex flex-col items-center">
+            <div className="shrink-0 text-center">
+              <div className="text-sm text-muted-foreground">Ton empreinte</div>
+              <div className="font-display text-5xl font-semibold tracking-tight">
+                {formatTonnes(total)} t
+              </div>
+              <div className="text-sm text-muted-foreground">CO₂e par an</div>
+              <div className={`mt-1 text-sm font-medium ${deltaColor}`}>
+                {deltaText}
+              </div>
             </div>
           </div>
-      </div>
-
-      <div className="mt-2 w-full md:px-6">
+        </div>
+        <div className="mt-2 w-full pb-2 md:px-6">
           <FriseGraph
             postes={postes}
             total={total}
             referenceTotal={FRENCH_AVERAGE_KG}
             parisTargetKg={PARIS_TARGET_KG}
+            compact={condensed}
+            footerExtra={<MethodologyDialog />}
           />
-          <div className="mt-1">
-            <MethodologyDialog />
-          </div>
+        </div>
       </div>
 
-      <div className="mx-auto mt-10 grid max-w-4xl gap-x-12 md:grid-cols-2">
-        <div>
-          <GroupTitle>Déplacements</GroupTitle>
+      <div className="mx-auto mt-8 grid max-w-4xl gap-4 md:grid-cols-2">
+        <GroupCard title="Déplacements">
           <SliderRow
             label="Voiture"
             emoji="🚗"
@@ -210,8 +248,9 @@ export default function SimulatorTab({
             step={0.5}
             onValueChange={(longFlights) => set({ longFlights })}
           />
+        </GroupCard>
 
-          <GroupTitle>Nourriture</GroupTitle>
+        <GroupCard title="Nourriture">
           <div className="flex gap-2 py-2">
             {diets.map((d) => (
               <button
@@ -253,18 +292,9 @@ export default function SimulatorTab({
             checked={state.localFood}
             onCheckedChange={(localFood) => set({ localFood })}
           />
+        </GroupCard>
 
-          <GroupTitle>Société</GroupTitle>
-          <ToggleRow
-            label="Des services publics décarbonés"
-            emoji="🏛️"
-            checked={state.publicDecarb}
-            onCheckedChange={(publicDecarb) => set({ publicDecarb })}
-          />
-        </div>
-
-        <div>
-          <GroupTitle>Logement</GroupTitle>
+        <GroupCard title="Logement">
           <ToggleRow
             label="J'habite en appartement"
             emoji="🏢"
@@ -283,8 +313,9 @@ export default function SimulatorTab({
             checked={state.shortShowers}
             onCheckedChange={(shortShowers) => set({ shortShowers })}
           />
+        </GroupCard>
 
-          <GroupTitle>Consommation</GroupTitle>
+        <GroupCard title="Consommation">
           <ToggleRow
             label="Je garde mes objets longtemps"
             emoji="🛋️"
@@ -313,8 +344,25 @@ export default function SimulatorTab({
               set({ stopYoutubeStreaming })
             }
           />
+        </GroupCard>
+      </div>
 
+      <div className="mx-auto mt-4 flex max-w-4xl flex-col gap-3 rounded-xl border bg-white p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <div className="text-sm">
+            <span className="mr-1.5">🏛️</span>
+            Des services publics décarbonés
+          </div>
+          <div className="mt-0.5 text-xs text-muted-foreground">
+            Une partie de ton empreinte (écoles, hôpitaux, routes...) dépend
+            des choix collectifs, pas de toi seul.
+          </div>
         </div>
+        <Switch
+          aria-label="Des services publics décarbonés"
+          isSelected={state.publicDecarb}
+          onChange={(publicDecarb) => set({ publicDecarb })}
+        />
       </div>
 
       <div className="mx-auto mt-8 flex max-w-4xl items-center justify-between">
