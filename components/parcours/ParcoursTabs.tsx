@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import App from "@/components/App";
 import Loader from "@/components/Loader";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Toaster } from "@/components/ui/sonner";
 import SimulatorTab from "@/components/parcours/SimulatorTab";
 import ActionsTab from "@/components/parcours/ActionsTab";
@@ -15,9 +16,9 @@ import {
 type TabId = "comprendre" | "situer" | "agir";
 
 const tabs: { id: TabId; label: string }[] = [
-  { id: "comprendre", label: "1 · Comprendre" },
-  { id: "situer", label: "2 · Me situer" },
-  { id: "agir", label: "3 · Agir" },
+  { id: "comprendre", label: "1. Comprendre" },
+  { id: "situer", label: "2. Me situer" },
+  { id: "agir", label: "3. Agir" },
 ];
 
 const isTabId = (value: string): value is TabId =>
@@ -88,48 +89,42 @@ export default function ParcoursTabs() {
     <div>
       {showLoader && <Loader />}
       <Toaster position="bottom-right" />
-      <nav
-        role="tablist"
-        aria-label="Étapes du parcours"
-        className="sticky top-0 z-20 mt-5 flex justify-center gap-1.5 bg-project-bg/90 px-3 py-3 backdrop-blur-sm sm:gap-2"
+      <Tabs
+        selectedKey={activeTab}
+        onSelectionChange={(key) => goTo(key as TabId)}
+        className="gap-0"
       >
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            type="button"
-            role="tab"
-            aria-selected={activeTab === tab.id}
-            onClick={() => goTo(tab.id)}
-            className={`whitespace-nowrap rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors sm:px-4 sm:text-sm ${
-              activeTab === tab.id
-                ? "border-black bg-black text-white"
-                : "border-input text-muted-foreground hover:bg-accent"
-            }`}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </nav>
-      {activeTab === "comprendre" && (
-        <>
+        <div className="sticky top-0 z-20 mt-5 flex justify-center bg-project-bg/90 px-3 py-3 backdrop-blur-sm">
+          <TabsList aria-label="Étapes du parcours">
+            {tabs.map((tab) => (
+              <TabsTrigger key={tab.id} id={tab.id} className="px-3">
+                {tab.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </div>
+        <TabsContent id="comprendre" className="text-base">
           <App />
           <div className="mb-10 mt-2 flex justify-center">
             <Button size="lg" onPress={() => goTo("situer")}>
               Étape suivante : Me situer →
             </Button>
           </div>
-        </>
-      )}
-      {activeTab === "situer" && (
-        <SimulatorTab
-          state={simulation}
-          onChange={handleSimulationChange}
-          onNextStep={() => goTo("agir")}
-        />
-      )}
-      {activeTab === "agir" && (
-        <ActionsTab state={simulation} onGoToSimulator={() => goTo("situer")} />
-      )}
+        </TabsContent>
+        <TabsContent id="situer" className="text-base">
+          <SimulatorTab
+            state={simulation}
+            onChange={handleSimulationChange}
+            onNextStep={() => goTo("agir")}
+          />
+        </TabsContent>
+        <TabsContent id="agir" className="text-base">
+          <ActionsTab
+            state={simulation}
+            onGoToSimulator={() => goTo("situer")}
+          />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
