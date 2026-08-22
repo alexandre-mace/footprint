@@ -1,6 +1,7 @@
 "use client";
 
 import { toast } from "sonner";
+import { Button, LinkButton } from "@/components/ui/button";
 import {
   SimulationState,
   climateActions,
@@ -71,7 +72,7 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
         <button
           type="button"
           onClick={onGoToSimulator}
-          className="mb-4 w-full rounded-xl border border-dashed border-black bg-white p-3 text-left text-sm transition-transform hover:-translate-y-0.5"
+          className="mb-4 w-full rounded-xl border border-dashed border-black bg-white p-3 text-left text-sm transition-colors hover:bg-muted"
         >
           👉 Passe par l&apos;étape 2 pour voir ce que chaque action changerait{" "}
           <em>pour toi</em>.
@@ -203,9 +204,9 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
       </p>
 
       <div className="mt-8 flex flex-col gap-2 sm:flex-row">
-        <button
-          type="button"
-          onClick={async () => {
+        <Button
+          size="lg"
+          onPress={async () => {
             const url = window.location.origin;
             if (navigator.share) {
               try {
@@ -222,18 +223,18 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
               toast.success("Lien copié, à diffuser sans modération");
             }
           }}
-          className="rounded-lg border border-black bg-black px-5 py-2 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
         >
           Partager l&apos;outil autour de toi
-        </button>
-        <a
+        </Button>
+        <LinkButton
+          variant="outline"
+          size="lg"
           href="https://climatelab.fr"
           target="_blank"
           rel="noreferrer"
-          className="rounded-lg border border-input bg-white px-5 py-2 text-center text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
         >
           Découvrir les autres outils du ClimateLab →
-        </a>
+        </LinkButton>
       </div>
     </div>
   );

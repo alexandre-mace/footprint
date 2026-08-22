@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import FriseGraph from "@/components/parcours/FriseGraph";
@@ -371,23 +372,19 @@ export default function SimulatorTab({
       </div>
 
       <div className="mx-auto mt-8 flex max-w-4xl items-center justify-between">
-        <button
-          type="button"
-          onClick={() => {
+        <Button
+          variant="outline"
+          size="lg"
+          onPress={() => {
             lastToastedTotal.current = computeTotal(defaultSimulationState);
             onChange(defaultSimulationState);
           }}
-          className="rounded-lg border border-input bg-white px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
         >
           ↺ Revenir au Français moyen
-        </button>
-        <button
-          type="button"
-          onClick={onNextStep}
-          className="rounded-lg border border-black bg-black px-5 py-2 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
-        >
+        </Button>
+        <Button size="lg" onPress={onNextStep}>
           Étape suivante : Agir →
-        </button>
+        </Button>
       </div>
     </div>
   );

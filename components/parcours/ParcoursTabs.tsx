@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import App from "@/components/App";
 import Loader from "@/components/Loader";
+import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
 import SimulatorTab from "@/components/parcours/SimulatorTab";
 import ActionsTab from "@/components/parcours/ActionsTab";
@@ -113,13 +114,9 @@ export default function ParcoursTabs() {
         <>
           <App />
           <div className="mb-10 mt-2 flex justify-center">
-            <button
-              type="button"
-              onClick={() => goTo("situer")}
-              className="rounded-lg border border-black bg-black px-5 py-2 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
-            >
+            <Button size="lg" onPress={() => goTo("situer")}>
               Étape suivante : Me situer →
-            </button>
+            </Button>
           </div>
         </>
       )}
