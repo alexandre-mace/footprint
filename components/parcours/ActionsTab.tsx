@@ -72,7 +72,7 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
         <button
           type="button"
           onClick={onGoToSimulator}
-          className="mb-4 w-full rounded-xl border border-dashed border-black bg-white p-3 text-left text-sm transition-colors hover:bg-muted"
+          className="mb-4 w-full rounded-xl border border-dashed border-black bg-card p-3 text-left text-sm transition-colors hover:bg-muted"
         >
           👉 Passe par l&apos;étape 2 pour voir ce que chaque action changerait{" "}
           <em>pour toi</em>.
@@ -96,7 +96,7 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
         {rows.map((action, index) => (
           <div
             key={action.id}
-            className="flex items-center gap-3 rounded-xl border bg-white p-3"
+            className="flex items-center gap-3 rounded-xl border bg-card p-3"
           >
             <span className="text-xl">{action.emoji}</span>
             <div className="min-w-0 flex-1">
@@ -170,7 +170,7 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
         ))}
       </div>
 
-      <div className="mt-6 rounded-xl border bg-white p-4 text-sm">
+      <div className="mt-6 rounded-xl border bg-card p-4 text-sm">
         {isPersonalized ? (
           <>
             En cumulant tout ce qui dépend de toi :{" "}

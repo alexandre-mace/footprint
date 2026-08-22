@@ -99,7 +99,7 @@ function GroupCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-xl border bg-white p-4">
+    <div className="rounded-xl border bg-card p-4">
       <div className="mb-1 text-sm font-semibold text-muted-foreground">
         {title}
       </div>
@@ -193,7 +193,7 @@ export default function SimulatorTab({
 
   return (
     <div className="p-4">
-      <div className="bg-project-bg md:sticky md:top-[54px] md:z-10">
+      <div className="bg-background md:sticky md:top-[54px] md:z-10">
         {condensed ? (
           <div className="hidden items-baseline justify-center gap-3 pt-1 md:flex">
             <span className="font-display text-2xl font-semibold tracking-tight">
@@ -278,7 +278,7 @@ export default function SimulatorTab({
                 }
                 className={`rounded-lg border px-3 py-1 text-sm font-medium transition-colors ${
                   diet === d.id
-                    ? "border-black bg-black text-white"
+                    ? "border-primary bg-primary text-primary-foreground"
                     : "border-input text-muted-foreground hover:bg-accent"
                 }`}
               >
@@ -361,7 +361,7 @@ export default function SimulatorTab({
         </GroupCard>
       </div>
 
-      <div className="mx-auto mt-4 flex max-w-4xl flex-col gap-3 rounded-xl border bg-white p-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto mt-4 flex max-w-4xl flex-col gap-3 rounded-xl border bg-card p-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <div className="text-sm">
             <span className="mr-1.5">🏛️</span>

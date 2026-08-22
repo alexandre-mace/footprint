@@ -42,7 +42,7 @@ export function EmissionsEditorConfig({
           {emissions.map((category) => (
             <div
               className={
-                "space-y-2 rounded-xl border bg-white p-4"
+                "space-y-2 rounded-xl border bg-card p-4"
               }
               key={category.label}
             >

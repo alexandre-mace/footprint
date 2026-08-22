@@ -50,7 +50,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body
-        className={`${mattone.variable} ${GeistSans.variable} overflow-x-hidden bg-project-bg font-sans antialiased`}
+        className={`${mattone.variable} ${GeistSans.variable} overflow-x-hidden bg-background font-sans antialiased`}
       >
         <Header />
         <section className={"container mx-auto max-w-3xl space-y-2 px-4"}>

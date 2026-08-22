@@ -94,7 +94,7 @@ export default function ParcoursTabs() {
         onSelectionChange={(key) => goTo(key as TabId)}
         className="gap-0"
       >
-        <div className="sticky top-0 z-20 mt-5 flex justify-center bg-project-bg/90 px-3 py-3 backdrop-blur-sm">
+        <div className="sticky top-0 z-20 mt-5 flex justify-center bg-background/90 px-3 py-3 backdrop-blur-sm">
           <TabsList aria-label="Étapes du parcours">
             {tabs.map((tab) => (
               <TabsTrigger key={tab.id} id={tab.id} className="px-3">

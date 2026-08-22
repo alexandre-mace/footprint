@@ -172,7 +172,7 @@ const EmissionsEditor: React.FC<EmissionsEditorProps> = ({ onChartDataChange, se
         {filteredEmissions.map((category) => (
         <div
           className={
-            "rounded-xl border bg-white p-4"
+            "rounded-xl border bg-card p-4"
           }
           key={category.label}
         >
