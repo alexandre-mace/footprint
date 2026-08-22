@@ -56,32 +56,30 @@ const EmissionItem = React.memo<{
   return (
     <div
       ref={itemRef}
-      className={
-        "flex flex-col sm:flex-row lg:flex-col 2xl:flex-row justify-between gap-4 rounded-lg border border-dashed border-black p-2 md:p-4 slide-in"
-      }
+      className={"flex items-center justify-between gap-2 py-2 slide-in"}
     >
-      <div className={"space-y-1"}>
-        <div className={"text-xs font-medium md:text-sm"}>
+      <div className={"min-w-0"} title={emission.label}>
+        <div className={"truncate text-xs font-medium md:text-sm"}>
           {emission.label}
         </div>
-        <div className={"text-xs text-muted-foreground"}>
+        <div className={"text-[11px] text-muted-foreground"}>
           {emission.value} <span className={"text-[10px]"}>kg CO2eq</span>
         </div>
       </div>
-      <div className={"flex shrink-0 items-center gap-2"}>
+      <div className={"flex shrink-0 items-center gap-1"}>
         <AnimatedButton
           variant="outline"
           size="icon"
           onClick={handleDecrement}
           animationType="ripple"
-          className={"shrink-0"}
+          className={"h-7 w-7 shrink-0"}
           disabled={emission.quantity <= emission.min}
         >
-          <Minus />
+          <Minus className={"h-3 w-3"} />
         </AnimatedButton>
         <AnimatedInput
           value={emission.quantity}
-          className={"md:max-w-24 text-center grow md:w-24"}
+          className={"h-7 w-16 text-center text-xs"}
           onChange={handleInputChange}
           validator={validator}
           type="number"
@@ -93,10 +91,10 @@ const EmissionItem = React.memo<{
           size="icon"
           onClick={handleIncrement}
           animationType="ripple"
-          className={"shrink-0"}
+          className={"h-7 w-7 shrink-0"}
           disabled={emission.quantity >= emission.max}
         >
-          <Plus />
+          <Plus className={"h-3 w-3"} />
         </AnimatedButton>
       </div>
     </div>
@@ -139,11 +137,18 @@ const EmissionsEditor: React.FC<EmissionsEditorProps> = ({ onChartDataChange, se
 
   return (
     <div className={"space-y-4"}>
-      {/* Barre d'outils en haut */}
+      {/* Filtres de recherche */}
+      <SearchAndFilters
+        categories={emissions}
+        onFilteredChange={handleFilteredChange}
+        onToggleVisibility={toggleEmissionVisibility}
+      />
+
+      {/* Barre d'outils, discrète sous la recherche */}
       <div className={"flex items-center justify-end gap-2 flex-wrap"}>
         <ShareButton emissions={getShareableEmissions()} />
-        <PresetSelector 
-          onApplyVersus={applyVersus} 
+        <PresetSelector
+          onApplyVersus={applyVersus}
           setOpenDialogRef={setOpenVersusDialogRef}
         />
         <EmissionsEditorConfig
@@ -156,26 +161,19 @@ const EmissionsEditor: React.FC<EmissionsEditorProps> = ({ onChartDataChange, se
         />
       </div>
 
-      {/* Filtres de recherche */}
-      <SearchAndFilters 
-        categories={emissions}
-        onFilteredChange={handleFilteredChange}
-        onToggleVisibility={toggleEmissionVisibility}
-      />
-
-      {/* Grille des émissions */}
-      <div className={"grid gap-4 md:grid-cols-1 lg:grid-cols-2"}>
+      {/* Liste des émissions */}
+      <div className={"flex flex-col gap-4"}>
         {filteredEmissions.map((category, index) => (
         <div
           className={
-            "space-y-2 rounded-xl border bg-white p-4 hover:shadow-orange-light"
+            "rounded-xl border bg-white p-4 hover:shadow-orange-light"
           }
           key={category.label}
           style={{ animationDelay: `${index * 100}ms` }}
         >
-          <div className={"flex items-center gap-2"}>
+          <div className={"mb-1 flex items-center gap-2"}>
             <Image
-              className={"h-4 w-4 md:h-6 md:w-6"}
+              className={"h-4 w-4 md:h-5 md:w-5"}
               src={category.img}
               alt={category.label}
               height={32}
@@ -187,7 +185,7 @@ const EmissionsEditor: React.FC<EmissionsEditorProps> = ({ onChartDataChange, se
               {category.label}
             </div>
           </div>
-          <div className={"space-y-4"}>
+          <div className={"divide-y divide-neutral-100"}>
             {category.emissions
               .filter((emission: Emission) => emission.isVisible)
               .map((emission) => (

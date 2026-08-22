@@ -59,8 +59,8 @@ const App = () => {
         {!isLoaded && <Loader />}
         {isLoaded && (
           <div className="flex flex-col-reverse gap-4 p-4 md:mt-10 md:flex-row">
-            <div className="mt-12 md:mt-0 md:w-1/2">
-              <EmissionsEditor 
+            <div className="mt-12 md:mt-0 md:w-2/5">
+              <EmissionsEditor
                 onChartDataChange={handleChartDataChange}
                 setApplyVersusRef={setApplyVersusRef}
                 setOpenVersusDialogRef={setOpenVersusDialogRef}
@@ -68,7 +68,7 @@ const App = () => {
             </div>
             <div
               className={
-                "relative h-auto rounded-xl border border-dashed border-black p-4 hover:shadow-orange-light md:w-1/2"
+                "relative h-auto rounded-xl border border-dashed border-black p-4 hover:shadow-orange-light md:w-3/5"
               }
             >
               <div className={"sticky top-4"}>
