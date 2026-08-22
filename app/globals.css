@@ -68,6 +68,13 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
   }
+
+  /* Tailwind v4 met cursor:default sur les boutons ; on garde le pointer,
+     affordance attendue sur un site grand public (opt-out documenté) */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
 }
 
 @utility text-balance {
