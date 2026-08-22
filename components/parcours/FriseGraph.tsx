@@ -97,12 +97,12 @@ export default function FriseGraph({
           })}
         </div>
         <div
-          className="absolute -top-1.5 -bottom-1.5 w-0.5 bg-orange-500"
+          className="absolute -top-1.5 -bottom-1.5 w-0.5 bg-foreground"
           style={{ left: `${targetPercent}%` }}
         />
         {!compact && (
           <div
-            className="absolute -top-6 -translate-x-1/2 whitespace-nowrap text-[10px] font-semibold text-orange-600"
+            className="absolute -top-6 -translate-x-1/2 whitespace-nowrap text-[10px] font-semibold text-primary"
             style={{ left: `${targetPercent}%` }}
           >
             2 t
@@ -128,7 +128,7 @@ export default function FriseGraph({
       {!compact && (
         <div className="mt-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
           <div className="text-[11px] text-muted-foreground">
-            <span className="text-orange-600">2 t</span> = objectif de
+            <span className="text-primary">2 t</span> = objectif de
             l&apos;accord de Paris · <span className="font-medium">moy.</span> =
             empreinte moyenne française
             {footerExtra && <> · {footerExtra}</>}

@@ -58,15 +58,15 @@ export default function RootLayout({
           Footprint
         </h1>
           <div className={"hidden max-w-3xl text-sm sm:block md:text-base"}>
-            <span className={"text-project-main"}>Comprends</span> les ordres de
+            <span className={"text-primary"}>Comprends</span> les ordres de
             grandeurs des émissions de gaz à effet de serre,{" "}
-            <span className={"text-project-main"}>situe</span> ton empreinte et
-            sache par où <span className={"text-project-main"}>agir</span>.
+            <span className={"text-primary"}>situe</span> ton empreinte et
+            sache par où <span className={"text-primary"}>agir</span>.
           </div>
           <div className={"text-sm sm:hidden"}>
-            <span className={"text-project-main"}>Comprends</span> les ordres de
-            grandeurs, <span className={"text-project-main"}>situe</span> ton
-            empreinte, <span className={"text-project-main"}>agis</span>.
+            <span className={"text-primary"}>Comprends</span> les ordres de
+            grandeurs, <span className={"text-primary"}>situe</span> ton
+            empreinte, <span className={"text-primary"}>agis</span>.
           </div>
         </section>
         <main>

@@ -6,7 +6,7 @@ const Footer = () => {
       <div className={"mx-auto text-sm md:text-base"}>
         Fait avec amour par{" "}
         <Link
-          className={"text-project-main inline-block underline"}
+          className={"text-primary inline-block underline"}
           target="_blank"
           rel="noopener noreferrer"
           href="https://github.com/alexandre-mace"

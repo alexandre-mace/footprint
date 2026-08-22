@@ -188,7 +188,7 @@ export default function SimulatorTab({
   const deltaColor = showDelta
     ? deltaVsAverage <= 0
       ? "text-green-700"
-      : "text-orange-600"
+      : "text-destructive"
     : "text-muted-foreground";
 
   return (

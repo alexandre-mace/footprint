@@ -120,7 +120,7 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({ onApplyVersus, s
                   </div>
                   
                   <div className="flex items-center justify-center px-1">
-                    <span className="font-bold text-orange-500 text-xs">VS</span>
+                    <span className="font-bold text-primary text-xs">VS</span>
                   </div>
                   
                   <div className="flex items-center gap-1 bg-red-50 px-2 py-1.5 rounded-md">
@@ -131,7 +131,7 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({ onApplyVersus, s
                   {versusItem.sideC && (
                     <>
                       <div className="flex items-center justify-center px-1">
-                        <span className="font-bold text-orange-500 text-xs">VS</span>
+                        <span className="font-bold text-primary text-xs">VS</span>
                       </div>
                       <div className="flex items-center gap-1 bg-green-50 px-2 py-1.5 rounded-md">
                         {getActivityIcon(versusItem.sideC.label)}

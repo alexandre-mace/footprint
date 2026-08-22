@@ -4,11 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme {
-  /* accent éditorial Footprint (tagline, marqueur 2 t) */
-  --color-project-main: #ff4b31;
-}
-
 @theme inline {
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
   --font-display: var(--font-mattone), var(--font-geist-sans), sans-serif;
@@ -187,8 +182,8 @@
 
 @layer components {
   @keyframes flash {
-    0% { background-color: var(--color-orange-100); }
-    50% { background-color: var(--color-orange-200); }
+    0% { background-color: color-mix(in srgb, var(--primary) 8%, transparent); }
+    50% { background-color: color-mix(in srgb, var(--primary) 16%, transparent); }
     100% { background-color: transparent; }
   }
 
