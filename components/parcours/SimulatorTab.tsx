@@ -122,22 +122,28 @@ export default function SimulatorTab({
   const total = computeTotal(state);
   const lastToastedTotal = useRef<number | null>(null);
   const [condensed, setCondensed] = useState(false);
-  const sentinelRef = useRef<HTMLDivElement>(null);
 
   // Sur desktop, le récap (chiffre + frise) se condense et reste collé sous
-  // la barre d'onglets pendant qu'on manipule les contrôles
+  // la barre d'onglets pendant qu'on manipule les contrôles.
+  // Hystérésis obligatoire : la condensation raccourcit la page (~180px),
+  // un seuil unique ferait osciller l'état en boucle au point de bascule.
   useEffect(() => {
-    const sentinel = sentinelRef.current;
-    if (!sentinel) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const isDesktop = window.matchMedia("(min-width: 768px)").matches;
-        setCondensed(isDesktop && !entry.isIntersecting);
-      },
-      { rootMargin: "-60px 0px 0px 0px" },
-    );
-    observer.observe(sentinel);
-    return () => observer.disconnect();
+    const onScroll = () => {
+      if (!window.matchMedia("(min-width: 768px)").matches) {
+        setCondensed(false);
+        return;
+      }
+      setCondensed((prev) =>
+        prev ? window.scrollY > 60 : window.scrollY > 300,
+      );
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -178,7 +184,6 @@ export default function SimulatorTab({
 
   return (
     <div className="p-4">
-      <div ref={sentinelRef} aria-hidden className="h-px" />
       <div className="bg-project-bg md:sticky md:top-[54px] md:z-10">
         {condensed ? (
           <div className="hidden items-baseline justify-center gap-3 pt-1 md:flex">
