@@ -34,7 +34,9 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
         Math.round(total - computeTotal(action.apply(state))),
       ),
     }))
-    .sort((a, b) => b.deltaAverage - a.deltaAverage);
+    .sort((a, b) =>
+      isPersonalized ? b.deltaMe - a.deltaMe : b.deltaAverage - a.deltaAverage,
+    );
 
   const maxDelta = Math.max(
     ...rows.map((r) => Math.max(r.deltaAverage, r.deltaMe)),
@@ -53,9 +55,8 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
       <p className="mb-4 text-sm text-muted-foreground">
         {isPersonalized ? (
           <>
-            Classées par économie pour un Français moyen, comparées à ce
-            qu&apos;elles changeraient <em>pour toi</em> (empreinte actuelle :{" "}
-            {formatTonnes(total)} t).
+            Classées par économie <em>pour toi</em> (empreinte actuelle :{" "}
+            {formatTonnes(total)} t), comparées à un Français moyen.
           </>
         ) : (
           <>
@@ -90,14 +91,21 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
       )}
 
       <div className="flex flex-col gap-2">
-        {rows.map((action) => (
+        {rows.map((action, index) => (
           <div
             key={action.id}
             className="flex items-center gap-3 rounded-xl border border-dashed border-black bg-white p-3"
           >
             <span className="text-xl">{action.emoji}</span>
             <div className="min-w-0 flex-1">
-              <div className="truncate text-sm">{action.label}</div>
+              <div className="truncate text-sm">
+                {action.label}
+                {isPersonalized && index === 0 && action.deltaMe > 0 && (
+                  <span className="ml-2 rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-medium text-orange-700">
+                    ton levier n°1
+                  </span>
+                )}
+              </div>
               <div className="mt-1.5 flex flex-col gap-1">
                 <div className="flex items-center gap-2">
                   <div

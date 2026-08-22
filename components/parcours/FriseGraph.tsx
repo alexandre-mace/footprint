@@ -26,7 +26,7 @@ function splitName(name: string): { label: string; emoji: string } {
 }
 
 const FULL_LABEL_MIN_PX = 90;
-const EMOJI_MIN_PX = 26;
+const EMOJI_MIN_PX = 44;
 
 export default function FriseGraph({
   postes,
@@ -55,10 +55,10 @@ export default function FriseGraph({
 
   return (
     <div>
-      <div className="relative h-16 w-full overflow-hidden rounded-md bg-neutral-200/60 md:h-20">
+      <div className="relative mt-6 h-16 w-full rounded-md bg-neutral-200/60 md:h-20">
         <div
           ref={fillRef}
-          className="flex h-full transition-all duration-500"
+          className="flex h-full overflow-hidden rounded-md transition-all duration-500"
           style={{ width: `${fillPercent}%` }}
         >
           {sorted.map((poste) => {
@@ -87,36 +87,35 @@ export default function FriseGraph({
           })}
         </div>
         <div
-          className="absolute top-0 h-full w-0.5 bg-orange-500"
+          className="absolute -top-1.5 -bottom-1.5 w-0.5 bg-orange-500"
           style={{ left: `${targetPercent}%` }}
         />
+        <div
+          className="absolute -top-6 -translate-x-1/2 whitespace-nowrap text-[10px] font-semibold text-orange-600"
+          style={{ left: `${targetPercent}%` }}
+        >
+          2 t
+        </div>
         {aboveAverage && (
           <div
-            className="absolute top-0 h-full w-0.5 bg-neutral-500"
+            className="absolute -top-1.5 -bottom-1.5 w-0.5 bg-neutral-600"
             style={{ left: `${averagePercent}%` }}
           />
         )}
+        <div
+          className={`absolute -top-6 whitespace-nowrap text-[10px] font-semibold text-neutral-500 ${
+            averagePercent > 88 ? "-translate-x-full" : "-translate-x-1/2"
+          }`}
+          style={{ left: `${averagePercent}%` }}
+        >
+          moy. {formatTonnes(referenceTotal)} t
+        </div>
       </div>
       <div className="mt-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
-          <span className="flex items-center gap-1">
-            <span className="inline-block h-2.5 w-0.5 bg-orange-500" />
-            objectif 2 t (accord de Paris)
-          </span>
-          <span className="flex items-center gap-1">
-            {aboveAverage ? (
-              <>
-                <span className="inline-block h-2.5 w-0.5 bg-neutral-500" />
-                moyenne française ({formatTonnes(referenceTotal)} t)
-              </>
-            ) : (
-              <>
-                <span className="inline-block h-2 w-3 rounded-sm bg-neutral-200" />
-                le fond gris va jusqu&apos;à la moyenne française (
-                {formatTonnes(referenceTotal)} t)
-              </>
-            )}
-          </span>
+        <div className="text-[11px] text-muted-foreground">
+          <span className="text-orange-600">2 t</span> = objectif de
+          l&apos;accord de Paris · <span className="font-medium">moy.</span> =
+          empreinte moyenne française
         </div>
         <div className="flex flex-wrap gap-x-3 gap-y-1">
           {categoryOrder.map((category) => (
