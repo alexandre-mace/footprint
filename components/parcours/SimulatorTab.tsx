@@ -114,6 +114,14 @@ const diets = [
   { id: "vegan", label: "Vegan" },
 ] as const;
 
+// 0,5 vol / an ne parle à personne : on affiche des allers-retours
+function formatFlights(perYear: number): string {
+  if (perYear === 0) return "jamais";
+  if (Number.isInteger(perYear))
+    return `${perYear} A/R par an`;
+  return `${perYear * 2} A/R tous les 2 ans`;
+}
+
 export default function SimulatorTab({
   state,
   onChange,
@@ -230,7 +238,7 @@ export default function SimulatorTab({
             value={state.carKm}
             displayValue={`${state.carKm.toLocaleString("fr-FR")} km/an`}
             min={0}
-            max={30000}
+            max={50000}
             step={1000}
             onValueChange={(carKm) => set({ carKm })}
           />
@@ -238,7 +246,7 @@ export default function SimulatorTab({
             label="Vols moyen-courrier"
             emoji="✈️"
             value={state.mediumFlights}
-            displayValue={`${state.mediumFlights.toLocaleString("fr-FR")} / an`}
+            displayValue={formatFlights(state.mediumFlights)}
             min={0}
             max={6}
             step={0.5}
@@ -248,7 +256,7 @@ export default function SimulatorTab({
             label="Vols long-courrier"
             emoji="🌏"
             value={state.longFlights}
-            displayValue={`${state.longFlights.toLocaleString("fr-FR")} / an`}
+            displayValue={formatFlights(state.longFlights)}
             min={0}
             max={4}
             step={0.5}

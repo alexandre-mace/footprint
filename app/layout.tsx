@@ -27,9 +27,19 @@ const mattone = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://footprint.climatelab.fr"),
   title: "Footprint",
   description:
-    "Apprivoisez les ordres de grandeurs des émissions de gaz à effet de serre relatifs à nos activités quotidiennes.",
+    "Comprends les ordres de grandeur des émissions de gaz à effet de serre, situe ton empreinte et sache par où agir.",
+  openGraph: {
+    title: "Footprint",
+    description:
+      "Comprends les ordres de grandeur des émissions de gaz à effet de serre, situe ton empreinte et sache par où agir.",
+    url: "https://footprint.climatelab.fr",
+    siteName: "Footprint",
+    locale: "fr_FR",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -39,13 +49,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <link
-        sizes="any"
-        rel={"icon"}
-        href={
-          "https://em-content.zobj.net/source/apple/391/foot_1f9b6.png"
-        }
-      />
       <body
         className={`${mattone.variable} ${GeistSans.variable} overflow-x-hidden bg-project-bg font-sans antialiased`}
       >
