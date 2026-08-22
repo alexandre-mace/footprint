@@ -56,7 +56,7 @@ const EmissionItem = React.memo<{
   return (
     <div
       ref={itemRef}
-      className={"flex items-center justify-between gap-2 py-2 slide-in"}
+      className={"flex items-center justify-between gap-2 py-2"}
     >
       <div className={"min-w-0"} title={emission.label}>
         <div className={"truncate text-xs font-medium md:text-sm"}>
@@ -169,13 +169,12 @@ const EmissionsEditor: React.FC<EmissionsEditorProps> = ({ onChartDataChange, se
 
       {/* Liste des émissions */}
       <div className={"flex flex-col gap-4"}>
-        {filteredEmissions.map((category, index) => (
+        {filteredEmissions.map((category) => (
         <div
           className={
             "rounded-xl border bg-white p-4"
           }
           key={category.label}
-          style={{ animationDelay: `${index * 100}ms` }}
         >
           <div className={"mb-1 flex items-center gap-2"}>
             <Image
