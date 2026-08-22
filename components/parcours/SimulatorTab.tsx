@@ -137,7 +137,7 @@ export default function SimulatorTab({
       <div className="flex flex-col items-center">
           <div className="shrink-0 text-center">
             <div className="text-sm text-muted-foreground">Ton empreinte</div>
-            <div className="text-5xl font-semibold tracking-tight">
+            <div className="font-display text-5xl font-semibold tracking-tight">
               {formatTonnes(total)} t
             </div>
             <div className="text-sm text-muted-foreground">CO₂e par an</div>

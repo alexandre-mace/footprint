@@ -66,13 +66,15 @@ const App = () => {
                 setOpenVersusDialogRef={setOpenVersusDialogRef}
               />
             </div>
-            <div
-              className={
-                "relative h-auto rounded-xl border border-dashed border-black p-4 hover:shadow-orange-light md:w-3/5"
-              }
-            >
-              <div className={"sticky top-4"}>
-                <div className={"text-center mb-4"}>Le comparateur</div>
+            <div className={"relative h-auto md:w-3/5"}>
+              <div className={"sticky top-16"}>
+                <div
+                  className={
+                    "mb-4 text-center text-sm font-medium text-muted-foreground"
+                  }
+                >
+                  Le comparateur
+                </div>
                 <MainChart 
                   ref={mainChartRef}
                   chartData={chartData}

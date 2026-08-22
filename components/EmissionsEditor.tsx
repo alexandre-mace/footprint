@@ -139,28 +139,29 @@ const EmissionsEditor: React.FC<EmissionsEditorProps> = ({ onChartDataChange, se
 
   return (
     <div className={"space-y-4"}>
-      {/* Filtres de recherche */}
-      <SearchAndFilters
-        categories={emissions}
-        onFilteredChange={handleFilteredChange}
-        onToggleVisibility={toggleEmissionVisibility}
-      />
-
-      {/* Barre d'outils, discrète sous la recherche */}
-      <div className={"flex items-center justify-end gap-2 flex-wrap"}>
-        <ShareButton emissions={getShareableEmissions()} />
-        <PresetSelector
-          onApplyVersus={applyVersus}
-          setOpenDialogRef={setOpenVersusDialogRef}
-        />
-        <EmissionsEditorConfig
-          emissions={emissions}
+      {/* Recherche et outils sur une seule rangée */}
+      <div className={"flex flex-wrap items-center gap-2"}>
+        <SearchAndFilters
+          className={"min-w-40 grow"}
+          categories={emissions}
+          onFilteredChange={handleFilteredChange}
           onToggleVisibility={toggleEmissionVisibility}
         />
-        <ResetPopover
-          onResetValues={resetValues}
-          onResetAll={resetAll}
-        />
+        <div className={"flex items-center gap-2"}>
+          <ShareButton emissions={getShareableEmissions()} />
+          <PresetSelector
+            onApplyVersus={applyVersus}
+            setOpenDialogRef={setOpenVersusDialogRef}
+          />
+          <EmissionsEditorConfig
+            emissions={emissions}
+            onToggleVisibility={toggleEmissionVisibility}
+          />
+          <ResetPopover
+            onResetValues={resetValues}
+            onResetAll={resetAll}
+          />
+        </div>
       </div>
 
       {/* Liste des émissions */}
@@ -168,7 +169,7 @@ const EmissionsEditor: React.FC<EmissionsEditorProps> = ({ onChartDataChange, se
         {filteredEmissions.map((category, index) => (
         <div
           className={
-            "rounded-xl border bg-white p-4 hover:shadow-orange-light"
+            "rounded-xl border bg-white p-4"
           }
           key={category.label}
           style={{ animationDelay: `${index * 100}ms` }}

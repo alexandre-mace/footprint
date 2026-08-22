@@ -8,7 +8,7 @@ const Header = () => (
       <Link
         href="/"
         className={
-          "hidden px-0 font-medium hover:bg-transparent sm:inline-flex"
+          "hidden px-0 font-display font-medium hover:bg-transparent sm:inline-flex"
         }
       >
         <Image

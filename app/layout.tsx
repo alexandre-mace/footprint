@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -46,11 +47,13 @@ export default function RootLayout({
         }
       />
       <body
-        className={`${mattone.variable} overflow-x-hidden bg-[#F1EFED] font-sans antialiased`}
+        className={`${mattone.variable} ${GeistSans.variable} overflow-x-hidden bg-[#F1EFED] font-sans antialiased`}
       >
         <Header />
         <section className={"container mx-auto max-w-3xl space-y-2 px-4"}>
-          <h1 className={"mt-2 text-2xl md:mt-0 md:text-4xl"}>Footprint</h1>
+          <h1 className={"mt-2 font-display text-2xl md:mt-0 md:text-4xl"}>
+          Footprint
+        </h1>
           <div className={"hidden max-w-3xl text-sm sm:block md:text-base"}>
             <span className={"text-project-main"}>Comprends</span> les ordres de
             grandeurs des émissions de gaz à effet de serre,{" "}

@@ -94,7 +94,7 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
         {rows.map((action, index) => (
           <div
             key={action.id}
-            className="flex items-center gap-3 rounded-xl border border-dashed border-black bg-white p-3"
+            className="flex items-center gap-3 rounded-xl border bg-white p-3"
           >
             <span className="text-xl">{action.emoji}</span>
             <div className="min-w-0 flex-1">
@@ -168,7 +168,7 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
         ))}
       </div>
 
-      <div className="mt-6 rounded-xl border border-dashed border-black bg-white p-4 text-sm">
+      <div className="mt-6 rounded-xl border bg-white p-4 text-sm">
         {isPersonalized ? (
           <>
             En cumulant tout ce qui dépend de toi :{" "}

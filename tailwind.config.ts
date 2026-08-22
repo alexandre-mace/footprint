@@ -60,11 +60,9 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      boxShadow: {
-        "orange-light": "0 1px 9px rgba(255,75,49,.4)",
-      },
       fontFamily: {
-        sans: ["var(--font-mattone)"],
+        sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
+        display: ["var(--font-mattone)", "var(--font-geist-sans)", "sans-serif"],
       },
     },
   },
