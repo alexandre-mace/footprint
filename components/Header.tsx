@@ -22,8 +22,8 @@ const Header = () => (
       <LinkButton
         href="https://climatelab.fr"
         target="_blank"
-        variant="ghost"
-        className="px-0 hover:bg-transparent"
+        variant="link"
+        className="px-0"
       >
         <Image
           src="https://em-content.zobj.net/thumbs/240/apple/285/alembic_2697-fe0f.png"
