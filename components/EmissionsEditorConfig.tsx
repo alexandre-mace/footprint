@@ -74,7 +74,7 @@ export function EmissionsEditorConfig({
                       <div className={"text-xs font-medium"}>
                         {emission.label}
                       </div>
-                      <div className={"text-xs text-muted-foreground"}>
+                      <div className={"font-mono text-xs text-muted-foreground"}>
                         {emission.value}kg CO2eq
                       </div>
                     </div>

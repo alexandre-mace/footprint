@@ -77,7 +77,7 @@ function SliderRow({
           <span className="mr-1.5">{emoji}</span>
           {label}
         </span>
-        <span className="font-semibold tabular-nums">{displayValue}</span>
+        <span className="font-mono font-medium">{displayValue}</span>
       </div>
       <Slider
         aria-label={label}
@@ -100,7 +100,7 @@ function GroupCard({
 }) {
   return (
     <div className="rounded-xl border bg-card p-4">
-      <div className="mb-1 text-sm font-semibold text-muted-foreground">
+      <div className="mb-1 font-mono text-sm text-muted-foreground">
         {title}
       </div>
       {children}

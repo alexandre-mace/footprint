@@ -119,7 +119,7 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
                     }}
                   />
                   <span
-                    className={`text-[11px] tabular-nums ${
+                    className={`font-mono text-[11px] ${
                       isPersonalized
                         ? "text-muted-foreground"
                         : "font-semibold"
@@ -148,7 +148,7 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
                             width: `${(action.deltaMe / maxDelta) * 160}px`,
                           }}
                         />
-                        <span className="text-[11px] font-semibold tabular-nums">
+                        <span className="font-mono text-[11px] font-semibold">
                           −{formatTonnes(action.deltaMe)} t
                           <span className="hidden sm:inline">
                             {" "}

@@ -355,7 +355,7 @@ const MainChart = React.forwardRef<MainChartRef, {
               <LabelList
                 position="right"
                 offset={6}
-                className="fill-foreground"
+                className="fill-foreground font-mono"
                 fontSize={11}
                 formatter={formatKg}
               />
@@ -399,7 +399,7 @@ const MainChart = React.forwardRef<MainChartRef, {
             <LabelList
               position="top"
               offset={12}
-              className="fill-foreground"
+              className="fill-foreground font-mono"
               fontSize={12}
               formatter={formatKg}
             />
@@ -409,7 +409,7 @@ const MainChart = React.forwardRef<MainChartRef, {
             x="95%"
             y="8%"
             textAnchor="end"
-            className="fill-muted-foreground"
+            className="fill-muted-foreground font-mono"
             fontSize={12}
             fontWeight={500}
           >

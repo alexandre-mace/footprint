@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -28,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body
-        className={`${GeistSans.variable} overflow-x-hidden bg-background font-sans antialiased`}
+        className={`${GeistSans.variable} ${GeistMono.variable} overflow-x-hidden bg-background font-sans antialiased`}
       >
         <Header />
         <section className={"container mx-auto max-w-3xl space-y-2 px-4"}>

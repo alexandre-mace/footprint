@@ -102,7 +102,7 @@ export default function FriseGraph({
         />
         {!compact && (
           <div
-            className="absolute -top-6 -translate-x-1/2 whitespace-nowrap text-[10px] font-semibold text-primary"
+            className="absolute -top-6 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] font-semibold text-primary"
             style={{ left: `${targetPercent}%` }}
           >
             2 t
@@ -116,7 +116,7 @@ export default function FriseGraph({
         )}
         {!compact && (
           <div
-            className={`absolute -top-6 whitespace-nowrap text-[10px] font-semibold text-neutral-500 ${
+            className={`absolute -top-6 whitespace-nowrap font-mono text-[10px] font-semibold text-neutral-500 ${
               averagePercent > 88 ? "-translate-x-full" : "-translate-x-1/2"
             }`}
             style={{ left: `${averagePercent}%` }}
