@@ -33,6 +33,9 @@ export default function ParcoursTabs() {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
+        // Hydratation localStorage après montage : l'état initial doit rester
+        // identique au rendu serveur, d'où le setState volontaire en effet
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setSimulation({ ...defaultSimulationState, ...JSON.parse(stored) });
       }
     } catch {
@@ -70,7 +73,7 @@ export default function ParcoursTabs() {
       <nav
         role="tablist"
         aria-label="Étapes du parcours"
-        className="sticky top-0 z-20 mt-5 flex justify-center gap-1.5 bg-[#F1EFED]/90 px-3 py-3 backdrop-blur sm:gap-2"
+        className="sticky top-0 z-20 mt-5 flex justify-center gap-1.5 bg-project-bg/90 px-3 py-3 backdrop-blur-sm sm:gap-2"
       >
         {tabs.map((tab) => (
           <button

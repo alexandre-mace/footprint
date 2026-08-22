@@ -124,6 +124,9 @@ const EmissionsEditor: React.FC<EmissionsEditorProps> = ({ onChartDataChange, se
   }, [chartData, onChartDataChange]);
 
   React.useEffect(() => {
+    // Resynchronise le miroir local quand les émissions changent en dehors
+    // de SearchAndFilters (versus appliqué, reset, etc.)
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFilteredEmissions(emissions);
   }, [emissions]);
 

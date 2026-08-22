@@ -1,14 +1,161 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-project-main: #ff4b31;
+  --color-project-bg: #f1efed;
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-display: var(--font-mattone), var(--font-geist-sans), sans-serif;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility quantity-flash {
+  /* Animation pour les changements de quantité */
+  animation: flash 0.4s ease-in-out;
+}
+
+@utility slide-in {
+  /* Animation pour les nouveaux éléments */
+  animation: slideIn 0.3s ease-out;
+}
+
+@utility pulse-success {
+  /* Animation de pulsation pour les actions importantes */
+  animation: pulseSuccess 0.6s ease-in-out;
+}
+
+@utility card-hover {
+  /* Hover élégant pour les cartes */
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@utility loading-dots {
+  /* Animation de chargement */
+  &::after {
+    content: '';
+    animation: loadingDots 1.4s infinite;
+  }
+}
+
+@utility chart-bar {
+  /* Transition fluide pour les barres de graphique */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@utility success-bounce {
+  /* Animation de succès pour les boutons */
+  animation: successBounce 0.5s ease-in-out;
+}
+
+@utility error-shake {
+  /* Shake animation pour les erreurs */
+  animation: errorShake 0.5s ease-in-out;
+}
+
+@utility focus-ring {
+  /* Smooth focus ring */
+  @apply focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@utility ripple-effect {
+  /* Bouton avec ripple effect */
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition:
+      width 0.3s,
+      height 0.3s;
+  }
+
+  &:active::before {
+    width: 300px;
+    height: 300px;
+  }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  body {
+    font-family: Arial, Helvetica, sans-serif;
   }
 }
 
@@ -77,34 +224,30 @@ body {
   }
 }
 
-@font-face {
-  font-family: "mattone";
-  src: url("./fonts/Mattone-Regular.woff2") format("woff2");
-}
+@layer utilities {
+  @font-face {
+    font-family: 'mattone';
+    src: url('./fonts/Mattone-Regular.woff2') format('woff2');
+  }
 
-.horizontal-scroll-infinite {
-  animation: scroll 15s linear infinite;
-}
-@keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-250px * 7))}
+  .horizontal-scroll-infinite {
+    animation: scroll 15s linear infinite;
+  }
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-250px * 7));
+    }
+  }
 }
 
 @layer components {
-  /* Animation pour les changements de quantité */
-  .quantity-flash {
-    animation: flash 0.4s ease-in-out;
-  }
-  
   @keyframes flash {
-    0% { background-color: theme('colors.orange.100'); }
-    50% { background-color: theme('colors.orange.200'); }
+    0% { background-color: var(--color-orange-100); }
+    50% { background-color: var(--color-orange-200); }
     100% { background-color: transparent; }
-  }
-
-  /* Animation pour les nouveaux éléments */
-  .slide-in {
-    animation: slideIn 0.3s ease-out;
   }
   
   @keyframes slideIn {
@@ -117,32 +260,11 @@ body {
       transform: translateY(0) scale(1);
     }
   }
-
-  /* Animation de pulsation pour les actions importantes */
-  .pulse-success {
-    animation: pulseSuccess 0.6s ease-in-out;
-  }
   
   @keyframes pulseSuccess {
-    0% { box-shadow: 0 0 0 0 theme('colors.green.400'); }
+    0% { box-shadow: 0 0 0 0 var(--color-green-400); }
     70% { box-shadow: 0 0 0 10px transparent; }
     100% { box-shadow: 0 0 0 0 transparent; }
-  }
-
-  /* Hover élégant pour les cartes */
-  .card-hover {
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  .card-hover:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.1);
-  }
-
-  /* Animation de chargement */
-  .loading-dots::after {
-    content: '';
-    animation: loadingDots 1.4s infinite;
   }
   
   @keyframes loadingDots {
@@ -151,61 +273,16 @@ body {
     60% { content: '..'; }
     80% { content: '...'; }
   }
-
-  /* Transition fluide pour les barres de graphique */
-  .chart-bar {
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* Animation de succès pour les boutons */
-  .success-bounce {
-    animation: successBounce 0.5s ease-in-out;
-  }
   
   @keyframes successBounce {
     0% { transform: scale(1); }
     50% { transform: scale(1.1); }
     100% { transform: scale(1); }
   }
-
-  /* Shake animation pour les erreurs */
-  .error-shake {
-    animation: errorShake 0.5s ease-in-out;
-  }
   
   @keyframes errorShake {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-4px); }
     75% { transform: translateX(4px); }
-  }
-
-  /* Smooth focus ring */
-  .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* Bouton avec ripple effect */
-  .ripple-effect {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .ripple-effect::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.3s, height 0.3s;
-  }
-  
-  .ripple-effect:active::before {
-    width: 300px;
-    height: 300px;
   }
 }

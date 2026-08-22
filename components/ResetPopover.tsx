@@ -49,7 +49,7 @@ export const ResetPopover: React.FC<ResetPopoverProps> = ({
               variant="outline"
               className="w-full justify-start text-sm h-auto py-3 px-3 min-w-0"
             >
-              <RotateCcw className="h-4 w-4 mr-3 text-blue-500 flex-shrink-0" />
+              <RotateCcw className="h-4 w-4 mr-3 text-blue-500 shrink-0" />
               <div className="text-left flex-1 min-w-0">
                 <div className="font-medium max-w-40 truncate">Valeurs seulement</div>
                 <div className="text-xs text-muted-foreground mt-1 max-w-40 leading-tight">
@@ -63,7 +63,7 @@ export const ResetPopover: React.FC<ResetPopoverProps> = ({
               variant="outline"
               className="w-full justify-start text-sm h-auto py-3 px-3 min-w-0"
             >
-              <Trash2 className="h-4 w-4 mr-3 text-red-500 flex-shrink-0" />
+              <Trash2 className="h-4 w-4 mr-3 text-red-500 shrink-0" />
               <div className="text-left flex-1 min-w-0">
                 <div className="font-medium max-w-40 truncate">Tout réinitialiser</div>
                 <div className="text-xs text-muted-foreground mt-1 max-w-40 leading-tight">
