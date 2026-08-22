@@ -1,35 +1,19 @@
 "use client";
 
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import EmissionsEditor from "@/components/EmissionsEditor";
 import MainChart, { MainChartRef } from "@/components/MainChart";
-import Loader from "@/components/Loader";
 import Link from "next/link";
 import { ChartData } from "@/types/chart";
 import { Versus } from "@/types/versus";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 
-// Le loader de bienvenue ne doit jouer qu'une fois par chargement de page,
-// pas à chaque retour sur l'onglet 1 (App est démonté/remonté par les onglets)
-let hasShownWelcomeLoader = false;
-
 const App = () => {
-  const [isLoaded, setIsLoaded] = useState(hasShownWelcomeLoader);
   const [chartData, setChartData] = useState<ChartData>([]);
   const applyVersusRef = useRef<((versus: Versus) => void) | null>(null);
   const openVersusDialogRef = useRef<(() => void) | null>(null);
   const mainChartRef = useRef<MainChartRef>(null);
-
-  useEffect(() => {
-    if (isLoaded) return;
-    const timer = setTimeout(() => {
-      hasShownWelcomeLoader = true;
-      setIsLoaded(true);
-    }, 250);
-    return () => clearTimeout(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleChartDataChange = useCallback((data: ChartData) => {
     setChartData(data);
@@ -62,11 +46,7 @@ const App = () => {
   }, []);
 
   return (
-    <>
-      <div className={`${!isLoaded ? "max-h-screen overflow-hidden" : ""}`}>
-        {!isLoaded && <Loader />}
-        {isLoaded && (
-          <div className="flex flex-col-reverse gap-4 p-4 md:mt-10 md:flex-row">
+    <div className="flex flex-col-reverse gap-4 p-4 md:mt-10 md:flex-row">
             <div className="mt-12 md:mt-0 md:w-2/5">
               <EmissionsEditor
                 onChartDataChange={handleChartDataChange}
@@ -76,14 +56,7 @@ const App = () => {
             </div>
             <div className={"relative h-auto md:w-3/5"}>
               <div className={"sticky top-16"}>
-                <div
-                  className={
-                    "mb-4 text-center text-sm font-medium text-muted-foreground"
-                  }
-                >
-                  Le comparateur
-                </div>
-                <MainChart 
+                <MainChart
                   ref={mainChartRef}
                   chartData={chartData}
                   onApplyVersus={handleApplyVersus}
@@ -114,10 +87,7 @@ const App = () => {
                 </div>
               </div>
             </div>
-          </div>
-        )}
-      </div>
-    </>
+    </div>
   );
 };
 

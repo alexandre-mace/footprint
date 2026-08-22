@@ -11,7 +11,7 @@ const Loader = () => {
   return (
     <div
       className={
-        "absolute left-0 top-0 z-10 flex h-screen w-screen items-center justify-center overflow-hidden bg-project-bg"
+        "fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-project-bg"
       }
     >
       <div className="horizontal-scroll-infinite flex gap-10">

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import App from "@/components/App";
+import Loader from "@/components/Loader";
 import { Toaster } from "@/components/ui/sonner";
 import SimulatorTab from "@/components/parcours/SimulatorTab";
 import ActionsTab from "@/components/parcours/ActionsTab";
@@ -23,11 +24,26 @@ const isTabId = (value: string): value is TabId =>
 
 const STORAGE_KEY = "footprint-simulation-v2";
 
+// L'animation de bienvenue couvre toute la page (header et onglets compris)
+// et ne joue qu'une fois par chargement
+let hasShownWelcomeLoader = false;
+
 export default function ParcoursTabs() {
   const [activeTab, setActiveTab] = useState<TabId>("comprendre");
+  const [showLoader, setShowLoader] = useState(!hasShownWelcomeLoader);
   const [simulation, setSimulation] = useState<SimulationState>(
     defaultSimulationState,
   );
+
+  useEffect(() => {
+    if (!showLoader) return;
+    const timer = setTimeout(() => {
+      hasShownWelcomeLoader = true;
+      setShowLoader(false);
+    }, 250);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     try {
@@ -69,6 +85,7 @@ export default function ParcoursTabs() {
 
   return (
     <div>
+      {showLoader && <Loader />}
       <Toaster position="bottom-right" />
       <nav
         role="tablist"
