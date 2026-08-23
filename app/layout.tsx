@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body
-        className={`${GeistSans.variable} ${GeistMono.variable} overflow-x-hidden bg-background font-sans antialiased`}
+        className={`${GeistSans.variable} ${GeistMono.variable} flex min-h-dvh flex-col overflow-x-hidden bg-background font-sans antialiased`}
       >
         <Header />
         <section className={"container mx-auto max-w-3xl space-y-2 px-4"}>
