@@ -30,7 +30,7 @@ function splitName(name: string): { label: string; emoji: string } {
 }
 
 const FULL_LABEL_MIN_PX = 90;
-const EMOJI_MIN_PX = 44;
+const EMOJI_MIN_PX = 18;
 
 export default function FriseGraph({
   postes,
@@ -96,7 +96,12 @@ export default function FriseGraph({
                   backgroundColor: categoryColor(poste.category, poste.size),
                 }}
               >
-                {content && <span className="truncate px-1">{content}</span>}
+                {content &&
+                  (content === emoji ? (
+                    <span className="text-[13px]">{content}</span>
+                  ) : (
+                    <span className="truncate px-1">{content}</span>
+                  ))}
               </div>
             );
           })}
