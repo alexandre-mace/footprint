@@ -54,6 +54,20 @@ export default function MethodologyDialog() {
             .
           </p>
           <p>
+            Le simulateur démarre sur la moyenne française, avion compris.
+            Attention au biais de moyenne sur ce poste :{" "}
+            <a
+              className="underline"
+              href="https://www.jean-jaures.org/publication/les-francais-les-voyages-et-lavion/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              11 % seulement des Français disent prendre régulièrement
+              l&apos;avion
+            </a>
+            . Ajuste les curseurs de vols pour te situer vraiment.
+          </p>
+          <p>
             L&apos;objectif de 2 tonnes par personne et par an découle de
             l&apos;Accord de Paris. Pour comprendre ce qu&apos;il recouvre (et
             ses limites), lis{" "}

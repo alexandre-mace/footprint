@@ -3,10 +3,14 @@ import computeData from "@/lib/simulation-compute";
 export const DEFAULT_CAR_KM = 12000;
 export const DEFAULT_MEAT_MEALS = 7;
 
+// ACV Ademe par km : 0,103 kgCO2e (électrique, mix français) vs 0,218 (thermique)
+export const ELECTRIC_CAR_RATIO = 0.103 / 0.218;
+
 export interface SimulationState {
   vegan: boolean;
   vegetarian: boolean;
   carKm: number;
+  electricCar: boolean;
   noThrash: boolean;
   keeper: boolean;
   flat: boolean;
@@ -25,6 +29,7 @@ export const defaultSimulationState: SimulationState = {
   vegan: false,
   vegetarian: false,
   carKm: DEFAULT_CAR_KM,
+  electricCar: false,
   noThrash: false,
   keeper: false,
   flat: false,
@@ -65,7 +70,13 @@ export function computePostes(s: SimulationState): Poste[] {
   );
   return postes.map((poste) => {
     if (poste.name.startsWith("Voiture")) {
-      return { ...poste, size: poste.size * (s.carKm / DEFAULT_CAR_KM) };
+      return {
+        ...poste,
+        size:
+          poste.size *
+          (s.carKm / DEFAULT_CAR_KM) *
+          (s.electricCar ? ELECTRIC_CAR_RATIO : 1),
+      };
     }
     if (poste.name.startsWith("Viande") && !s.vegan && !s.vegetarian) {
       return {
@@ -148,6 +159,13 @@ export const climateActions: ClimateAction[] = [
     label: "Diviser mes km en voiture par 2 (covoiturage, vélo)",
     emoji: "🚴",
     apply: (s) => ({ ...s, carKm: s.carKm / 2 }),
+  },
+  {
+    id: "electric-car",
+    category: "Déplacements",
+    label: "Passer à la voiture électrique",
+    emoji: "⚡",
+    apply: (s) => ({ ...s, electricCar: true }),
   },
   {
     id: "no-fossil-heating",

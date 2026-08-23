@@ -242,6 +242,12 @@ export default function SimulatorTab({
             step={1000}
             onValueChange={(carKm) => set({ carKm })}
           />
+          <ToggleRow
+            label="Ma voiture est électrique"
+            emoji="⚡"
+            checked={state.electricCar}
+            onCheckedChange={(electricCar) => set({ electricCar })}
+          />
           <SliderRow
             label="Vols moyen-courrier"
             emoji="✈️"
