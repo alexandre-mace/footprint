@@ -1,21 +1,5 @@
-import Link from "next/link";
+import { MadeWithLove } from "@/components/made-with-love";
 
-const Footer = () => {
-  return (
-    <footer className={"mt-10 p-4 text-center md:p-10"}>
-      <div className={"mx-auto text-sm md:text-base"}>
-        Fait avec amour par{" "}
-        <Link
-          className={"text-primary inline-block underline"}
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://github.com/alexandre-mace"
-        >
-          alexandre-mace
-        </Link>
-      </div>
-    </footer>
-  );
-};
+const Footer = () => <MadeWithLove className="mt-10 p-4 md:p-10" />;
 
 export default Footer;
