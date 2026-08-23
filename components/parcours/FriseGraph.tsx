@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Poste, formatTonnes } from "@/lib/simulation";
 import {
@@ -30,7 +31,6 @@ function splitName(name: string): { label: string; emoji: string } {
 }
 
 const FULL_LABEL_MIN_PX = 90;
-const EMOJI_MIN_PX = 18;
 
 export default function FriseGraph({
   postes,
@@ -76,33 +76,31 @@ export default function FriseGraph({
             const share = poste.size / total;
             const segmentPx = share * fillWidth;
             const { label, emoji } = splitName(poste.name);
-            const content =
-              segmentPx >= FULL_LABEL_MIN_PX
-                ? `${emoji} ${label}`.trim()
-                : segmentPx >= EMOJI_MIN_PX
-                  ? emoji
-                  : "";
+            const showFullLabel = segmentPx >= FULL_LABEL_MIN_PX;
             return (
-              <div
+              <motion.div
                 key={poste.name}
-                title={`${poste.name} — ${Math.round(poste.size)} kgCO₂eq`}
+                layout
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                title={`${poste.name} : ${Math.round(poste.size)} kgCO₂eq`}
                 onMouseEnter={() => setHovered(poste.name)}
                 onMouseLeave={() => setHovered(null)}
-                className={`flex h-full items-center justify-center overflow-hidden text-[11px] font-medium text-white transition-all duration-500 ${
-                  hovered === poste.name ? "brightness-110 saturate-110" : ""
-                }`}
+                className={`flex h-full items-center justify-center text-[11px] font-medium text-white transition-[filter] ${
+                  showFullLabel ? "overflow-hidden" : ""
+                } ${hovered === poste.name ? "brightness-110 saturate-110" : ""}`}
                 style={{
                   width: `${share * 100}%`,
                   backgroundColor: categoryColor(poste.category, poste.size),
                 }}
               >
-                {content &&
-                  (content === emoji ? (
-                    <span className="text-[13px]">{content}</span>
-                  ) : (
-                    <span className="truncate px-1">{content}</span>
-                  ))}
-              </div>
+                {showFullLabel ? (
+                  <span className="truncate px-1">
+                    {`${emoji} ${label}`.trim()}
+                  </span>
+                ) : (
+                  emoji && <span className="text-[13px]">{emoji}</span>
+                )}
+              </motion.div>
             );
           })}
         </div>
@@ -129,8 +127,8 @@ export default function FriseGraph({
                     <span className="font-medium">
                       {emoji} {label}
                     </span>{" "}
-                    · {Math.round(poste.size)} kgCO₂eq ·{" "}
-                    {Math.round(share * 100)} %
+                    : {Math.round(poste.size)} kgCO₂eq (
+                    {Math.round(share * 100)} %)
                   </div>
                 );
               }
@@ -171,9 +169,9 @@ export default function FriseGraph({
         <div className="mt-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
           <div className="text-[11px] text-muted-foreground">
             <span className="text-primary">2 t</span> = objectif de
-            l&apos;accord de Paris · <span className="font-medium">moy.</span> =
-            empreinte moyenne française
-            {footerExtra && <> · {footerExtra}</>}
+            l&apos;accord de Paris, <span className="font-medium">moy.</span> =
+            empreinte moyenne française.
+            {footerExtra && <> {footerExtra}</>}
           </div>
           <div className="flex flex-wrap gap-x-3 gap-y-1">
             {categoryOrder.map((category) => (

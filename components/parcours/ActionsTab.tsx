@@ -132,8 +132,8 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
                         −{formatTonnes(action.deltaMe)} t
                         <span className="hidden sm:inline">
                           {" "}
-                          · {Math.round((action.deltaMe / total) * 100)} % de{" "}
-                          {isPersonalized ? "ton empreinte" : "l'empreinte"}
+                          ({Math.round((action.deltaMe / total) * 100)} % de{" "}
+                          {isPersonalized ? "ton empreinte" : "l'empreinte"})
                         </span>
                       </span>
                     </>
