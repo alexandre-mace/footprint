@@ -27,7 +27,8 @@ export interface SimulationState {
 
 /**
  * Profil de départ : un mode de vie courant mais chargé (voiture, avion,
- * viande, chauffage au gaz), volontairement au-dessus de la moyenne.
+ * viande quotidienne, chauffage au gaz), volontairement au-dessus de la
+ * moyenne.
  * La moyenne avion est biaisée (11 % des Français prennent régulièrement
  * l'avion) et gommerait la réalité de ces postes pour qui veut se situer.
  */
@@ -42,7 +43,7 @@ export const defaultSimulationState: SimulationState = {
   noHousingFossile: false,
   secondHandClothes: false,
   publicDecarb: false,
-  meatMealsPerWeek: 10,
+  meatMealsPerWeek: DEFAULT_MEAT_MEALS,
   longFlights: 1,
   mediumFlights: 2,
   localFood: false,

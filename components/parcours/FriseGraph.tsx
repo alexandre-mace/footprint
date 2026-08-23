@@ -42,6 +42,7 @@ export default function FriseGraph({
 }: FriseGraphProps) {
   const fillRef = useRef<HTMLDivElement>(null);
   const [fillWidth, setFillWidth] = useState(0);
+  const [hovered, setHovered] = useState<string | null>(null);
   const sorted = [...postes].sort((a, b) => b.size - a.size);
   const scale = Math.max(total, referenceTotal);
   const fillPercent = (total / scale) * 100;
@@ -77,7 +78,7 @@ export default function FriseGraph({
             const { label, emoji } = splitName(poste.name);
             const content =
               segmentPx >= FULL_LABEL_MIN_PX
-                ? label
+                ? `${emoji} ${label}`.trim()
                 : segmentPx >= EMOJI_MIN_PX
                   ? emoji
                   : "";
@@ -85,7 +86,11 @@ export default function FriseGraph({
               <div
                 key={poste.name}
                 title={`${poste.name} — ${Math.round(poste.size)} kgCO₂eq`}
-                className="flex h-full items-center justify-center overflow-hidden text-[11px] font-medium text-white transition-all duration-500"
+                onMouseEnter={() => setHovered(poste.name)}
+                onMouseLeave={() => setHovered(null)}
+                className={`flex h-full items-center justify-center overflow-hidden text-[11px] font-medium text-white transition-all duration-500 ${
+                  hovered === poste.name ? "brightness-110 saturate-110" : ""
+                }`}
                 style={{
                   width: `${share * 100}%`,
                   backgroundColor: categoryColor(poste.category, poste.size),
@@ -96,6 +101,38 @@ export default function FriseGraph({
             );
           })}
         </div>
+        {!compact &&
+          hovered &&
+          (() => {
+            let cumulative = 0;
+            for (const poste of sorted) {
+              const share = poste.size / total;
+              if (poste.name === hovered) {
+                const centerPercent = (cumulative + share / 2) * fillPercent;
+                const { label, emoji } = splitName(hovered);
+                return (
+                  <div
+                    className={`pointer-events-none absolute top-full z-10 mt-1.5 whitespace-nowrap rounded-md bg-foreground/90 px-2 py-1 text-[11px] text-background ${
+                      centerPercent > 85
+                        ? "-translate-x-full"
+                        : centerPercent < 15
+                          ? ""
+                          : "-translate-x-1/2"
+                    }`}
+                    style={{ left: `${centerPercent}%` }}
+                  >
+                    <span className="font-medium">
+                      {emoji} {label}
+                    </span>{" "}
+                    · {Math.round(poste.size)} kgCO₂eq ·{" "}
+                    {Math.round(share * 100)} %
+                  </div>
+                );
+              }
+              cumulative += share;
+            }
+            return null;
+          })()}
         <div
           className="absolute -top-1.5 -bottom-1.5 w-0.5 bg-foreground"
           style={{ left: `${targetPercent}%` }}
