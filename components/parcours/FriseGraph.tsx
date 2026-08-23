@@ -67,9 +67,11 @@ export default function FriseGraph({
           compact ? "mt-1 h-8" : "mt-6 h-16 md:h-20"
         }`}
       >
-        <div
+        <motion.div
           ref={fillRef}
-          className="flex h-full overflow-hidden rounded-md transition-all duration-500"
+          layout
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className="flex h-full overflow-hidden rounded-md"
           style={{ width: `${fillPercent}%` }}
         >
           {sorted.map((poste) => {
@@ -94,16 +96,28 @@ export default function FriseGraph({
                 }}
               >
                 {showFullLabel ? (
-                  <span className="truncate px-1">
+                  <motion.span
+                    layout="position"
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="truncate px-1"
+                  >
                     {`${emoji} ${label}`.trim()}
-                  </span>
+                  </motion.span>
                 ) : (
-                  emoji && <span className="text-[13px]">{emoji}</span>
+                  emoji && (
+                    <motion.span
+                      layout="position"
+                      transition={{ duration: 0.5, ease: "easeInOut" }}
+                      className="text-[13px]"
+                    >
+                      {emoji}
+                    </motion.span>
+                  )
                 )}
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
         {!compact &&
           hovered &&
           (() => {
