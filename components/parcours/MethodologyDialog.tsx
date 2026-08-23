@@ -54,6 +54,32 @@ export default function MethodologyDialog() {
             .
           </p>
           <p>
+            L&apos;objectif de 2 tonnes par personne et par an découle de
+            l&apos;Accord de Paris. Pour comprendre ce qu&apos;il recouvre (et
+            ses limites), lis{" "}
+            <a
+              className="underline"
+              href="https://bonpote.com/objectif-2-tonnes-vrai-defi-ou-mauvaise-cible/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              cet article de Bon Pote
+            </a>
+            .
+          </p>
+          <p>
+            Le carbone n&apos;est pas tout : le climat est l&apos;une des{" "}
+            <a
+              className="underline"
+              href="https://bonpote.com/la-6e-limite-planetaire-est-franchie-le-cycle-de-leau-douce/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              9 limites planétaires
+            </a>
+            , et les efforts à déployer doivent répondre à toutes.
+          </p>
+          <p>
             Pour une estimation précise et personnalisée de ton empreinte,
             utilise{" "}
             <a
