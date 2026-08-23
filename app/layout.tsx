@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import Header from "@/components/Header";
+import { PageHero } from "@/components/page-hero";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
@@ -32,22 +33,26 @@ export default function RootLayout({
         className={`${GeistSans.variable} ${GeistMono.variable} flex min-h-dvh flex-col overflow-x-hidden bg-background font-sans antialiased`}
       >
         <Header />
-        <section className={"container mx-auto max-w-3xl space-y-2 px-4"}>
-          <h1 className={"mt-2 text-2xl font-semibold tracking-tight md:mt-0 md:text-4xl"}>
-          Footprint
-        </h1>
-          <div className={"hidden max-w-3xl text-sm text-pretty text-muted-foreground sm:block md:text-base"}>
-            <span className={"font-medium text-foreground"}>Comprends</span> les ordres de
-            grandeur des émissions de gaz à effet de serre,{" "}
-            <span className={"font-medium text-foreground"}>situe</span> ton empreinte et
-            sache par où <span className={"font-medium text-foreground"}>agir</span>.
-          </div>
-          <div className={"text-sm text-pretty text-muted-foreground sm:hidden"}>
-            <span className={"font-medium text-foreground"}>Comprends</span> les ordres de
-            grandeur, <span className={"font-medium text-foreground"}>situe</span> ton
+        <PageHero
+          size="compact"
+          width="3xl"
+          title="Footprint"
+          className="container mx-auto px-4"
+        >
+          <span className={"hidden sm:inline"}>
+            <span className={"font-medium text-foreground"}>Comprends</span> les
+            ordres de grandeur des émissions de gaz à effet de serre,{" "}
+            <span className={"font-medium text-foreground"}>situe</span> ton
+            empreinte et sache par où{" "}
+            <span className={"font-medium text-foreground"}>agir</span>.
+          </span>
+          <span className={"sm:hidden"}>
+            <span className={"font-medium text-foreground"}>Comprends</span> les
+            ordres de grandeur,{" "}
+            <span className={"font-medium text-foreground"}>situe</span> ton
             empreinte, <span className={"font-medium text-foreground"}>agis</span>.
-          </div>
-        </section>
+          </span>
+        </PageHero>
         <main>
         {children}
         </main>
