@@ -1,5 +1,6 @@
 "use client"
 
+import type * as React from "react"
 import Image from "next/image"
 import { Link } from "react-aria-components"
 import { cn } from "@/lib/utils"
@@ -14,7 +15,8 @@ function Brand({
   href = "/",
   className,
 }: {
-  name: string
+  /** Nom du projet, texte ou markup (ex. Climate + Lab en serif). */
+  name: React.ReactNode
   /** URL de l'emoji ou du logo (image locale ou distante). */
   logo: string
   href?: string
