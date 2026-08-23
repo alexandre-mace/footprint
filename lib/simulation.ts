@@ -25,10 +25,16 @@ export interface SimulationState {
   stopYoutubeStreaming: boolean;
 }
 
+/**
+ * Profil de départ : un mode de vie courant mais chargé (voiture, avion,
+ * viande, chauffage au gaz), volontairement au-dessus de la moyenne.
+ * La moyenne avion est biaisée (11 % des Français prennent régulièrement
+ * l'avion) et gommerait la réalité de ces postes pour qui veut se situer.
+ */
 export const defaultSimulationState: SimulationState = {
   vegan: false,
   vegetarian: false,
-  carKm: DEFAULT_CAR_KM,
+  carKm: 15000,
   electricCar: false,
   noThrash: false,
   keeper: false,
@@ -36,12 +42,21 @@ export const defaultSimulationState: SimulationState = {
   noHousingFossile: false,
   secondHandClothes: false,
   publicDecarb: false,
-  meatMealsPerWeek: DEFAULT_MEAT_MEALS,
-  longFlights: 0,
-  mediumFlights: 0.5,
+  meatMealsPerWeek: 10,
+  longFlights: 1,
+  mediumFlights: 2,
   localFood: false,
   shortShowers: false,
   stopYoutubeStreaming: false,
+};
+
+/** Français moyen statistique : la référence de la frise et du classement. */
+export const averageSimulationState: SimulationState = {
+  ...defaultSimulationState,
+  carKm: DEFAULT_CAR_KM,
+  meatMealsPerWeek: DEFAULT_MEAT_MEALS,
+  longFlights: 0,
+  mediumFlights: 0.5,
 };
 
 export interface Poste {
@@ -110,7 +125,7 @@ export function computeByCategory(
 
 export const PARIS_TARGET_KG = 2000;
 
-export const FRENCH_AVERAGE_KG = computeTotal(defaultSimulationState);
+export const FRENCH_AVERAGE_KG = computeTotal(averageSimulationState);
 
 export interface ClimateAction {
   id: string;

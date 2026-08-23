@@ -54,8 +54,9 @@ export default function MethodologyDialog() {
             .
           </p>
           <p>
-            Le simulateur démarre sur la moyenne française, avion compris.
-            Attention au biais de moyenne sur ce poste :{" "}
+            Le simulateur démarre volontairement sur un profil chargé (voiture,
+            avion, viande, chauffage au gaz) plutôt que sur la moyenne : la
+            moyenne avion est trompeuse (
             <a
               className="underline"
               href="https://www.jean-jaures.org/publication/les-francais-les-voyages-et-lavion/"
@@ -65,7 +66,8 @@ export default function MethodologyDialog() {
               11 % seulement des Français disent prendre régulièrement
               l&apos;avion
             </a>
-            . Ajuste les curseurs de vols pour te situer vraiment.
+            ) et gommerait la réalité de ces postes. La moyenne française reste
+            affichée comme repère ; ajuste les curseurs pour te situer vraiment.
           </p>
           <p>
             L&apos;objectif de 2 tonnes par personne et par an découle de

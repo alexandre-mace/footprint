@@ -6,6 +6,7 @@ import {
   SimulationState,
   climateActions,
   computeTotal,
+  averageSimulationState,
   defaultSimulationState,
   formatTonnes,
   PARIS_TARGET_KG,
@@ -20,7 +21,7 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
   const isPersonalized =
     JSON.stringify(state) !== JSON.stringify(defaultSimulationState);
   const total = computeTotal(state);
-  const averageTotal = computeTotal(defaultSimulationState);
+  const averageTotal = computeTotal(averageSimulationState);
 
   const rows = climateActions
     .map((action) => ({
@@ -28,7 +29,7 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
       deltaAverage: Math.max(
         0,
         Math.round(
-          averageTotal - computeTotal(action.apply(defaultSimulationState)),
+          averageTotal - computeTotal(action.apply(averageSimulationState)),
         ),
       ),
       deltaMe: Math.max(
@@ -36,9 +37,7 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
         Math.round(total - computeTotal(action.apply(state))),
       ),
     }))
-    .sort((a, b) =>
-      isPersonalized ? b.deltaMe - a.deltaMe : b.deltaAverage - a.deltaAverage,
-    );
+    .sort((a, b) => b.deltaMe - a.deltaMe);
 
   const maxDelta = Math.max(
     ...rows.map((r) => Math.max(r.deltaAverage, r.deltaMe)),
@@ -62,8 +61,10 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
           </>
         ) : (
           <>
-            Ce qu&apos;elles économisent pour un Français moyen (
-            {formatTonnes(averageTotal)} t/an).
+            Classées pour le profil de départ ({formatTonnes(total)} t/an :
+            voiture, avion, viande, chauffage au gaz). En gris, ce que ça
+            donnerait pour un Français moyen ({formatTonnes(averageTotal)}{" "}
+            t/an).
           </>
         )}
       </p>
@@ -79,18 +80,16 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
         </button>
       )}
 
-      {isPersonalized && (
-        <div className="mb-4 flex justify-end gap-4 text-xs text-muted-foreground">
-          <span className="flex items-center gap-1.5">
-            <span className="inline-block h-2.5 w-2.5 rounded-sm bg-neutral-300" />
-            Français moyen
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span className="inline-block h-2.5 w-2.5 rounded-sm bg-green-600" />
-            Toi
-          </span>
-        </div>
-      )}
+      <div className="mb-4 flex justify-end gap-4 text-xs text-muted-foreground">
+        <span className="flex items-center gap-1.5">
+          <span className="inline-block h-2.5 w-2.5 rounded-sm bg-neutral-300" />
+          Français moyen
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="inline-block h-2.5 w-2.5 rounded-sm bg-green-600" />
+          {isPersonalized ? "Toi" : "Profil de départ"}
+        </span>
+      </div>
 
       <div className="flex flex-col gap-2">
         {rows.map((action, index) => (
@@ -111,59 +110,41 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
               <div className="mt-1.5 flex flex-col gap-1">
                 <div className="flex items-center gap-2">
                   <div
-                    className={`h-2.5 rounded-sm transition-all ${
-                      isPersonalized ? "bg-neutral-300" : "bg-green-600"
-                    }`}
+                    className="h-2.5 rounded-sm bg-neutral-300 transition-all"
                     style={{
                       width: `${(action.deltaAverage / maxDelta) * 160}px`,
                     }}
                   />
-                  <span
-                    className={`font-mono text-[11px] ${
-                      isPersonalized
-                        ? "text-muted-foreground"
-                        : "font-semibold"
-                    }`}
-                  >
+                  <span className="font-mono text-[11px] text-muted-foreground">
                     −{formatTonnes(action.deltaAverage)} t
-                    {!isPersonalized && action.deltaAverage > 0 && (
-                      <span className="hidden sm:inline">
-                        {" "}
-                        ·{" "}
-                        {Math.round(
-                          (action.deltaAverage / averageTotal) * 100,
-                        )}{" "}
-                        % de l&apos;empreinte
-                      </span>
-                    )}
                   </span>
                 </div>
-                {isPersonalized && (
-                  <div className="flex items-center gap-2">
-                    {action.deltaMe > 0 ? (
-                      <>
-                        <div
-                          className="h-2.5 rounded-sm bg-green-600 transition-all"
-                          style={{
-                            width: `${(action.deltaMe / maxDelta) * 160}px`,
-                          }}
-                        />
-                        <span className="font-mono text-[11px] font-semibold">
-                          −{formatTonnes(action.deltaMe)} t
-                          <span className="hidden sm:inline">
-                            {" "}
-                            · {Math.round((action.deltaMe / total) * 100)} % de
-                            ton empreinte
-                          </span>
+                <div className="flex items-center gap-2">
+                  {action.deltaMe > 0 ? (
+                    <>
+                      <div
+                        className="h-2.5 rounded-sm bg-green-600 transition-all"
+                        style={{
+                          width: `${(action.deltaMe / maxDelta) * 160}px`,
+                        }}
+                      />
+                      <span className="font-mono text-[11px] font-semibold">
+                        −{formatTonnes(action.deltaMe)} t
+                        <span className="hidden sm:inline">
+                          {" "}
+                          · {Math.round((action.deltaMe / total) * 100)} % de{" "}
+                          {isPersonalized ? "ton empreinte" : "l'empreinte"}
                         </span>
-                      </>
-                    ) : (
-                      <span className="text-[11px] text-muted-foreground">
-                        ✓ déjà le cas pour toi
                       </span>
-                    )}
-                  </div>
-                )}
+                    </>
+                  ) : (
+                    <span className="text-[11px] text-muted-foreground">
+                      {isPersonalized
+                        ? "✓ déjà le cas pour toi"
+                        : "✓ déjà dans le profil"}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -179,12 +160,10 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
           </>
         ) : (
           <>
-            En cumulant toutes ces actions, un Français moyen passerait de{" "}
-            <span className="font-semibold">{formatTonnes(averageTotal)} t</span>{" "}
-            à{" "}
+            En cumulant toutes ces actions, le profil de départ passerait de{" "}
+            <span className="font-semibold">{formatTonnes(total)} t</span> à{" "}
             <span className="font-semibold">
-              {formatTonnes(computeTotal(climateActions.reduce((s, a) => a.apply(s), defaultSimulationState)))}{" "}
-              t
+              {formatTonnes(totalIfAll)} t
             </span>
             .
           </>

@@ -394,7 +394,7 @@ export default function SimulatorTab({
             onChange(defaultSimulationState);
           }}
         >
-          ↺ Revenir au Français moyen
+          ↺ Revenir au profil de départ
         </Button>
         <Button size="lg" onPress={onNextStep}>
           Étape suivante : Agir →
