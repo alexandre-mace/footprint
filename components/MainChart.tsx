@@ -255,7 +255,7 @@ const MainChart = React.forwardRef<MainChartRef, {
               key={versusItem.id}
               variant={"outline"}
               className={"py-2 h-auto"}
-              onPress={() => onApplyVersus?.(versusItem)}
+              onClick={() => onApplyVersus?.(versusItem)}
             >
               <div className="flex items-center justify-center gap-2 text-xs flex-wrap">
                 <div className="flex items-center gap-1 bg-blue-50 px-2 py-1.5 rounded-md">
@@ -289,7 +289,7 @@ const MainChart = React.forwardRef<MainChartRef, {
           <Button
             variant={"outline"}
             className={"h-auto border-dashed border-black py-2"}
-            onPress={() => {
+            onClick={() => {
               window.location.hash = "situer";
             }}
           >
@@ -300,7 +300,7 @@ const MainChart = React.forwardRef<MainChartRef, {
           <Button
           variant={"outline"}
           className={"py-2 h-auto"}
-          onPress={() => onOpenVersusDialog?.()}
+          onClick={() => onOpenVersusDialog?.()}
           >
             <div className="flex items-center justify-center gap-2 text-xs">
               <Swords className="h-3 w-3 text-primary" />

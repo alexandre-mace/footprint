@@ -42,8 +42,8 @@ function ToggleRow({ label, emoji, checked, onCheckedChange }: ToggleRowProps) {
       </span>
       <Switch
         aria-label={label}
-        isSelected={checked}
-        onChange={onCheckedChange}
+        checked={checked}
+        onCheckedChange={onCheckedChange}
       />
     </div>
   );
@@ -82,10 +82,10 @@ function SliderRow({
       <Slider
         aria-label={label}
         value={value}
-        minValue={min}
-        maxValue={max}
+        min={min}
+        max={max}
         step={step}
-        onChange={(v) => onValueChange(Array.isArray(v) ? v[0] : v)}
+        onValueChange={(v) => onValueChange(Array.isArray(v) ? v[0] : v)}
       />
     </div>
   );
@@ -380,8 +380,8 @@ export default function SimulatorTab({
         </div>
         <Switch
           aria-label="Des services publics décarbonés"
-          isSelected={state.publicDecarb}
-          onChange={(publicDecarb) => set({ publicDecarb })}
+          checked={state.publicDecarb}
+          onCheckedChange={(publicDecarb) => set({ publicDecarb })}
         />
       </div>
 
@@ -389,14 +389,14 @@ export default function SimulatorTab({
         <Button
           variant="outline"
           size="lg"
-          onPress={() => {
+          onClick={() => {
             lastToastedTotal.current = computeTotal(defaultSimulationState);
             onChange(defaultSimulationState);
           }}
         >
           ↺ Revenir au profil de départ
         </Button>
-        <Button size="lg" onPress={onNextStep}>
+        <Button size="lg" onClick={onNextStep}>
           Étape suivante : Agir →
         </Button>
       </div>

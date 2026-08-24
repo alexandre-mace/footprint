@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
+  DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
@@ -90,12 +91,12 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({ onApplyVersus, s
   };
 
   return (
-    <DialogTrigger isOpen={isOpen} onOpenChange={setIsOpen}>
-      <Button variant="outline">
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger render={<Button variant="outline" />}>
         <Swords className="h-4 w-4 mr-2" />
         Versus
-      </Button>
-      <Dialog className="max-w-4xl max-h-[80vh] overflow-hidden sm:max-w-4xl">
+      </DialogTrigger>
+      <DialogContent className="max-w-4xl max-h-[80vh] overflow-hidden sm:max-w-4xl">
         <DialogHeader>
           <DialogTitle className="font-normal">Versus prédéfinis</DialogTitle>
           <DialogDescription>
@@ -150,9 +151,11 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({ onApplyVersus, s
         </div>
 
         <DialogFooter>
-          <DialogClose>Fermer</DialogClose>
+          <DialogClose render={<Button variant="outline" />}>
+            Fermer
+          </DialogClose>
         </DialogFooter>
-      </Dialog>
-    </DialogTrigger>
+      </DialogContent>
+    </Dialog>
   );
 };

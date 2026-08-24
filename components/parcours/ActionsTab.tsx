@@ -185,7 +185,7 @@ export default function ActionsTab({ state, onGoToSimulator }: ActionsTabProps) 
       <div className="mt-8 flex flex-col gap-2 sm:flex-row">
         <Button
           size="lg"
-          onPress={async () => {
+          onClick={async () => {
             const url = window.location.origin;
             if (navigator.share) {
               try {

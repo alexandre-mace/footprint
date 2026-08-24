@@ -17,7 +17,7 @@ export const AnimatedButton = ({
   successAnimation = false,
   errorAnimation = false,
   children,
-  onPress,
+  onClick,
   ...props
 }: AnimatedButtonProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -36,11 +36,11 @@ export const AnimatedButton = ({
     }
   }, [errorAnimation, shakeElement]);
 
-  const handlePress: typeof onPress = (e) => {
+  const handleClick: typeof onClick = (e) => {
     if (animationType === 'pulse') {
       pulseSuccess(buttonRef.current);
     }
-    onPress?.(e);
+    onClick?.(e);
   };
 
   const getAnimationClasses = () => {
@@ -52,7 +52,7 @@ export const AnimatedButton = ({
     <Button
       ref={buttonRef}
       className={cn(getAnimationClasses(), className)}
-      onPress={handlePress}
+      onClick={handleClick}
       {...props}
     >
       {children}

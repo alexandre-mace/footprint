@@ -90,35 +90,35 @@ export default function ParcoursTabs() {
       {showLoader && <Loader />}
       <Toaster position="bottom-right" />
       <Tabs
-        selectedKey={activeTab}
-        onSelectionChange={(key) => goTo(key as TabId)}
+        value={activeTab}
+        onValueChange={(value) => goTo(value as TabId)}
         className="gap-0"
       >
         <div className="sticky top-0 z-20 mt-5 flex justify-center bg-background/90 px-3 py-3 backdrop-blur-sm">
           <TabsList aria-label="Étapes du parcours">
             {tabs.map((tab) => (
-              <TabsTrigger key={tab.id} id={tab.id} className="px-3">
+              <TabsTrigger key={tab.id} value={tab.id} className="px-3">
                 {tab.label}
               </TabsTrigger>
             ))}
           </TabsList>
         </div>
-        <TabsContent id="comprendre" className="text-base">
+        <TabsContent value="comprendre" className="text-base">
           <App />
           <div className="mb-10 mt-2 flex justify-center">
-            <Button size="lg" onPress={() => goTo("situer")}>
+            <Button size="lg" onClick={() => goTo("situer")}>
               Étape suivante : Me situer →
             </Button>
           </div>
         </TabsContent>
-        <TabsContent id="situer" className="text-base">
+        <TabsContent value="situer" className="text-base">
           <SimulatorTab
             state={simulation}
             onChange={handleSimulationChange}
             onNextStep={() => goTo("agir")}
           />
         </TabsContent>
-        <TabsContent id="agir" className="text-base">
+        <TabsContent value="agir" className="text-base">
           <ActionsTab
             state={simulation}
             onGoToSimulator={() => goTo("situer")}

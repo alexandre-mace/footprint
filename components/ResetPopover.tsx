@@ -2,7 +2,11 @@
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Popover, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { RotateCcw, Trash2 } from "lucide-react";
 
 interface ResetPopoverProps {
@@ -27,11 +31,19 @@ export const ResetPopover: React.FC<ResetPopoverProps> = ({
   };
 
   return (
-    <PopoverTrigger isOpen={isOpen} onOpenChange={setIsOpen}>
-      <Button variant="outline" size="icon" aria-label="Réinitialiser">
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
+      <PopoverTrigger
+        render={
+          <Button variant="outline" size="icon" aria-label="Réinitialiser" />
+        }
+      >
         <RotateCcw className="h-4 w-4" />
-      </Button>
-      <Popover className="w-fit max-w-sm p-3" placement="bottom end">
+      </PopoverTrigger>
+      <PopoverContent
+        className="w-fit max-w-sm p-3"
+        side="bottom"
+        align="end"
+      >
         <div className="space-y-3">
           <div className="text-sm font-medium text-center">
             Réinitialiser
@@ -39,7 +51,7 @@ export const ResetPopover: React.FC<ResetPopoverProps> = ({
           
           <div className="space-y-2">
             <Button
-              onPress={handleResetValues}
+              onClick={handleResetValues}
               variant="outline"
               className="w-full justify-start text-sm h-auto py-3 px-3 min-w-0"
             >
@@ -53,7 +65,7 @@ export const ResetPopover: React.FC<ResetPopoverProps> = ({
             </Button>
 
             <Button
-              onPress={handleResetAll}
+              onClick={handleResetAll}
               variant="outline"
               className="w-full justify-start text-sm h-auto py-3 px-3 min-w-0"
             >
@@ -67,7 +79,7 @@ export const ResetPopover: React.FC<ResetPopoverProps> = ({
             </Button>
           </div>
         </div>
-      </Popover>
-    </PopoverTrigger>
+      </PopoverContent>
+    </Popover>
   );
 };

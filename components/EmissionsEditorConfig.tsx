@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
+  DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
@@ -24,12 +25,12 @@ export function EmissionsEditorConfig({
   onToggleVisibility: (emissionId: string) => void;
 }) {
   return (
-    <DialogTrigger>
-      <Button variant={"outline"}>
+    <Dialog>
+      <DialogTrigger render={<Button variant={"outline"} />}>
         <CirclePlus className={"h-4 w-4 mr-2"} />
         Autres <span className={"hidden md:block"}>activités</span>
-      </Button>
-      <Dialog className="sm:max-w-[625px] md:max-w-[725px] xl:max-w-[925px]">
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[625px] md:max-w-[725px] xl:max-w-[925px]">
         <DialogHeader>
           <DialogTitle className={"font-normal"}>
             Ajoutez des émissions
@@ -81,8 +82,8 @@ export function EmissionsEditorConfig({
                     <div className={"flex shrink-0 items-center gap-2"}>
                       <Switch
                         aria-label={emission.label}
-                        isSelected={emission.isVisible}
-                        onChange={() => onToggleVisibility(emission.id)}
+                        checked={emission.isVisible}
+                        onCheckedChange={() => onToggleVisibility(emission.id)}
                       />
                     </div>
                   </div>
@@ -92,9 +93,9 @@ export function EmissionsEditorConfig({
           ))}
         </div>
         <DialogFooter>
-          <DialogClose variant="default">Fermer</DialogClose>
+          <DialogClose render={<Button variant="default" />}>Fermer</DialogClose>
         </DialogFooter>
-      </Dialog>
-    </DialogTrigger>
+      </DialogContent>
+    </Dialog>
   );
 }
