@@ -81,6 +81,17 @@ The application uses React state with refs for Chart.js instances. The main stat
 - Maintain responsive design patterns (mobile-first)
 - Custom colors available: `project-main`, `project-bg`, `orange-light` shadow
 
+### Doctrine produit
+
+**Le point de départ du simulateur est un profil volontairement chargé, pas la moyenne française.**
+Voiture à 15 000 km, un long-courrier et deux moyen-courriers, viande à tous les repas, chauffage au
+gaz. La moyenne avion est biaisée, une petite minorité de Français prenant l'avion régulièrement :
+démarrer sur la moyenne gommerait la réalité des postes pour qui explore sans personnaliser.
+Gonfler, oui, caricaturer, non.
+
+La moyenne reste une référence affichée (`FRENCH_AVERAGE_KG`, barre grise de comparaison), jamais le
+point de départ. Les classements d'actions se calculent sur le profil courant.
+
 ### Chart Development
 - Charts use Chart.js with react-chartjs-2
 - Chart instances managed via refs passed between components
