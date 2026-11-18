@@ -7,6 +7,16 @@ const nextConfig = {
     // Servies telles quelles, zéro transformation, et Vercel n'expose plus /_next/image.
     unoptimized: true,
   },
+  // Anciennes adresses de top-actions et de plume, dont les projets Vercel ne
+  // faisaient plus que rediriger : toute page renvoie à l'accueil, comme avant.
+  async redirects() {
+    return ["top-actions.climatelab.fr", "plume.climatelab.fr"].map((host) => ({
+      source: "/:path*",
+      has: [{ type: "host", value: host }],
+      destination: "https://footprint.climatelab.fr/",
+      permanent: true,
+    }));
+  },
 };
 
 export default nextConfig;
